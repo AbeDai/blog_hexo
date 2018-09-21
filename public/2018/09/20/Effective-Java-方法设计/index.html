@@ -1,54 +1,54 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>Effective Java 方法设计 | 波星</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Effective Java 方法设计</h1><a id="logo" href="/.">波星</a><p class="description">
  纸上得来终觉浅，绝知此事要躬行</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">Effective Java 方法设计</h1><div class="post-meta">Sep 20, 2018<span> | </span><span class="category"><a href="/categories/客户端/">客户端</a></span></div><div class="post-content"><h2 id="检验参数的有效性"><a href="#检验参数的有效性" class="headerlink" title="检验参数的有效性"></a>检验参数的有效性</h2><ul>
-<li><p>在方法体的开头处检验参数，以强制施加这些限制。</p>
+<li><p>应该在方法开头就检验参数的有效性，及时报出参数错误。</p>
 <blockquote>
-<p>因为传递无效参数给方法，这个方法在执行之前先对参数进行检验，那么他很快就会失败，并且清楚地呈现出适当的异常。如果这个方法没有检查他的参数，就有可能发生以下几种情景。该方法可能在处理过程中失败，并且产生令人费解的异常。更糟糕的是，该方法可以正常方法，但是会悄悄地计算出错误结果。最糟糕的是，该方法可以正常返回，但是却使得某个对象处于被破坏的状态，将来在某个不确定的时候，在某个不相关的点上会引发错误。</p>
+<p>传递无效参数给方法，这个方法在执行之前先对参数进行检验，那么他很快就会失败，并且清楚地呈现出适当的异常。如果这个方法没有检查他的参数，就有可能发生以下几种情景。该方法可能在处理过程中失败，并且产生令人费解的异常。更糟糕的是，该方法可以正常方法，但是会悄悄地计算出错误结果。最糟糕的是，该方法可以正常返回，但是却使得某个对象处于被破坏的状态，将来在某个不确定的时候，在某个不相关的点上会引发错误。</p>
 </blockquote>
 </li>
-<li><p>public方法的参数校验直接抛出异常，包内方法则使用assert断言。</p>
+<li><p>public方法的参数校验直接抛出异常，包内方法则使用assert断言校验参数。</p>
 <blockquote>
 <p>对于未被导出方法，作为包的创建者，你可以控制这个方法将在哪些情况下被调用，因此你可以，也应该确保只将有效的参数值传递进来。因此，非公有的方法通常应该使用断言来检查它们的参数。</p>
 </blockquote>
 </li>
 </ul>
 <h2 id="必要时进行保护性拷贝"><a href="#必要时进行保护性拷贝" class="headerlink" title="必要时进行保护性拷贝"></a>必要时进行保护性拷贝</h2><ul>
-<li><p>传递进来的参数和传递出去的属性，都需要考虑进行保护性拷贝。防止外部类对内部类进行破坏性操作。这里的外部类指的是使用类的第三方人员。保护性拷贝不是必须的，但是每次在代码的时候，都应该考虑到这一步操作。尤其是写底层库的时候。</p>
+<li><p>方法的入参和出参都需要考虑保护性拷贝。防止外部方法对其进行破坏性操作。这里的外部方法是指使用类的第三方方法。保护性拷贝不是必须的，但是每次在代码的时候，都应该考虑到这一步操作。尤其是写底层库的时候。</p>
 <blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 入参的保护性拷贝</span><br><span class="line">public newClass(List&lt;String&gt; args)&#123;</span><br><span class="line">	this.list = new ArrayList&lt;String&gt;(args);</span><br><span class="line">&#125;</span><br><span class="line">// 出参的保护性拷贝</span><br><span class="line">public getList()&#123;</span><br><span class="line">	return new ArrayList&lt;String&gt;(this.list);	</span><br><span class="line">&#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 入参的保护性拷贝</span><br><span class="line">public newClass(List&lt;String&gt; args)&#123;</span><br><span class="line">	this.list = new ArrayList&lt;String&gt;(args);</span><br><span class="line">&#125;</span><br><span class="line">// 出参的保护性拷贝</span><br><span class="line">public getList()&#123;</span><br><span class="line">	return new ArrayList&lt;String&gt;(this.list);	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </blockquote>
 </li>
 </ul>
 <h2 id="谨慎设计方法签名"><a href="#谨慎设计方法签名" class="headerlink" title="谨慎设计方法签名"></a>谨慎设计方法签名</h2><ul>
 <li><p>方法名称很重要，在设计方法名时，应该始终遵守标准的命名习惯。</p>
 <blockquote>
-<p>尽量让自己的方法名看起来像一句话一样。在定好自己的方法名之后，最后写伪代码调用自己的方法，验证方法的可读性。设计底层库的时候，这很重要~</p>
+<p>尽量让自己的方法名看起来像一句话一样。在定好自己的方法名之后，最后写伪代码调用自己的方法，验证方法的可读性。设计底层库时很重要。</p>
 </blockquote>
 </li>
 <li><p>避免过长的方法参数列表。</p>
 <blockquote>
-<p>基本上，如果一个方法的参数超过4个，你的API设计的已经算是失败了。如果方法参数真的很长，可以考虑Build模式，让参数优雅的设值，或者考虑外观类，给复杂的实现方法套一层简单的壳。</p>
+<p>方法的参数最好不超过4个。如果方法参数真的很长，可以考虑Build模式，让使用者优雅的设值，或者考虑外观类，给复杂的实现方法套一层简单的壳。</p>
 </blockquote>
 </li>
 <li><p>boolean类型参数最好用枚举替代。</p>
 <blockquote>
-<p>boolean类型参数的小小建议，如果要在参数中使用boolean类型，最好用枚举类型进行替代。首先用枚举更具有可读性，其次方便以后扩展。</p>
+<p>这是boolean类型参数的小小建议。如果要在参数中使用boolean类型，最好用枚举类型进行替代。首先枚举更具有可读性，其次枚举更利于以后的扩展。</p>
 </blockquote>
 </li>
 </ul>
 <h2 id="慎用重载"><a href="#慎用重载" class="headerlink" title="慎用重载"></a>慎用重载</h2><ul>
-<li><p>Java语言要调用哪个重载方法是在编译时做出决定的。这一点不符合Java语言的运行时特性。</p>
+<li><p>Java语言要调用哪个重载方法是在编译时做出决定的。这一点不符合Java语言的运行时特性。一般情况下，我们认为覆盖操作比较符合Java标准的运行时特性。</p>
 <blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">// 重载了classify方法</span><br><span class="line">public class CollectionClassifier &#123;</span><br><span class="line">	public static String classify(Set&lt;?&gt; s) &#123;</span><br><span class="line">		return &quot;Set&quot;;</span><br><span class="line">	&#125;</span><br><span class="line">	public static String classify(List&lt;?&gt; lst) &#123;</span><br><span class="line">		return &quot;List&quot;;</span><br><span class="line">	&#125;</span><br><span class="line">	public static String classify(Collection&lt;?&gt; c) &#123;</span><br><span class="line">		return &quot;Unknown Collection&quot;;</span><br><span class="line">	&#125;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		Collection&lt;?&gt;[] collections = &#123; new HashSet&lt;String&gt;(),</span><br><span class="line">				new ArrayList&lt;BigInteger&gt;(),</span><br><span class="line">				new HashMap&lt;String, String&gt;().values() &#125;;</span><br><span class="line">		for (Collection&lt;?&gt; c : collections)</span><br><span class="line">			System.out.println(classify(c));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">// 预期是打印出Set，List，Unknown Collection。但是实际上是打印出Unknown Collection，</span><br><span class="line">// Unknown Collection，Unknown Collection。因为重载是根据编译时决定要调用的是哪个方法。</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">// 重载了classify方法</span><br><span class="line">public class CollectionClassifier &#123;</span><br><span class="line">	public static String classify(Set&lt;?&gt; s) &#123;</span><br><span class="line">		return &quot;Set&quot;;</span><br><span class="line">	&#125;</span><br><span class="line">	public static String classify(List&lt;?&gt; lst) &#123;</span><br><span class="line">		return &quot;List&quot;;</span><br><span class="line">	&#125;</span><br><span class="line">	public static String classify(Collection&lt;?&gt; c) &#123;</span><br><span class="line">		return &quot;Unknown Collection&quot;;</span><br><span class="line">	&#125;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		Collection&lt;?&gt;[] collections = &#123; new HashSet&lt;String&gt;(),</span><br><span class="line">				new ArrayList&lt;BigInteger&gt;(),</span><br><span class="line">				new HashMap&lt;String, String&gt;().values() &#125;;</span><br><span class="line">		for (Collection&lt;?&gt; c : collections)</span><br><span class="line">			System.out.println(classify(c));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">// 预期是打印出Set，List，Unknown Collection。但是实际上是打印出Unknown Collection，</span><br><span class="line">// Unknown Collection，Unknown Collection。因为重载是根据编译时决定要调用的是哪个方法。</span><br></pre></td></tr></table></figure>
 </blockquote>
 <blockquote>
-<p>由于重载容易引起编程时的想法和运行结果不一致。所以，在使用重载编写设计API的时候，应该尽量避免使用。防止API使用者引起误会。如果重载方法时间的参数的类型有继承关系，例如parse(String content)和parse(Object content)，最好用方法名区分开，paeseString(String content)和parseObject(Object content)。<br><strong>总之，方法参数数目相同的方法，应该尽量避免重载。</strong></p>
+<p>由于重载容易引起编程时的想法和运行结果不一致。所以，在使用重载编写设计API的时候，应该尽量避免使用。防止API使用者引起误会。如果重载方法的参数的类型有继承关系，例如parse(String content)和parse(Object content)，最好用方法名区分开，paeseString(String content)和parseObject(Object content)。<strong>总之，方法参数数目相同的方法，应该尽量避免重载。</strong></p>
 </blockquote>
 </li>
 </ul>
 <h2 id="返回零长度的集合，而不是null"><a href="#返回零长度的集合，而不是null" class="headerlink" title="返回零长度的集合，而不是null"></a>返回零长度的集合，而不是null</h2><ul>
 <li><p>方法返回集合时，如果集合内容为空，则返回一个空的集合对象，而不是null。</p>
 <blockquote>
-<p>因为对于返回null而不是零长度集合的方法来说，每次调用该方法时都需要判断下返回对象是都为空，对于API使用者很不友好。</p>
+<p>因为对于返回null而不是零长度集合的方法来说，每次调用该方法时都需要判断下返回对象是都为null，从而防止NullPointerException，对于方法使用者很不友好。</p>
 </blockquote>
 </li>
 </ul>
