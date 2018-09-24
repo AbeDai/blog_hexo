@@ -56,11 +56,11 @@ categories: 客户端
 
 - Flutter 与 原生混合开发的支持方式
 
-1. 如何在混合开发时，更好的利用hot reload机制
+- 如何在混合开发时，更好的利用hot reload机制
 
-2. Flutter和原生组件的组合使用可行性介绍
+- Flutter和原生组件的组合使用可行性介绍
 
-3. Flutter 渲染原理层介绍
+- Flutter 渲染原理层介绍
 ![Flutter渲染原理图](/image/flutter_draw.png)
 
 
