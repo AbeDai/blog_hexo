@@ -3,6 +3,40 @@
   
     
     <entry>
+      <title>Effective-Java-通用程序设计</title>
+      <link href="/2018/09/29/Effective-Java-%E9%80%9A%E7%94%A8%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/"/>
+      <url>/2018/09/29/Effective-Java-%E9%80%9A%E7%94%A8%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/</url>
+      
+        <content type="html"><![CDATA[<h2 id="将局部变量的作用域最小化"><a href="#将局部变量的作用域最小化" class="headerlink" title="将局部变量的作用域最小化"></a>将局部变量的作用域最小化</h2><p>将局部变量的作用域最小化，使代码减少出错，更加可读。</p><ul><li><p>降低出错的可能性</p><blockquote><p>如果变量在它的目标使用区域之前或者之后被意外地使用的话，会产生意想不到的错误。示例如下：</p></blockquote>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">// 错误示范</span><br><span class="line">Iterator&lt;Element&gt; i = c.iterator();</span><br><span class="line">while(i.hasNext())&#123;</span><br><span class="line">doSomething(i.next());</span><br><span class="line">&#125;</span><br><span class="line">···</span><br><span class="line">Iterator&lt;Element&gt; i2 = c2.iterator();</span><br><span class="line">// BUG，误将i2写成了i，导致不必要的错误</span><br><span class="line">while(i.hasNext())&#123;</span><br><span class="line">doSomethingElse(i2.next);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 提供作用域的最小范围，可以避免此类错误的发生</span><br><span class="line">;</span><br><span class="line">for(Iterator&lt;Element&gt; i = c.iterator(); i.hasNext(); )&#123;</span><br><span class="line">doSomething(i.next());</span><br><span class="line">&#125;</span><br><span class="line">···</span><br><span class="line">for(Iterator&lt;Element&gt; i = c2.iterator(); i.hasNext(); )&#123;</span><br><span class="line">doSomethingElse(i.next);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li><li><p>增强可读性</p><blockquote><p>将变量放在使用之前声明，会分散读者注意力。等到用到该变量的时候，读者可能已经记不起该变量的类型和初始值了。</p></blockquote></li></ul><h2 id="for-each循环优先于传统的for循环"><a href="#for-each循环优先于传统的for循环" class="headerlink" title="for-each循环优先于传统的for循环"></a>for-each循环优先于传统的for循环</h2><p>能用for-each循环实现功能的情况下，尽量使用for-each循环。</p><ul><li>for-each循环内部帮你维护了迭代器，降低了自己维护迭代器产生错误的风险。</li><li>for-each循环让代码变得尽量简洁，提高代码可读性。</li></ul><h2 id="如果需要精确的数值，请避免使用float和double"><a href="#如果需要精确的数值，请避免使用float和double" class="headerlink" title="如果需要精确的数值，请避免使用float和double"></a>如果需要精确的数值，请避免使用float和double</h2><ul><li>float和double类型，并没有提供完全精确的结果。所以不应该被用于需要精确结果的场合。尤其不适合用于货币计算，最好用int，long或BigDecimal代替。</li></ul><h2 id="基本类型优先于装箱基本类型"><a href="#基本类型优先于装箱基本类型" class="headerlink" title="基本类型优先于装箱基本类型"></a>基本类型优先于装箱基本类型</h2><p>能用基本类型就尽量使用基本类型。装箱基本类型存在以下缺点：</p><ul><li>两个装箱基本类型，存在相同的数值，却只想不同的内存对象。进行比较时，需要调用equil，同时还需考虑NullPointException异常。提高了使用的成本，加大了在开发中出错的风险。</li><li>基本类型比装箱基本类型更节省内存空间，在进行运算操作时也更节省运行时间。装箱基本类型可能会存在频繁的装箱和拆箱。</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 客户端 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    <entry>
+      <title>产品-规划与迭代</title>
+      <link href="/2018/09/24/%E4%BA%A7%E5%93%81-%E8%A7%84%E5%88%92%E4%B8%8E%E8%BF%AD%E4%BB%A3/"/>
+      <url>/2018/09/24/%E4%BA%A7%E5%93%81-%E8%A7%84%E5%88%92%E4%B8%8E%E8%BF%AD%E4%BB%A3/</url>
+      
+        <content type="html"><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>最近在看《人人都是产品经理》，帮助程序员提升全局意识，还是蛮有用的。本次主要记录了《第八章 成长：规划与迭代》的内容摘要。</p><p>规划是战略布局，是定方向，做正确的事；迭代是战术实施，是定走法，正确地做事。规划的重点在于想，迭代的重点在于动手实现。</p><ul><li>规划，是以自我为中心，以公司为中心的，是生产驱动的。</li><li>迭代，是需求驱动的，是对用户反馈的不断响应，需要根据市场信息的变化一步步的调整。</li></ul><h2 id="规划"><a href="#规划" class="headerlink" title="规划"></a>规划</h2><p>由于互联网处于快速变化的大环境中，因此会存在规划更不上变化的情况。最好只做两个规划，最长规划和最短规划。最短规划指最近1个月到3个月，最多6个月的时间段里，要做什么，其实更像是一个项目计划。长计划是这个产品的终极目标，比如3到5年，甚至10年以后会是什么样子，要思考那个时候我们能处于产业链的什么位置。</p><h2 id="迭代"><a href="#迭代" class="headerlink" title="迭代"></a>迭代</h2><p>迭代的重点在于实现，建议使用敏捷开发的方式，敏捷开发有一下几个关键点。</p><ul><li>沟通，团队之间要进行快速沟通，建立相互信任相互认可的团队氛围。</li><li>简单，做最简单的事，实现想要的目的。</li><li>反馈，拥抱变化，用包容的心态去面对多方反馈，来自同事，用户等。</li><li>勇气，不怕犯错，用于尝试新事物，用于创新。</li><li>谦逊，承认自己的片面性，虚心接受来自多方的建议，善于借助多方的优势。</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 产品 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    <entry>
       <title>产品-确定功能的价值</title>
       <link href="/2018/09/24/%E4%BA%A7%E5%93%81-%E7%A1%AE%E5%AE%9A%E5%8A%9F%E8%83%BD%E7%9A%84%E4%BB%B7%E5%80%BC/"/>
       <url>/2018/09/24/%E4%BA%A7%E5%93%81-%E7%A1%AE%E5%AE%9A%E5%8A%9F%E8%83%BD%E7%9A%84%E4%BB%B7%E5%80%BC/</url>
