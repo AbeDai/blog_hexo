@@ -1,5 +1,5 @@
 ---
-title: Effective-Java-通用程序设计
+title: Effective Java 通用程序设计
 date: 2018-09-29 18:51:06
 categories: 客户端
 ---
