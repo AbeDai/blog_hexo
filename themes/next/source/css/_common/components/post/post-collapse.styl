@@ -15,7 +15,7 @@
 .posts-collapse {
   position: relative;
   z-index: $zindex-1;
-  
+
   &::after {
     content: " ";
     position: absolute;
@@ -37,18 +37,19 @@
 
     h1, h2 { margin-left: 20px; }
 
-    small { color: $grey; margin-left: 5px; }
+    small { color: $black-light; margin-left: 5px; }
 
     &::before {
       content: " ";
       position: absolute;
       left: 0;
       top: 50%;
-      margin-left: -4px;
+      margin-left: -5px;
       margin-top: -4px;
       width: 8px;
       height: 8px;
       background: $grey;
+      border: 1px solid $whitesmoke;
       circle();
     }
   }
