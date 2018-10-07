@@ -10,8 +10,6 @@ node_modules/
 # dependencies
 /node_modules
 
-themes
-
 # testing
 /coverage
 
