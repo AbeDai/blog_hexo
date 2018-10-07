@@ -16,7 +16,7 @@ categories: 客户端
 ## 必要时进行保护性拷贝
 - 方法的入参和出参都需要考虑保护性拷贝。防止外部方法对其进行破坏性操作。这里的外部方法是指使用类的第三方方法。保护性拷贝不是必须的，但是每次在代码的时候，都应该考虑到这一步操作。尤其是写底层库的时候。
 
-	> ```
+	> ```java
 	// 入参的保护性拷贝
 	public newClass(List<String> args){
 		this.list = new ArrayList<String>(args);
@@ -44,7 +44,7 @@ categories: 客户端
 
 - Java语言要调用哪个重载方法是在编译时做出决定的。这一点不符合Java语言的运行时特性。一般情况下，我们认为覆盖操作比较符合Java标准的运行时特性。
 
-	> ```
+	> ```java
 	// 重载了classify方法
 	public class CollectionClassifier {
 		public static String classify(Set<?> s) {

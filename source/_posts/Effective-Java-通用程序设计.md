@@ -10,8 +10,8 @@ categories: 客户端
 
 - 降低出错的可能性
 	> 如果变量在它的目标使用区域之前或者之后被意外地使用的话，会产生意想不到的错误。示例如下：
-	
-	```
+
+	```java
 	// 错误示范
 	Iterator<Element> i = c.iterator();
 	while(i.hasNext()){

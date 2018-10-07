@@ -8,7 +8,7 @@ categories: 客户端
 
 控制正常流程时不应该使用异常，只有当程序发生异常时才应该抛出Exception。Exception就是来描述程序发生异常的，不要职责不清地让异常来处理非异常的事情。例如下面的for-each循环，不应该用异常来控制循环，而应该用状态测试来控制循环。
 
-```
+```java
 // 错误示范，通过异常来控制for-each循环流程
 // 通过Iterator.next()的NoSuchElementException来判断循环是否结束
 try {
@@ -47,7 +47,7 @@ while(i.hasNext()){
 ## 抛出与抽象相对应的异常
 方法抛出的异常，应该与当前方法有联系。上层实现应该捕获下层异常，同时抛出符合上层语义的异常。例如集合中的异常处理示例：
 
-```
+```java
 // 将NoSuchElementException改为IndexOutOfBoundException
 // 使方法抛出的异常更符合语义，提高了代码的可读性。
 public E get(int index){
