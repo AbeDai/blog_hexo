@@ -41,3 +41,6 @@ package-lock.json
 yarn.lock
 
 .idea/
+!/themes/landscape/
+!/themes/maupassant/
+!/themes/next/
