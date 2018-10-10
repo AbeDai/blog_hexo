@@ -3,6 +3,23 @@
   
     
     <entry>
+      <title>网络-OSI 七层通讯</title>
+      <link href="/2018/10/11/%E7%BD%91%E7%BB%9C-OSI-%E4%B8%83%E5%B1%82%E9%80%9A%E8%AE%AF/"/>
+      <url>/2018/10/11/%E7%BD%91%E7%BB%9C-OSI-%E4%B8%83%E5%B1%82%E9%80%9A%E8%AE%AF/</url>
+      
+        <content type="html"><![CDATA[<style>table th:nth-of-type(1) {    width: 100px;}</style><h2 id="OSI七层通讯"><a href="#OSI七层通讯" class="headerlink" title="OSI七层通讯"></a>OSI七层通讯</h2><table><thead><tr><th>通讯层</th><th>作用说明</th></tr></thead><tbody><tr><td>应用层</td><td>它的作用fancybox是为应用程序提供服务并规定应用程序中通讯相关的细节。是最贴近应用开发人员的网络层。常见的协议有 HTTP，FTP，TELNET、SMTP 等。</td></tr><tr><td>表示层</td><td>它的作用是将应用层处理的信息从主机特有的格式转换为网络标准传输格式</td></tr><tr><td>会话层</td><td>它的作用是确定建立和断开网络的时机，并管理网络连接</td></tr><tr><td>传输层</td><td>它的作用是建立网络连接，创建逻辑上的通信连接，从逻辑上将数据发送到目标对象</td></tr><tr><td>网络层</td><td>它的作用是将数据传输到目标地址，重点在于寻找目标地址。可能需要通过多个路由器连接才能到达目标地址。</td></tr><tr><td>数据链路层</td><td>它的作用是物理层面上互连的节点之间的通信传输。例如与1个以太网相连的两个节点间的通讯。</td></tr><tr><td>物理层</td><td>它的作用是将0、1比特流（0、1序列）与电信号和光信号进行转化。实现物理层面上的数据传输。</td></tr></tbody></table><h2 id="网络设备对应的OSI通讯层"><a href="#网络设备对应的OSI通讯层" class="headerlink" title="网络设备对应的OSI通讯层"></a>网络设备对应的OSI通讯层</h2><ul><li><p>物理层：中继器<br><img src="/image/network_中继器.png" alt="网络设备图"></p></li><li><p>数据链路层：网桥<br><img src="/image/network_网桥.png" alt="网络设备图"></p></li><li><p>网络层：路由器<br><img src="/image/network_路由器.png" alt="网络设备图"></p></li><li><p>上层应用：网关<br><img src="/image/network_网关.png" alt="网络设备图"></p></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 网络 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    <entry>
       <title>Effective Java 同步</title>
       <link href="/2018/10/03/Effective-Java-%E5%90%8C%E6%AD%A5/"/>
       <url>/2018/10/03/Effective-Java-%E5%90%8C%E6%AD%A5/</url>
