@@ -75,17 +75,20 @@
 
 
 
-<meta name="description" content="为什么需要Socket心跳包实现方式上，TCP keepalive 和Socket心跳包机制类似。TCP keepalive 机制通过，在进行TCP连接时，发送keepalive数据包，来判断当前TCP连接是否仍然有效。问题来了，既然已经有了TCP keepalive，为什么还需要Socket心跳机制呢？ 个人认为，需要Socket心跳机制的原因如下：  真实网路环境中，TCP keepalive">
+<meta name="description" content="prototype与__proto__的区别概念介绍 所有对象都具有__proto__属性。在JS中，一切皆对象。方法（Function）是对象，方法的原型(Function.prototype)也是对象，因此它们都有__proto__属性。 方法(Function)是一个特殊的对象，它除了有__proto__属性之外，还有自己特有的prototype属性。prototype属性指向一个所有实例共">
 <meta property="og:type" content="article">
-<meta property="og:title" content="网络-对于《Socket心跳包》的思考">
-<meta property="og:url" content="https://blog.daiyibo.cn/2018/11/04/网络-对于《Socket心跳包》的思考/index.html">
+<meta property="og:title" content="前端-JS中原型的理解">
+<meta property="og:url" content="https://blog.daiyibo.cn/2018/11/10/前端-JS中原型的理解/index.html">
 <meta property="og:site_name" content="波波星球">
-<meta property="og:description" content="为什么需要Socket心跳包实现方式上，TCP keepalive 和Socket心跳包机制类似。TCP keepalive 机制通过，在进行TCP连接时，发送keepalive数据包，来判断当前TCP连接是否仍然有效。问题来了，既然已经有了TCP keepalive，为什么还需要Socket心跳机制呢？ 个人认为，需要Socket心跳机制的原因如下：  真实网路环境中，TCP keepalive">
+<meta property="og:description" content="prototype与__proto__的区别概念介绍 所有对象都具有__proto__属性。在JS中，一切皆对象。方法（Function）是对象，方法的原型(Function.prototype)也是对象，因此它们都有__proto__属性。 方法(Function)是一个特殊的对象，它除了有__proto__属性之外，还有自己特有的prototype属性。prototype属性指向一个所有实例共">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-08T09:50:14.719Z">
+<meta property="og:image" content="https://blog.daiyibo.cn/image/js_prototype.jpg">
+<meta property="og:image" content="https://blog.daiyibo.cn/image/js_construct.png">
+<meta property="og:updated_time" content="2018-11-11T07:37:07.352Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="网络-对于《Socket心跳包》的思考">
-<meta name="twitter:description" content="为什么需要Socket心跳包实现方式上，TCP keepalive 和Socket心跳包机制类似。TCP keepalive 机制通过，在进行TCP连接时，发送keepalive数据包，来判断当前TCP连接是否仍然有效。问题来了，既然已经有了TCP keepalive，为什么还需要Socket心跳机制呢？ 个人认为，需要Socket心跳机制的原因如下：  真实网路环境中，TCP keepalive">
+<meta name="twitter:title" content="前端-JS中原型的理解">
+<meta name="twitter:description" content="prototype与__proto__的区别概念介绍 所有对象都具有__proto__属性。在JS中，一切皆对象。方法（Function）是对象，方法的原型(Function.prototype)也是对象，因此它们都有__proto__属性。 方法(Function)是一个特殊的对象，它除了有__proto__属性之外，还有自己特有的prototype属性。prototype属性指向一个所有实例共">
+<meta name="twitter:image" content="https://blog.daiyibo.cn/image/js_prototype.jpg">
 
 
 
@@ -115,13 +118,13 @@
 
 
 
-  <link rel="canonical" href="https://blog.daiyibo.cn/2018/11/04/网络-对于《Socket心跳包》的思考/"/>
+  <link rel="canonical" href="https://blog.daiyibo.cn/2018/11/10/前端-JS中原型的理解/"/>
 
 
 
 
 
-  <title>网络-对于《Socket心跳包》的思考 | 波波星球</title>
+  <title>前端-JS中原型的理解 | 波波星球</title>
   
 
 
@@ -272,7 +275,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.daiyibo.cn/2018/11/04/网络-对于《Socket心跳包》的思考/">
+    <link itemprop="mainEntityOfPage" href="https://blog.daiyibo.cn/2018/11/10/前端-JS中原型的理解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="戴益波">
@@ -289,7 +292,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">网络-对于《Socket心跳包》的思考</h1>
+          <h1 class="post-title" itemprop="name headline">前端-JS中原型的理解</h1>
         
 
         <div class="post-meta">
@@ -301,8 +304,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-04T15:16:52+08:00">
-                2018-11-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-10T23:43:24+08:00">
+                2018-11-10
               </time>
             
 
@@ -324,8 +327,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/网络/" itemprop="url" rel="index">
-                    <span itemprop="name">网络</span>
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
                   </a>
                 </span>
 
@@ -361,35 +364,47 @@
       
 
       
-        <h2 id="为什么需要Socket心跳包"><a href="#为什么需要Socket心跳包" class="headerlink" title="为什么需要Socket心跳包"></a>为什么需要Socket心跳包</h2><p>实现方式上，TCP keepalive 和Socket心跳包机制类似。TCP keepalive 机制通过，在进行TCP连接时，发送keepalive数据包，来判断当前TCP连接是否仍然有效。问题来了，既然已经有了TCP keepalive，为什么还需要Socket心跳机制呢？</p>
-<p>个人认为，需要Socket心跳机制的原因如下：</p>
-<ol>
-<li>真实网路环境中，TCP keepalive消息，可能会被中继设备和路由设备终结。</li>
-<li>自己实现Socket心跳机制，处理断线重连的灵活性更高。</li>
-<li>TCP keepalive本身是OSI模型中的传输层处理逻辑，由操作系统负责探查，即便服务进程死锁或阻塞，操作系统也会如常处理TCP keepalive消息，因此TCP keepalive的目标是保证传输层的网路通畅。而Socket心跳机制，是OSI模型中的应用层处理逻辑，由服务程序负责探查，不但能保证应用程序存活，网络通畅，更重要的是能够保证应用程序仍在正常工作。</li>
+        <h1 id="prototype与-proto-的区别"><a href="#prototype与-proto-的区别" class="headerlink" title="prototype与__proto__的区别"></a>prototype与__proto__的区别</h1><h3 id="概念介绍"><a href="#概念介绍" class="headerlink" title="概念介绍"></a>概念介绍</h3><ol>
+<li>所有对象都具有__proto__属性。在JS中，一切皆对象。方法（Function）是对象，方法的原型(Function.prototype)也是对象，因此它们都有__proto__属性。</li>
+<li>方法(Function)是一个特殊的对象，它除了有__proto__属性之外，还有自己特有的prototype属性。prototype属性指向一个所有实例共享的原型对象。原型对象中有一个constructor属性，指回到原函数。</li>
+<li>对象的__proto__属性指向该对象的构造函数的prototype属性，这保证了对象能够访问构造函数的prototype属性中定义的属性和方法。</li>
 </ol>
-<h2 id="通讯方式"><a href="#通讯方式" class="headerlink" title="通讯方式"></a>通讯方式</h2><ul>
-<li>单工：只允许甲方向乙方传送信息，而乙方不能向甲方传送，例如汽车的单行道。</li>
-<li>全双工：允许数据在两个方向上同时进行传送操作，例如汽车的双行道。</li>
-<li>半双工：允许数据在两个方向上进行传送操作，但是两端不能同时传送。例如一条窄窄的马路，同时只能有一辆车通过，当目前有两辆车对开，这种情况下就只能一辆先过，等到头儿后另一辆再开。</li>
+<h3 id="举例分析"><a href="#举例分析" class="headerlink" title="举例分析"></a>举例分析</h3><p><img src="/image/js_prototype.jpg" alt="原型链图"></p>
+<ol>
+<li>构造函数（Foo()）<ul>
+<li>构造函数的Foo.prototype属性指向了原型对象，在原型对象里有共有方法，所有构造函数声明的实例（f1，f2）都可以共享这些共用方法。</li>
+<li>构造函数也是对象，也有__proto__属性。指向谁呢？指向它的构造函数的原型对象呗。函数的构造函数不就是Function嘛，因此这里的__proto__指向了Function.prototype。</li>
 </ul>
-<h2 id="WebSocket是什么？"><a href="#WebSocket是什么？" class="headerlink" title="WebSocket是什么？"></a>WebSocket是什么？</h2><p>中文翻译</p>
-<ul>
-<li><a href="https://www.jianshu.com/p/867274a5e054" target="_blank" rel="noopener">https://www.jianshu.com/p/867274a5e054</a></li>
-<li><a href="https://www.jianshu.com/p/fc09b0899141" target="_blank" rel="noopener">https://www.jianshu.com/p/fc09b0899141</a></li>
+</li>
+<li>原型对象（Foo.prototype）<ul>
+<li>原型对象Foo.prototype保存着实例共享的方法，还有属性constructor指回构造函数。</li>
 </ul>
-<p>英文原文</p>
-<ul>
-<li><a href="https://tools.ietf.org/html/rfc6455" target="_blank" rel="noopener">https://tools.ietf.org/html/rfc6455</a></li>
+</li>
+<li>实例（f1，f2）<ul>
+<li>f1，f2是Foo的两个实例，这两个对象有属性__proto__，指向构造函数的原型对象，这样就可以访问原型对象的所有方法啦。</li>
 </ul>
-<h2 id="OkHttp3中WebSocket心跳设计"><a href="#OkHttp3中WebSocket心跳设计" class="headerlink" title="OkHttp3中WebSocket心跳设计"></a>OkHttp3中WebSocket心跳设计</h2><p>OkHttp3在3.5版本之后，对WebSocket进行了支持。</p>
-<p>OkHttp3:3.5~3.10</p>
-<ul>
-<li>没有做心跳失效操作，手机端只负责发送ping操作，不管pong是否有收到。</li>
-</ul>
-<p>OkHttp3:3.11.0~之后</p>
-<ul>
-<li>做了简单的心跳失效操作，当发送第二次ping时，第一次ping的服务端pong还没有得到回应，则说明心跳失效。</li>
+</li>
+</ol>
+<p><strong>总结</strong></p>
+<ol>
+<li>对象有属性__proto__，指向该对象的构造函数的原型对象。</li>
+<li>方法除了有属性__proto__,还有属性prototype，prototype指向该方法的原型对象。</li>
+</ol>
+<h1 id="new操作到底做了什么？"><a href="#new操作到底做了什么？" class="headerlink" title="new操作到底做了什么？"></a>new操作到底做了什么？</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> </span><br><span class="line"><span class="keyword">let</span> obj = <span class="keyword">new</span> Base();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 本质上等价于</span></span><br><span class="line"><span class="comment">// 我们创建了一个空对象obj</span></span><br><span class="line"><span class="keyword">let</span> obj  = &#123;&#125;; </span><br><span class="line"><span class="comment">// 我们将这个空对象的__proto__成员指向了Base函数对象prototype成员对象</span></span><br><span class="line">obj.__proto__ = Base.prototype;</span><br><span class="line"><span class="comment">// 我们将Base函数对象的this指针替换成obj，并调用Base方法对obj进行初始化</span></span><br><span class="line">Base.call(obj);</span><br></pre></td></tr></table></figure>
+<h1 id="为啥constructor指向会错乱"><a href="#为啥constructor指向会错乱" class="headerlink" title="为啥constructor指向会错乱?"></a>为啥constructor指向会错乱?</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">F</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line"><span class="keyword">var</span> p1 = <span class="keyword">new</span> F();</span><br><span class="line">F.prototype = &#123;&#125;;</span><br><span class="line"><span class="keyword">var</span> p2 = <span class="keyword">new</span> F()</span><br><span class="line"><span class="built_in">console</span>.log(p1.constructor)<span class="comment">//F</span></span><br><span class="line"><span class="built_in">console</span>.log(p2.constructor)<span class="comment">//Object</span></span><br></pre></td></tr></table></figure>
+<p>首先你要明白，F.prototype 是对一个实例对象的引用，这个实例对象在你创建函数 F( ) 的时候同时被生成，如果我们给这个对象起个名字叫做 A，那么我们可以简单的理解为：A 是一个被存储在内存中的一个实例对象，而 F.prototype 是指向 A 的一个指针。</p>
+<p>同时，A 对象内也有一个指针 constructor ，它指向了函数 F()。</p>
+<p>那么当你第一次使用 new F( ) 时，生成了一个新对象 a ，p1 是对象 a 的一个引用（即p是指向a的一个指针），而 a 的 __proto__ 属性在此时也已经被指向为 A。</p>
+<p>即目前，指向对象实例 A 的指针有两个，分别是 a.__proto__ 和 F.prototype。</p>
+<p>之后你对 F.prototype 进行赋值时，实际上改变了 F.prototype 的指向，试他指向了另一个个实例对象{}，我们管这个实例对象叫 B 好了，对于这个实例对象 B，它的 constructor 的属性指向了 Object。</p>
+<p>请注意，此时 a 的 __proto__ 的指向并没有改变，仍是指向了实例对象A。</p>
+<p>那么当你第二次调用 new F( ) 的时候，实际上生成了另一个新的实例对象 b, b 的 __proto__ 属性指向的是B。</p>
+<p>所以在 p1.constructor 的背后其实是相当于:<br>p1 -&gt; a, a.__proto__ -&gt; A, A.constructor -&gt; F( )</p>
+<p>而在 p2.constructor 的背后则为：<br>p2 -&gt; b, b.__proto__ -&gt; B, B.constructor -&gt; Object( )</p>
+<p><img src="/image/js_construct.png" alt="Construct指向图"></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://segmentfault.com/q/1010000006918070" target="_blank" rel="noopener">https://segmentfault.com/q/1010000006918070</a></li>
+<li><a href="https://www.zhihu.com/question/34183746" target="_blank" rel="noopener">https://www.zhihu.com/question/34183746</a></li>
 </ul>
 
       
@@ -415,8 +430,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/10/30/大搜车的注解收集器/" rel="next" title="Android-大搜车的注解收集器">
-                <i class="fa fa-chevron-left"></i> Android-大搜车的注解收集器
+              <a href="/2018/11/04/网络-对于《Socket心跳包》的思考/" rel="next" title="网络-对于《Socket心跳包》的思考">
+                <i class="fa fa-chevron-left"></i> 网络-对于《Socket心跳包》的思考
               </a>
             
           </div>
@@ -424,10 +439,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/11/10/前端-JS中原型的理解/" rel="prev" title="前端-JS中原型的理解">
-                前端-JS中原型的理解 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -566,7 +577,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么需要Socket心跳包"><span class="nav-number">1.</span> <span class="nav-text">为什么需要Socket心跳包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通讯方式"><span class="nav-number">2.</span> <span class="nav-text">通讯方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WebSocket是什么？"><span class="nav-number">3.</span> <span class="nav-text">WebSocket是什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OkHttp3中WebSocket心跳设计"><span class="nav-number">4.</span> <span class="nav-text">OkHttp3中WebSocket心跳设计</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#prototype与-proto-的区别"><span class="nav-number">1.</span> <span class="nav-text">prototype与__proto__的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概念介绍"><span class="nav-number">1.0.1.</span> <span class="nav-text">概念介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#举例分析"><span class="nav-number">1.0.2.</span> <span class="nav-text">举例分析</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#new操作到底做了什么？"><span class="nav-number">2.</span> <span class="nav-text">new操作到底做了什么？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#为啥constructor指向会错乱"><span class="nav-number">3.</span> <span class="nav-text">为啥constructor指向会错乱?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
