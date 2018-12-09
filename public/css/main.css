@@ -1025,8 +1025,8 @@ pre .javascript .function {
 }
 .pagination .page-number.current {
   color: #fff;
-  background: #ccc;
-  border-top-color: #ccc;
+  background: transparent;
+  border-top-color: transparent;
 }
 @media (max-width: 767px) {
   .pagination {
@@ -1803,7 +1803,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #c1ffff;
+  background: #af985c;
 }
 .links-of-blogroll {
   font-size: 13px;
