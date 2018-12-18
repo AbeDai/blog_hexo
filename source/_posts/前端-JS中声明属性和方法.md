@@ -1,7 +1,7 @@
 ---
 title: 前端-JS中声明属性和方法
 date: 2018-12-09 14:01:02
-categories: 客户端
+categories: 前端
 ---
 
 # 声明类
