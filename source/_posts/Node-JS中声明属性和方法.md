@@ -1,5 +1,5 @@
 ---
-title: 前端-JS中声明属性和方法
+title: Node-JS中声明属性和方法
 date: 2018-12-09 14:01:02
 categories: 后台
 ---

@@ -1,5 +1,5 @@
 ---
-title: 前端-JS中Promise的理解
+title: Node-JS中Promise的理解
 date: 2018-11-25 11:26:43
 categories: 后台
 ---

@@ -75,17 +75,17 @@
 
 
 
-<meta name="description" content="将局部变量的作用域最小化将局部变量的作用域最小化，使代码减少出错，更加可读。  降低出错的可能性  如果变量在它的目标使用区域之前或者之后被意外地使用的话，会产生意想不到的错误。示例如下：    123456789101112131415161718192021// 错误示范Iterator&amp;lt;Element&amp;gt; i = c.iterator();while(i.hasNext())&amp;#1">
+<meta name="description" content="exports、module.exports、require的使用介绍exports和module.exports都是用来指定js文件需要导出的属性值。本质上，exports只是module.exports的引用，辅助后者添加内容用的。1234567891011// 下方等价，因为exports相当于module.exports的引用exports.func1 = function()&amp;#123;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Effective Java 通用程序设计">
-<meta property="og:url" content="https://blog.daiyibo.cn/2018/09/29/Effective-Java-通用程序设计/index.html">
+<meta property="og:title" content="Node-JS中模块管理介绍">
+<meta property="og:url" content="https://blog.daiyibo.cn/2018/12/16/Node-JS中模块管理介绍/index.html">
 <meta property="og:site_name" content="波波星球">
-<meta property="og:description" content="将局部变量的作用域最小化将局部变量的作用域最小化，使代码减少出错，更加可读。  降低出错的可能性  如果变量在它的目标使用区域之前或者之后被意外地使用的话，会产生意想不到的错误。示例如下：    123456789101112131415161718192021// 错误示范Iterator&amp;lt;Element&amp;gt; i = c.iterator();while(i.hasNext())&amp;#1">
+<meta property="og:description" content="exports、module.exports、require的使用介绍exports和module.exports都是用来指定js文件需要导出的属性值。本质上，exports只是module.exports的引用，辅助后者添加内容用的。1234567891011// 下方等价，因为exports相当于module.exports的引用exports.func1 = function()&amp;#123;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-10-07T02:32:56.100Z">
+<meta property="og:updated_time" content="2018-12-31T12:33:16.533Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Effective Java 通用程序设计">
-<meta name="twitter:description" content="将局部变量的作用域最小化将局部变量的作用域最小化，使代码减少出错，更加可读。  降低出错的可能性  如果变量在它的目标使用区域之前或者之后被意外地使用的话，会产生意想不到的错误。示例如下：    123456789101112131415161718192021// 错误示范Iterator&amp;lt;Element&amp;gt; i = c.iterator();while(i.hasNext())&amp;#1">
+<meta name="twitter:title" content="Node-JS中模块管理介绍">
+<meta name="twitter:description" content="exports、module.exports、require的使用介绍exports和module.exports都是用来指定js文件需要导出的属性值。本质上，exports只是module.exports的引用，辅助后者添加内容用的。1234567891011// 下方等价，因为exports相当于module.exports的引用exports.func1 = function()&amp;#123;">
 
 
 
@@ -115,13 +115,13 @@
 
 
 
-  <link rel="canonical" href="https://blog.daiyibo.cn/2018/09/29/Effective-Java-通用程序设计/"/>
+  <link rel="canonical" href="https://blog.daiyibo.cn/2018/12/16/Node-JS中模块管理介绍/"/>
 
 
 
 
 
-  <title>Effective Java 通用程序设计 | 波波星球</title>
+  <title>Node-JS中模块管理介绍 | 波波星球</title>
   
 
 
@@ -272,7 +272,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.daiyibo.cn/2018/09/29/Effective-Java-通用程序设计/">
+    <link itemprop="mainEntityOfPage" href="https://blog.daiyibo.cn/2018/12/16/Node-JS中模块管理介绍/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="戴益波">
@@ -289,7 +289,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Effective Java 通用程序设计</h1>
+          <h1 class="post-title" itemprop="name headline">Node-JS中模块管理介绍</h1>
         
 
         <div class="post-meta">
@@ -301,8 +301,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-29T18:51:06+08:00">
-                2018-09-29
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-16T13:21:10+08:00">
+                2018-12-16
               </time>
             
 
@@ -324,8 +324,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/客户端/" itemprop="url" rel="index">
-                    <span itemprop="name">客户端</span>
+                  <a href="/categories/后台/" itemprop="url" rel="index">
+                    <span itemprop="name">后台</span>
                   </a>
                 </span>
 
@@ -361,33 +361,200 @@
       
 
       
-        <h2 id="将局部变量的作用域最小化"><a href="#将局部变量的作用域最小化" class="headerlink" title="将局部变量的作用域最小化"></a>将局部变量的作用域最小化</h2><p>将局部变量的作用域最小化，使代码减少出错，更加可读。</p>
-<ul>
-<li><p>降低出错的可能性</p>
+        <h2 id="exports、module-exports、require的使用介绍"><a href="#exports、module-exports、require的使用介绍" class="headerlink" title="exports、module.exports、require的使用介绍"></a>exports、module.exports、require的使用介绍</h2><p>exports和module.exports都是用来指定js文件需要导出的属性值。本质上，exports只是module.exports的引用，辅助后者添加内容用的。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 下方等价，因为exports相当于module.exports的引用</span></span><br><span class="line">exports.func1 = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; ... &#125;</span><br><span class="line"><span class="built_in">module</span>.exports.func1 = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; ... &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 下方代码不等价，因为对exports进行直接复制，相当于将exports的内存指向改变了。所以不再是module.exports的引用</span></span><br><span class="line">exports = &#123;</span><br><span class="line">	func1 : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; ... &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">	func1 : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; ... &#125;	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>require方法按照下面顺序，查找模块并导出模块对象。</p>
 <blockquote>
-<p>如果变量在它的目标使用区域之前或者之后被意外地使用的话，会产生意想不到的错误。示例如下：</p>
+<p><strong>缓存模块：</strong>如果X存在于内存缓存中，则直接从内存缓存中读取文件<br><strong>核心模块：</strong>如果 X 是内置模块（比如 require(‘http’）)<br>　　1. 返回该模块<br>　　2. 不再继续执行<br><strong>文件模块：</strong>如果 X 以 “./“ 或者 “/“ 或者 “../“ 开头<br>　　1. 根据 X 所在的父模块，确定 X 的绝对路径<br>　　2. 将 X 当成文件，依次查找 X ， X.js ， X.json， X.node ，只要其中有一个存在，就返回该文件，不再继续执行<br>　　3. 将 X 当成目录，依次查找 X/package.json（main字段）， X/index.js， X/index.json， X/index.node， 只要其中有一个存在，就返回该文件，不再继续执行<br><strong>自定义模块：</strong>. 如果 X 不带路径，根据 X 所在的父模块，确定 X 可能的安装目录。 依次在每个目录中，将 X 当成文件名或目录名加载<br><strong>未找到模块：</strong> 抛出 “not found”</p>
 </blockquote>
-  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 错误示范</span></span><br><span class="line">Iterator&lt;Element&gt; i = c.iterator();</span><br><span class="line"><span class="keyword">while</span>(i.hasNext())&#123;</span><br><span class="line">	doSomething(i.next());</span><br><span class="line">&#125;</span><br><span class="line">···</span><br><span class="line">Iterator&lt;Element&gt; i2 = c2.iterator();</span><br><span class="line"><span class="comment">// BUG，误将i2写成了i，导致不必要的错误</span></span><br><span class="line"><span class="keyword">while</span>(i.hasNext())&#123;</span><br><span class="line">	doSomethingElse(i2.next);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 提供作用域的最小范围，可以避免此类错误的发生</span></span><br><span class="line">;</span><br><span class="line"><span class="keyword">for</span>(Iterator&lt;Element&gt; i = c.iterator(); i.hasNext(); )&#123;</span><br><span class="line">	doSomething(i.next());</span><br><span class="line">&#125;</span><br><span class="line">···</span><br><span class="line"><span class="keyword">for</span>(Iterator&lt;Element&gt; i = c2.iterator(); i.hasNext(); )&#123;</span><br><span class="line">	doSomethingElse(i.next);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>增强可读性</p>
-<blockquote>
-<p>将变量放在使用之前声明，会分散读者注意力。等到用到该变量的时候，读者可能已经记不起该变量的类型和初始值了。</p>
-</blockquote>
-</li>
+<h2 id="js中的默认变量"><a href="#js中的默认变量" class="headerlink" title="js中的默认变量"></a>js中的默认变量</h2><ul>
+<li>exports：声明导出对象属性</li>
+<li>require：导入模块方法</li>
+<li>module：模块对象</li>
+<li>__filename：js文件名</li>
+<li>__dirname：js目录名</li>
 </ul>
-<h2 id="for-each循环优先于传统的for循环"><a href="#for-each循环优先于传统的for循环" class="headerlink" title="for-each循环优先于传统的for循环"></a>for-each循环优先于传统的for循环</h2><p>能用for-each循环实现功能的情况下，尽量使用for-each循环。</p>
-<ul>
-<li>for-each循环内部帮你维护了迭代器，降低了自己维护迭代器产生错误的风险。</li>
-<li>for-each循环让代码变得尽量简洁，提高代码可读性。</li>
+<p>这些默认属性是在js编译时，通过对js文件内容进行了头尾包装设置进去的。如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 头尾包装伪代码</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">exports, require, module, __filename, __dirname</span>) </span>&#123;\n 文件内容 \n&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// js文件内容</span></span><br><span class="line"><span class="keyword">var</span> math = <span class="built_in">require</span>(<span class="string">'math'</span>);</span><br><span class="line">exports.area = <span class="function"><span class="keyword">function</span> (<span class="params">radius</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">Math</span>.PI * radius * radius; </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 编译时的头尾包装</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">exports, require, module, __filename, __dirname</span>) </span>&#123; </span><br><span class="line">	<span class="keyword">var</span> math = <span class="built_in">require</span>(<span class="string">'math'</span>);</span><br><span class="line">	exports.area = <span class="function"><span class="keyword">function</span> (<span class="params">radius</span>) </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">Math</span>.PI * radius * radius; </span><br><span class="line">	&#125;;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h2 id="js中的包结构"><a href="#js中的包结构" class="headerlink" title="js中的包结构"></a>js中的包结构</h2><ul>
+<li>package.json：包描述文件</li>
+<li>bin：存放可执行二进制文件的目录</li>
+<li>lib：存放js代码的目录</li>
+<li>doc：存放文档的目录</li>
+<li>test：存放单元测试用例代码的目录</li>
 </ul>
-<h2 id="如果需要精确的数值，请避免使用float和double"><a href="#如果需要精确的数值，请避免使用float和double" class="headerlink" title="如果需要精确的数值，请避免使用float和double"></a>如果需要精确的数值，请避免使用float和double</h2><ul>
-<li>float和double类型，并没有提供完全精确的结果。所以不应该被用于需要精确结果的场合。尤其不适合用于货币计算，最好用int，long或BigDecimal代替。</li>
-</ul>
-<h2 id="基本类型优先于装箱基本类型"><a href="#基本类型优先于装箱基本类型" class="headerlink" title="基本类型优先于装箱基本类型"></a>基本类型优先于装箱基本类型</h2><p>能用基本类型就尽量使用基本类型。装箱基本类型存在以下缺点：</p>
-<ul>
-<li>两个装箱基本类型，存在相同的数值，却只想不同的内存对象。进行比较时，需要调用equil，同时还需考虑NullPointException异常。提高了使用的成本，加大了在开发中出错的风险。</li>
-<li>基本类型比装箱基本类型更节省内存空间，在进行运算操作时也更节省运行时间。装箱基本类型可能会存在频繁的装箱和拆箱。</li>
-</ul>
+<p>包描述信息介绍<br>package.json位于包的根目录，是对于包的描述信息的配置文件。字段规范如下：</p>
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>名</td>
+</tr>
+<tr>
+<td>description</td>
+<td>简介</td>
+</tr>
+<tr>
+<td>version</td>
+<td>版本号</td>
+</tr>
+<tr>
+<td>keywords</td>
+<td>关键词数组</td>
+</tr>
+<tr>
+<td>maintainers</td>
+<td>维护者列表</td>
+</tr>
+<tr>
+<td>contributors</td>
+<td>贡献者列表</td>
+</tr>
+<tr>
+<td>bugs</td>
+<td>可以反馈bug的网页或邮箱地址</td>
+</tr>
+<tr>
+<td>licenses</td>
+<td>许可证列表</td>
+</tr>
+<tr>
+<td>respositories</td>
+<td>托管源码的位置列表</td>
+</tr>
+<tr>
+<td>dependencies</td>
+<td>依赖项列表</td>
+</tr>
+<tr>
+<td>homepage</td>
+<td>网站地址</td>
+</tr>
+<tr>
+<td>os</td>
+<td>操作系统支持列表</td>
+</tr>
+<tr>
+<td>cpu</td>
+<td>CPU架构支持列表</td>
+</tr>
+<tr>
+<td>engine</td>
+<td>支持的JS引擎列表</td>
+</tr>
+<tr>
+<td>builten</td>
+<td>是否内建在底层系统的标准组件</td>
+</tr>
+<tr>
+<td>directories</td>
+<td>目录说明</td>
+</tr>
+<tr>
+<td>implements</td>
+<td>实现规范的列表</td>
+</tr>
+<tr>
+<td>scripts</td>
+<td>脚本说明对象</td>
+</tr>
+<tr>
+<td>authoer</td>
+<td>作者</td>
+</tr>
+<tr>
+<td>bin</td>
+<td>配置为命令行工具</td>
+</tr>
+<tr>
+<td>main</td>
+<td>入口文件</td>
+</tr>
+<tr>
+<td>devDependencies</td>
+<td>开发依赖项列表</td>
+</tr>
+</tbody>
+</table>
+<h2 id="npm命令"><a href="#npm命令" class="headerlink" title="npm命令"></a>npm命令</h2><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$ npm</td>
+<td>查看NPM帮助说明</td>
+</tr>
+<tr>
+<td>$ npm -v</td>
+<td>查看当前NPM版本</td>
+</tr>
+<tr>
+<td>$ npm init</td>
+<td>初始化包(配置package.json)</td>
+</tr>
+<tr>
+<td>$ npm <command></td>
+<td>查看具体命令帮助说明</td>
+</tr>
+<tr>
+<td>$ npm install <package></package></td>
+<td>安装第三方包</td>
+</tr>
+<tr>
+<td>$ npm uninstall <package></package></td>
+<td>卸载包</td>
+</tr>
+<tr>
+<td>$ npm install <package> –save-dev</package></td>
+<td>安装包并将安装信息写入package.json(devDependencies)</td>
+</tr>
+<tr>
+<td>$ npm install <package> –dev</package></td>
+<td>安装第包并将安装信息写入package.json(dependencies)</td>
+</tr>
+<tr>
+<td>$ npm install <package> -g</package></td>
+<td>全局安装第三方包</td>
+</tr>
+<tr>
+<td>$ npm install <file-url></file-url></td>
+<td>安装本地包</td>
+</tr>
+<tr>
+<td>$ npm adduser</td>
+<td>注册npm账号</td>
+</tr>
+<tr>
+<td>$ npm publish <folder></folder></td>
+<td>上传包</td>
+</tr>
+<tr>
+<td>$ npm owner ls <package-name></package-name></td>
+<td>查看包拥有者</td>
+</tr>
+<tr>
+<td>$ npm owner add <user> <package-name></package-name></user></td>
+<td>添加包拥有者</td>
+</tr>
+<tr>
+<td>$ npm owner rm <user> <package-name></package-name></user></td>
+<td>删除包拥有者</td>
+</tr>
+<tr>
+<td>$ npm ls</td>
+<td>分析包</td>
+</tr>
+</tbody>
+</table>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://www.ruanyifeng.com/blog/2015/05/require.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2015/05/require.html</a><br><a href="https://blog.csdn.net/q1056843325/article/details/54948719" target="_blank" rel="noopener">https://blog.csdn.net/q1056843325/article/details/54948719</a></p>
 
       
     </div>
@@ -412,8 +579,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/24/产品-规划与迭代/" rel="next" title="产品-规划与迭代">
-                <i class="fa fa-chevron-left"></i> 产品-规划与迭代
+              <a href="/2018/12/09/Node-JS中声明属性和方法/" rel="next" title="Node-JS中声明属性和方法">
+                <i class="fa fa-chevron-left"></i> Node-JS中声明属性和方法
               </a>
             
           </div>
@@ -422,8 +589,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/10/01/Effective-Java-异常/" rel="prev" title="Effective Java 异常">
-                Effective Java 异常 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/12/18/Java-反向代理的思考/" rel="prev" title="Java-反向代理的思考">
+                Java-反向代理的思考 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -563,7 +730,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#将局部变量的作用域最小化"><span class="nav-number">1.</span> <span class="nav-text">将局部变量的作用域最小化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#for-each循环优先于传统的for循环"><span class="nav-number">2.</span> <span class="nav-text">for-each循环优先于传统的for循环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如果需要精确的数值，请避免使用float和double"><span class="nav-number">3.</span> <span class="nav-text">如果需要精确的数值，请避免使用float和double</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本类型优先于装箱基本类型"><span class="nav-number">4.</span> <span class="nav-text">基本类型优先于装箱基本类型</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#exports、module-exports、require的使用介绍"><span class="nav-number">1.</span> <span class="nav-text">exports、module.exports、require的使用介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#js中的默认变量"><span class="nav-number">2.</span> <span class="nav-text">js中的默认变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#js中的包结构"><span class="nav-number">3.</span> <span class="nav-text">js中的包结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#npm命令"><span class="nav-number">4.</span> <span class="nav-text">npm命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
