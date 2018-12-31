@@ -1,7 +1,7 @@
 ---
 title: 前端-JS中原型的理解
 date: 2018-11-10 23:43:24
-categories: 前端
+categories: 后台
 ---
 
 # prototype与\_\_proto\_\_的区别

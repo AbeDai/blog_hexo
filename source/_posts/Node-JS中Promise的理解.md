@@ -1,7 +1,7 @@
 ---
 title: 前端-JS中Promise的理解
 date: 2018-11-25 11:26:43
-categories: 前端
+categories: 后台
 ---
 
 # Promise简介
