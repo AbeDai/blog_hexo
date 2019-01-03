@@ -1,7 +1,7 @@
 ---
 title: 网络-对于《Socket心跳包》的思考
 date: 2018-11-04 15:16:52
-categories: 网络
+categories: 基础
 ---
 
 ## 为什么需要Socket心跳包

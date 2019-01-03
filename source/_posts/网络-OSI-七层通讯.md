@@ -1,7 +1,7 @@
 ---
 title: 网络-OSI 七层通讯
 date: 2018-10-11 00:05:35
-categories: 网络
+categories: 基础
 ---
 <style>
 table th:nth-of-type(1) {
