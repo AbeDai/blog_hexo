@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/favicon.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="基础," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="连接数据库12-- 连接到数据库mysql -uroot -ppassword -hlocalhost -P3306; 数据库操作12345678910111213141516-- 查看数据库show databases;+--------------------+| Database           |+--------------------+| daiyibo_test       ||">
+<meta name="keywords" content="基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库-MySql操作大全">
+<meta property="og:url" content="http://blog.daiyibo.cn/2019/01/24/数据库-MySql操作大全/index.html">
+<meta property="og:site_name" content="波波星球">
+<meta property="og:description" content="连接数据库12-- 连接到数据库mysql -uroot -ppassword -hlocalhost -P3306; 数据库操作12345678910111213141516-- 查看数据库show databases;+--------------------+| Database           |+--------------------+| daiyibo_test       ||">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-01-28T01:39:10.267Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据库-MySql操作大全">
+<meta name="twitter:description" content="连接数据库12-- 连接到数据库mysql -uroot -ppassword -hlocalhost -P3306; 数据库操作12345678910111213141516-- 查看数据库show databases;+--------------------+| Database           |+--------------------+| daiyibo_test       ||">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.daiyibo.cn/2019/01/24/数据库-MySql操作大全/"/>
+
+
+
+
+
+  <title>数据库-MySql操作大全 | 波波星球</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">波波星球</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.daiyibo.cn/2019/01/24/数据库-MySql操作大全/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="戴益波">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="波波星球">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据库-MySql操作大全</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-24T19:58:22+08:00">
+                2019-01-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="连接数据库"><a href="#连接数据库" class="headerlink" title="连接数据库"></a>连接数据库</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 连接到数据库</span></span><br><span class="line">mysql -uroot -ppassword -hlocalhost -P3306;</span><br></pre></td></tr></table></figure>
+<h2 id="数据库操作"><a href="#数据库操作" class="headerlink" title="数据库操作"></a>数据库操作</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 查看数据库</span></span><br><span class="line"><span class="keyword">show</span> <span class="keyword">databases</span>;</span><br><span class="line">+<span class="comment">--------------------+</span></span><br><span class="line">| Database           |</span><br><span class="line">+<span class="comment">--------------------+</span></span><br><span class="line">| daiyibo_test       |</span><br><span class="line">| information_schema |</span><br><span class="line">| mysql              |</span><br><span class="line">| pakun              |</span><br><span class="line">| performance_schema |</span><br><span class="line">| sys                |</span><br><span class="line">+<span class="comment">--------------------+</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 使用数据库</span></span><br><span class="line"><span class="keyword">use</span> <span class="keyword">database</span>;</span><br><span class="line">Database changed</span><br></pre></td></tr></table></figure>
+<h2 id="表单操作"><a href="#表单操作" class="headerlink" title="表单操作"></a>表单操作</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 显示表单</span></span><br><span class="line"><span class="keyword">show</span> <span class="keyword">tables</span>;</span><br><span class="line">+<span class="comment">------------------------+</span></span><br><span class="line">| Tables_in_daiyibo_test |</span><br><span class="line">+<span class="comment">------------------------+</span></span><br><span class="line">| test_1                 |</span><br><span class="line">| test_2                 |</span><br><span class="line">+<span class="comment">------------------------+</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 显示表单列信息</span></span><br><span class="line"><span class="keyword">show</span> <span class="keyword">columns</span> <span class="keyword">from</span> tablename;</span><br><span class="line">+<span class="comment">-------+-------------+------+-----+---------+-------+</span></span><br><span class="line">| Field | Type        | Null | Key | Default | Extra |</span><br><span class="line">+<span class="comment">-------+-------------+------+-----+---------+-------+</span></span><br><span class="line">| name  | varchar(19) | YES  |     | NULL    |       |</span><br><span class="line">| id    | int(11)     | NO   | PRI | NULL    |       |</span><br><span class="line">| value | varchar(10) | YES  |     | NULL    |       |</span><br><span class="line">+<span class="comment">-------+-------------+------+-----+---------+-------+</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 显示表单列信息，与 show columns from tablename 等价</span></span><br><span class="line"><span class="keyword">describe</span> tablename;</span><br></pre></td></tr></table></figure>
+<h2 id="查找操作"><a href="#查找操作" class="headerlink" title="查找操作"></a>查找操作</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 查找所有信息</span></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> products;</span><br><span class="line">+<span class="comment">---------+---------+----------------+------------+----------------------------------------------------------------+</span></span><br><span class="line">| prod_id | vend_id | prod_name      | prod_price | prod_desc                                                      |</span><br><span class="line">+<span class="comment">---------+---------+----------------+------------+----------------------------------------------------------------+</span></span><br><span class="line">| ANV01   |    1001 | .5 ton anvil   |       5.99 | .5 ton anvil, black, complete with handy hook                  |</span><br><span class="line">| ANV02   |    1001 | 1 ton anvil    |       9.99 | 1 ton anvil, black, complete with handy hook and carrying case |</span><br><span class="line">| ANV03   |    1001 | 2 ton anvil    |      14.99 | 2 ton anvil, black, complete with handy hook and carrying case |</span><br><span class="line">| DTNTR   |    1003 | Detonator      |      13.00 | Detonator (plunger powered), fuses not included                |</span><br><span class="line">| FB      |    1003 | Bird seed      |      10.00 | Large bag (suitable for road runners)                          |</span><br><span class="line">| FC      |    1003 | Carrots        |       2.50 | Carrots (rabbit hunting season only)                           |</span><br><span class="line">| FU1     |    1002 | Fuses          |       3.42 | 1 dozen, extra long                                            |</span><br><span class="line">| JP1000  |    1005 | JetPack 1000   |      35.00 | JetPack 1000, intended for single <span class="keyword">use</span>                          |</span><br><span class="line">| JP2000  |    <span class="number">1005</span> | JetPack <span class="number">2000</span>   |      <span class="number">55.00</span> | JetPack <span class="number">2000</span>, multi-<span class="keyword">use</span>                                        |</span><br><span class="line">| OL1     |    <span class="number">1002</span> | Oil can        |       <span class="number">8.99</span> | Oil can, red                                                   |</span><br><span class="line">| <span class="keyword">SAFE</span>    |    <span class="number">1003</span> | <span class="keyword">Safe</span>           |      <span class="number">50.00</span> | <span class="keyword">Safe</span> <span class="keyword">with</span> combination <span class="keyword">lock</span>                                     |</span><br><span class="line">| SLING   |    <span class="number">1003</span> | Sling          |       <span class="number">4.49</span> | Sling, one <span class="keyword">size</span> fits all                                       |</span><br><span class="line">| TNT1    |    <span class="number">1003</span> | TNT (<span class="number">1</span> stick)  |       <span class="number">2.50</span> | TNT, red, single stick                                         |</span><br><span class="line">| TNT2    |    <span class="number">1003</span> | TNT (<span class="number">5</span> sticks) |      <span class="number">10.00</span> | TNT, red, pack <span class="keyword">of</span> <span class="number">10</span> sticks                                    |</span><br><span class="line">+<span class="comment">---------+---------+----------------+------------+----------------------------------------------------------------+</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 查找指定列信息</span></span><br><span class="line"><span class="keyword">select</span> vend_id, prod_name <span class="keyword">from</span> products;</span><br><span class="line">+<span class="comment">---------+----------------+</span></span><br><span class="line">| vend_id | prod_name      |</span><br><span class="line">+<span class="comment">---------+----------------+</span></span><br><span class="line">|    1001 | .5 ton anvil   |</span><br><span class="line">|    1001 | 1 ton anvil    |</span><br><span class="line">|    1001 | 2 ton anvil    |</span><br><span class="line">|    1003 | Detonator      |</span><br><span class="line">|    1003 | Bird seed      |</span><br><span class="line">|    1003 | Carrots        |</span><br><span class="line">|    1002 | Fuses          |</span><br><span class="line">|    1005 | JetPack 1000   |</span><br><span class="line">|    1005 | JetPack 2000   |</span><br><span class="line">|    1002 | Oil can        |</span><br><span class="line">|    1003 | Safe           |</span><br><span class="line">|    1003 | Sling          |</span><br><span class="line">|    1003 | TNT (1 stick)  |</span><br><span class="line">|    1003 | TNT (5 sticks) |</span><br><span class="line">+<span class="comment">---------+----------------+</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 查找去重后的指定列信息</span></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">distinct</span> vend_id <span class="keyword">from</span> products;</span><br><span class="line">+<span class="comment">---------+</span></span><br><span class="line">| vend_id |</span><br><span class="line">+<span class="comment">---------+</span></span><br><span class="line">|    1001 |</span><br><span class="line">|    1002 |</span><br><span class="line">|    1003 |</span><br><span class="line">|    1005 |</span><br><span class="line">+<span class="comment">---------+</span></span><br></pre></td></tr></table></figure>
+<h3 id="SELECT子句顺序"><a href="#SELECT子句顺序" class="headerlink" title="SELECT子句顺序"></a>SELECT子句顺序</h3><table>
+<thead>
+<tr>
+<th>子句</th>
+<th>说明</th>
+<th>是否必须使用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SELECT</td>
+<td>要返回的列或表达式</td>
+<td>是</td>
+</tr>
+<tr>
+<td>FROM</td>
+<td>从中检索数据的表</td>
+<td>仅在从表选择数据时使用</td>
+</tr>
+<tr>
+<td>WHERE</td>
+<td>行级过滤</td>
+<td>否</td>
+</tr>
+<tr>
+<td>GROUP BY</td>
+<td>分组说明</td>
+<td>仅在按组计算聚集时使用</td>
+</tr>
+<tr>
+<td>HAVING</td>
+<td>组级过滤</td>
+<td>否</td>
+</tr>
+<tr>
+<td>ORDER BY</td>
+<td>输出排序顺序</td>
+<td>否</td>
+</tr>
+<tr>
+<td>LIMIT</td>
+<td>要检索的行数</td>
+<td>否</td>
+</tr>
+</tbody>
+</table>
+<p>调用模板如下<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> tablename <span class="keyword">where</span> value1 &gt; <span class="number">0</span> <span class="keyword">group</span> <span class="keyword">by</span> value2 <span class="keyword">having</span> value3 &gt; <span class="number">0</span> <span class="keyword">order</span> <span class="keyword">by</span> value4 <span class="keyword">limit</span> <span class="number">1</span>;</span><br></pre></td></tr></table></figure></p>
+<h3 id="控制行数"><a href="#控制行数" class="headerlink" title="控制行数"></a>控制行数</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 查找信息后指定检索行数</span></span><br><span class="line"><span class="keyword">select</span> prod_name <span class="keyword">from</span> products <span class="keyword">limit</span> <span class="number">5</span>;</span><br><span class="line">+<span class="comment">--------------+</span></span><br><span class="line">| prod_name    |</span><br><span class="line">+<span class="comment">--------------+</span></span><br><span class="line">| .5 ton anvil |</span><br><span class="line">| 1 ton anvil  |</span><br><span class="line">| 2 ton anvil  |</span><br><span class="line">| Detonator    |</span><br><span class="line">| Bird seed    |</span><br><span class="line">+<span class="comment">--------------+</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 查找信息后指定检索的开始行和行数</span></span><br><span class="line"><span class="keyword">select</span> prod_name <span class="keyword">from</span> products <span class="keyword">limit</span> <span class="number">1</span>, <span class="number">5</span>;</span><br><span class="line">+<span class="comment">-------------+</span></span><br><span class="line">| prod_name   |</span><br><span class="line">+<span class="comment">-------------+</span></span><br><span class="line">| 1 ton anvil |</span><br><span class="line">| 2 ton anvil |</span><br><span class="line">| Detonator   |</span><br><span class="line">| Bird seed   |</span><br><span class="line">| Carrots     |</span><br><span class="line">+<span class="comment">-------------+</span></span><br></pre></td></tr></table></figure>
+<h3 id="排序操作"><a href="#排序操作" class="headerlink" title="排序操作"></a>排序操作</h3><p>将查找后的数据，进行排序操作</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 查找数据后进行排序</span></span><br><span class="line"><span class="keyword">select</span> vend_id, prod_name, prod_price <span class="keyword">from</span> products <span class="keyword">order</span> <span class="keyword">by</span> vend_id, prod_name <span class="keyword">desc</span>, prod_price <span class="keyword">desc</span>;</span><br><span class="line">+<span class="comment">---------+----------------+------------+</span></span><br><span class="line">| vend_id | prod_name      | prod_price |</span><br><span class="line">+<span class="comment">---------+----------------+------------+</span></span><br><span class="line">|    1001 | 2 ton anvil    |      14.99 |</span><br><span class="line">|    1001 | 1 ton anvil    |       9.99 |</span><br><span class="line">|    1001 | .5 ton anvil   |       5.99 |</span><br><span class="line">|    1002 | Oil can        |       8.99 |</span><br><span class="line">|    1002 | Fuses          |       3.42 |</span><br><span class="line">|    1003 | TNT (5 sticks) |      10.00 |</span><br><span class="line">|    1003 | TNT (1 stick)  |       2.50 |</span><br><span class="line">|    1003 | Sling          |       4.49 |</span><br><span class="line">|    1003 | Safe           |      50.00 |</span><br><span class="line">|    1003 | Detonator      |      13.00 |</span><br><span class="line">|    1003 | Carrots        |       2.50 |</span><br><span class="line">|    1003 | Bird seed      |      10.00 |</span><br><span class="line">|    1005 | JetPack 2000   |      55.00 |</span><br><span class="line">|    1005 | JetPack 1000   |      35.00 |</span><br><span class="line">+<span class="comment">---------+----------------+------------+</span></span><br></pre></td></tr></table></figure>
+<h3 id="过滤操作"><a href="#过滤操作" class="headerlink" title="过滤操作"></a>过滤操作</h3><p>将查找后的数据，进行过滤操作。</p>
+<blockquote>
+<p>// 过滤操作的操作符如下：<br>=，&lt;&gt;，!=， &lt;， &lt;=， &gt;， &gt;=， between，is null</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 过滤数据，普通操作符示例</span></span><br><span class="line"><span class="keyword">select</span> prod_name, prod_price <span class="keyword">from</span> products <span class="keyword">where</span> prod_name = <span class="string">"fuses"</span>;</span><br><span class="line">+<span class="comment">-----------+------------+</span></span><br><span class="line">| prod_name | prod_price |</span><br><span class="line">+<span class="comment">-----------+------------+</span></span><br><span class="line">| Fuses     |       3.42 |</span><br><span class="line">+<span class="comment">-----------+------------+</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 过滤数据，between操作符示例</span></span><br><span class="line"><span class="keyword">select</span> prod_name, prod_price <span class="keyword">from</span> products <span class="keyword">where</span> prod_price <span class="keyword">between</span> <span class="number">10</span> <span class="keyword">and</span> <span class="number">14</span>;</span><br><span class="line">+<span class="comment">----------------+------------+</span></span><br><span class="line">| prod_name      | prod_price |</span><br><span class="line">+<span class="comment">----------------+------------+</span></span><br><span class="line">| Bird seed      |      10.00 |</span><br><span class="line">| TNT (5 sticks) |      10.00 |</span><br><span class="line">| Detonator      |      13.00 |</span><br><span class="line">+<span class="comment">----------------+------------+</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 过滤数据，is null操作符示例</span></span><br><span class="line"><span class="keyword">select</span> cust_email <span class="keyword">from</span> customers <span class="keyword">where</span> cust_email <span class="keyword">is</span> <span class="literal">null</span>;</span><br><span class="line">+<span class="comment">------------+</span></span><br><span class="line">| cust_email |</span><br><span class="line">+<span class="comment">------------+</span></span><br><span class="line">| NULL       |</span><br><span class="line">| NULL       |</span><br><span class="line">+<span class="comment">------------+</span></span><br></pre></td></tr></table></figure>
+<h3 id="多条件过滤操作符"><a href="#多条件过滤操作符" class="headerlink" title="多条件过滤操作符"></a>多条件过滤操作符</h3><p>将多个条件操作符组合起来，进行多条件过滤操作。</p>
+<ul>
+<li>OR：就是条件“或”的意思</li>
+<li>AND：就是条件“且”的意思</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 过滤数据，or 操作符示例</span></span><br><span class="line"><span class="keyword">select</span> prod_name, prod_price <span class="keyword">from</span> products <span class="keyword">where</span> vend_id=<span class="number">1002</span> <span class="keyword">or</span> vend_id=<span class="number">1003</span>;</span><br><span class="line">+<span class="comment">----------------+------------+</span></span><br><span class="line">| prod_name      | prod_price |</span><br><span class="line">+<span class="comment">----------------+------------+</span></span><br><span class="line">| Fuses          |       3.42 |</span><br><span class="line">| Oil can        |       8.99 |</span><br><span class="line">| Detonator      |      13.00 |</span><br><span class="line">| Bird seed      |      10.00 |</span><br><span class="line">| Carrots        |       2.50 |</span><br><span class="line">| Safe           |      50.00 |</span><br><span class="line">| Sling          |       4.49 |</span><br><span class="line">| TNT (1 stick)  |       2.50 |</span><br><span class="line">| TNT (5 sticks) |      10.00 |</span><br><span class="line">+<span class="comment">----------------+------------+</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 过滤数据，and 操作符示例</span></span><br><span class="line"><span class="keyword">select</span> prod_name, prod_price <span class="keyword">from</span> products <span class="keyword">where</span> vend_id=<span class="number">1002</span> <span class="keyword">and</span> prod_price &gt; <span class="number">4</span>;</span><br><span class="line">+<span class="comment">-----------+------------+</span></span><br><span class="line">| prod_name | prod_price |</span><br><span class="line">+<span class="comment">-----------+------------+</span></span><br><span class="line">| Oil can   |       8.99 |</span><br><span class="line">+<span class="comment">-----------+------------+</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 过滤数据，or、and 操作符混合使用示例</span></span><br><span class="line"><span class="keyword">select</span> prod_name, prod_price <span class="keyword">from</span> products <span class="keyword">where</span> (vend_id=<span class="number">1002</span> <span class="keyword">or</span> vend_id=<span class="number">1003</span>) <span class="keyword">and</span> prod_price &gt; <span class="number">4</span>;</span><br><span class="line">+<span class="comment">----------------+------------+</span></span><br><span class="line">| prod_name      | prod_price |</span><br><span class="line">+<span class="comment">----------------+------------+</span></span><br><span class="line">| Oil can        |       8.99 |</span><br><span class="line">| Detonator      |      13.00 |</span><br><span class="line">| Bird seed      |      10.00 |</span><br><span class="line">| Safe           |      50.00 |</span><br><span class="line">| Sling          |       4.49 |</span><br><span class="line">| TNT (5 sticks) |      10.00 |</span><br><span class="line">+<span class="comment">----------------+------------+</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 过滤数据，in 表示只要允许其中()中的其中一个条件，操作符使用示例</span></span><br><span class="line"><span class="keyword">select</span> prod_name, prod_price, vend_id <span class="keyword">from</span> products <span class="keyword">where</span> vend_id <span class="keyword">in</span> (<span class="number">1002</span>, <span class="number">1003</span>);</span><br><span class="line">+<span class="comment">----------------+------------+---------+</span></span><br><span class="line">| prod_name      | prod_price | vend_id |</span><br><span class="line">+<span class="comment">----------------+------------+---------+</span></span><br><span class="line">| Fuses          |       3.42 |    1002 |</span><br><span class="line">| Oil can        |       8.99 |    1002 |</span><br><span class="line">| Detonator      |      13.00 |    1003 |</span><br><span class="line">| Bird seed      |      10.00 |    1003 |</span><br><span class="line">| Carrots        |       2.50 |    1003 |</span><br><span class="line">| Safe           |      50.00 |    1003 |</span><br><span class="line">| Sling          |       4.49 |    1003 |</span><br><span class="line">| TNT (1 stick)  |       2.50 |    1003 |</span><br><span class="line">| TNT (5 sticks) |      10.00 |    1003 |</span><br><span class="line">+<span class="comment">----------------+------------+---------+</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 过滤数据，not 表示对前面操作取反，使用示例</span></span><br><span class="line"><span class="keyword">select</span> prod_name, prod_price, vend_id <span class="keyword">from</span> products <span class="keyword">where</span> vend_id <span class="keyword">not</span> <span class="keyword">in</span> (<span class="number">1002</span>, <span class="number">1003</span>);</span><br><span class="line">+<span class="comment">--------------+------------+---------+</span></span><br><span class="line">| prod_name    | prod_price | vend_id |</span><br><span class="line">+<span class="comment">--------------+------------+---------+</span></span><br><span class="line">| .5 ton anvil |       5.99 |    1001 |</span><br><span class="line">| 1 ton anvil  |       9.99 |    1001 |</span><br><span class="line">| 2 ton anvil  |      14.99 |    1001 |</span><br><span class="line">| JetPack 1000 |      35.00 |    1005 |</span><br><span class="line">| JetPack 2000 |      55.00 |    1005 |</span><br><span class="line">+<span class="comment">--------------+------------+---------+</span></span><br></pre></td></tr></table></figure>
+<h3 id="通配符过滤"><a href="#通配符过滤" class="headerlink" title="通配符过滤"></a>通配符过滤</h3><p>通配符过滤操作，有点类似于模糊过滤操作。下面主要介绍%和_两个操作符。</p>
+<ul>
+<li>“%” 操作符，表示匹配出现任何次数的任意字符。</li>
+<li>“_” 操作符，表示匹配任何出现的单个字符。</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- “%” 操作符使用介绍</span></span><br><span class="line"><span class="keyword">select</span> prod_id, prod_name <span class="keyword">from</span> products <span class="keyword">where</span> prod_name <span class="keyword">like</span> <span class="string">"%anvil"</span>;</span><br><span class="line">+<span class="comment">---------+--------------+</span></span><br><span class="line">| prod_id | prod_name    |</span><br><span class="line">+<span class="comment">---------+--------------+</span></span><br><span class="line">| ANV01   | .5 ton anvil |</span><br><span class="line">| ANV02   | 1 ton anvil  |</span><br><span class="line">| ANV03   | 2 ton anvil  |</span><br><span class="line">+<span class="comment">---------+--------------+</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- “_” 操作符使用介绍</span></span><br><span class="line"><span class="keyword">select</span> cust_contact, cust_id <span class="keyword">from</span> customers <span class="keyword">where</span> cust_contact <span class="keyword">like</span> <span class="string">"___am"</span>;</span><br><span class="line">+<span class="comment">--------------+---------+</span></span><br><span class="line">| cust_contact | cust_id |</span><br><span class="line">+<span class="comment">--------------+---------+</span></span><br><span class="line">| Y Sam        |   10004 |</span><br><span class="line">+<span class="comment">--------------+---------+</span></span><br></pre></td></tr></table></figure>
+<h3 id="正则表达式过滤"><a href="#正则表达式过滤" class="headerlink" title="正则表达式过滤"></a>正则表达式过滤</h3><p>mysql支持正则表达式。若要使用正则表达式，则用regexp作为操作符。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> customers <span class="keyword">where</span> cust_address regexp <span class="string">"^2."</span>;</span><br><span class="line">+<span class="comment">---------+-------------+----------------+-----------+------------+----------+--------------+--------------+-----------------+</span></span><br><span class="line">| cust_id | cust_name   | cust_address   | cust_city | cust_state | cust_zip | cust_country | cust_contact | cust_email      |</span><br><span class="line">+<span class="comment">---------+-------------+----------------+-----------+------------+----------+--------------+--------------+-----------------+</span></span><br><span class="line">|   10001 | Coyote Inc. | 200 Maple Lane | Detroit   | MI         | 44444    | USA          | Y Lee        | ylee@coyote.com |</span><br><span class="line">+<span class="comment">---------+-------------+----------------+-----------+------------+----------+--------------+--------------+-----------------+</span></span><br></pre></td></tr></table></figure>
+<h3 id="拼接字段"><a href="#拼接字段" class="headerlink" title="拼接字段"></a>拼接字段</h3><p>可以通过concat方法对字段内容进行拼接操作。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">concat</span>(vend_name, <span class="string">'('</span>, vend_country, <span class="string">')'</span>) <span class="keyword">from</span> vendors <span class="keyword">order</span> <span class="keyword">by</span> vend_name;</span><br><span class="line">+<span class="comment">-------------------------------------------+</span></span><br><span class="line">| concat(vend_name, '(', vend_country, ')') |</span><br><span class="line">+<span class="comment">-------------------------------------------+</span></span><br><span class="line">| ACME(USA)                                 |</span><br><span class="line">| Anvils R Us(USA)                          |</span><br><span class="line">| Furball Inc.(USA)                         |</span><br><span class="line">| Jet <span class="keyword">Set</span>(England)                          |</span><br><span class="line">| Jouets Et Ours(France)                    |</span><br><span class="line">| LT Supplies(USA)                          |</span><br><span class="line">+<span class="comment">-------------------------------------------+</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="使用别名"><a href="#使用别名" class="headerlink" title="使用别名"></a>使用别名</h3><p>别名是一个字段或值的替代名。通过as关键字赋予别名。如果使用了别名，相当于可以对字段进行重新命名。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">concat</span>(vend_name, <span class="string">'('</span>, vend_country, <span class="string">')'</span>) <span class="keyword">as</span> vend_title <span class="keyword">from</span> vendors <span class="keyword">order</span> <span class="keyword">by</span> vend_name;</span><br><span class="line">+<span class="comment">------------------------+</span></span><br><span class="line">| vend_title             |</span><br><span class="line">+<span class="comment">------------------------+</span></span><br><span class="line">| ACME(USA)              |</span><br><span class="line">| Anvils R Us(USA)       |</span><br><span class="line">| Furball Inc.(USA)      |</span><br><span class="line">| Jet <span class="keyword">Set</span>(England)       |</span><br><span class="line">| Jouets Et Ours(France) |</span><br><span class="line">| LT Supplies(USA)       |</span><br><span class="line">+<span class="comment">------------------------+</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="使用算数计算"><a href="#使用算数计算" class="headerlink" title="使用算数计算"></a>使用算数计算</h3><p>可以通过算数运算符对字段进行运算操作。支持的操作符有+，-，*，/。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> prod_id, quantity, item_price, quantity*item_price <span class="keyword">as</span> expanded_price <span class="keyword">from</span> orderitems <span class="keyword">where</span> order_num = <span class="number">20005</span>;</span><br><span class="line">+<span class="comment">---------+----------+------------+----------------+</span></span><br><span class="line">| prod_id | quantity | item_price | expanded_price |</span><br><span class="line">+<span class="comment">---------+----------+------------+----------------+</span></span><br><span class="line">| ANV01   |       10 |       5.99 |          59.90 |</span><br><span class="line">| ANV02   |        3 |       9.99 |          29.97 |</span><br><span class="line">| TNT2    |        5 |      10.00 |          50.00 |</span><br><span class="line">| FB      |        1 |      10.00 |          10.00 |</span><br><span class="line">+<span class="comment">---------+----------+------------+----------------+</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="文本处理内置函数"><a href="#文本处理内置函数" class="headerlink" title="文本处理内置函数"></a>文本处理内置函数</h3><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Left()</td>
+<td>返回串左边的字符</td>
+</tr>
+<tr>
+<td>Length()</td>
+<td>返回串的长度</td>
+</tr>
+<tr>
+<td>Locate()</td>
+<td>找出串的一个子串</td>
+</tr>
+<tr>
+<td>Lower()</td>
+<td>将串转换为小写</td>
+</tr>
+<tr>
+<td>LTrim()</td>
+<td>去掉串左边的空格</td>
+</tr>
+<tr>
+<td>Right()</td>
+<td>返回串右边的字符</td>
+</tr>
+<tr>
+<td>RTrim()</td>
+<td>去掉串右边的空格</td>
+</tr>
+<tr>
+<td>Soundex()</td>
+<td>返回串的SOUNDEX值</td>
+</tr>
+<tr>
+<td>SubString()</td>
+<td>返回子串的字符</td>
+</tr>
+<tr>
+<td>Upper()</td>
+<td>将串转换为大写</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">upper</span>(prod_name) <span class="keyword">from</span> products;</span><br><span class="line">+<span class="comment">------------------+</span></span><br><span class="line">| upper(prod_name) |</span><br><span class="line">+<span class="comment">------------------+</span></span><br><span class="line">| .5 TON ANVIL     |</span><br><span class="line">| 1 TON ANVIL      |</span><br><span class="line">| 2 TON ANVIL      |</span><br><span class="line">| DETONATOR        |</span><br><span class="line">| BIRD SEED        |</span><br><span class="line">| CARROTS          |</span><br><span class="line">| FUSES            |</span><br><span class="line">| JETPACK 1000     |</span><br><span class="line">| JETPACK 2000     |</span><br><span class="line">| OIL CAN          |</span><br><span class="line">| SAFE             |</span><br><span class="line">| SLING            |</span><br><span class="line">| TNT (1 STICK)    |</span><br><span class="line">| TNT (5 STICKS)   |</span><br><span class="line">+<span class="comment">------------------+</span></span><br></pre></td></tr></table></figure>
+<h3 id="时间处理内置函数"><a href="#时间处理内置函数" class="headerlink" title="时间处理内置函数"></a>时间处理内置函数</h3><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AddDate()</td>
+<td>增加一个日期(天、周等)</td>
+</tr>
+<tr>
+<td>AddTime()</td>
+<td>增加一个时间(时、分等)</td>
+</tr>
+<tr>
+<td>CurDate()</td>
+<td>返回当前日期</td>
+</tr>
+<tr>
+<td>CurTime()</td>
+<td>返回当前时间</td>
+</tr>
+<tr>
+<td>Date()</td>
+<td>返回日期时间的日期部分</td>
+</tr>
+<tr>
+<td>DateDiff()</td>
+<td>计算两个日期之差</td>
+</tr>
+<tr>
+<td>Date_Add()</td>
+<td>高度灵活的日期运算函数</td>
+</tr>
+<tr>
+<td>Date_Format()</td>
+<td>返回一个格式化的日期或时间串</td>
+</tr>
+<tr>
+<td>Day()</td>
+<td>返回一个日期的天数部分</td>
+</tr>
+<tr>
+<td>DayOfWeek()</td>
+<td>对于一个日期，返回对应的星期几</td>
+</tr>
+<tr>
+<td>Hour()</td>
+<td>返回一个时间的小时部分</td>
+</tr>
+<tr>
+<td>Minute()</td>
+<td>返回一个时间的分钟部分</td>
+</tr>
+<tr>
+<td>Month()</td>
+<td>返回一个日期的月份部分</td>
+</tr>
+<tr>
+<td>Now()</td>
+<td>返回当前日期和时间</td>
+</tr>
+<tr>
+<td>Second()</td>
+<td>返回一个时间的秒部分</td>
+</tr>
+<tr>
+<td>Time()</td>
+<td>返回一个日期时间的时间部分</td>
+</tr>
+<tr>
+<td>Year()</td>
+<td>返回一个日期的年份部分</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- month显示操作</span></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">month</span>(order_date) <span class="keyword">as</span> <span class="keyword">month</span> <span class="keyword">from</span> orders;</span><br><span class="line">+<span class="comment">-------+</span></span><br><span class="line">| month |</span><br><span class="line">+<span class="comment">-------+</span></span><br><span class="line">|     9 |</span><br><span class="line">|     9 |</span><br><span class="line">|     9 |</span><br><span class="line">|    10 |</span><br><span class="line">|    10 |</span><br><span class="line">+<span class="comment">-------+</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- month比较操作</span></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">month</span>(order_date) <span class="keyword">as</span> <span class="keyword">month</span> <span class="keyword">from</span> orders <span class="keyword">where</span> <span class="keyword">month</span>(order_date)&gt;<span class="number">9</span>;</span><br><span class="line">+<span class="comment">-------+</span></span><br><span class="line">| month |</span><br><span class="line">+<span class="comment">-------+</span></span><br><span class="line">|    10 |</span><br><span class="line">|    10 |</span><br><span class="line">+<span class="comment">-------+</span></span><br></pre></td></tr></table></figure>
+<h3 id="数值处理函数"><a href="#数值处理函数" class="headerlink" title="数值处理函数"></a>数值处理函数</h3><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Abs()</td>
+<td>返回一个数的绝对值</td>
+</tr>
+<tr>
+<td>Cos()</td>
+<td>返回一个角度的余弦</td>
+</tr>
+<tr>
+<td>Exp()</td>
+<td>返回一个数的指数值</td>
+</tr>
+<tr>
+<td>Mod()</td>
+<td>返回除操作的余数</td>
+</tr>
+<tr>
+<td>Pi()</td>
+<td>返回圆周率</td>
+</tr>
+<tr>
+<td>Rand()</td>
+<td>返回一个随机数</td>
+</tr>
+<tr>
+<td>Sin()</td>
+<td>返回一个角度的正弦</td>
+</tr>
+<tr>
+<td>Sqrt()</td>
+<td>返回一个数的平方根</td>
+</tr>
+<tr>
+<td>Tan()</td>
+<td>返回一个角度的正切</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">abs</span>(<span class="number">-1</span>);</span><br><span class="line">+<span class="comment">---------+</span></span><br><span class="line">| abs(-1) |</span><br><span class="line">+<span class="comment">---------+</span></span><br><span class="line">|       1 |</span><br><span class="line">+<span class="comment">---------+</span></span><br></pre></td></tr></table></figure>
+<h3 id="汇总数据"><a href="#汇总数据" class="headerlink" title="汇总数据"></a>汇总数据</h3><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AVG()</td>
+<td>返回某列的平均值</td>
+</tr>
+<tr>
+<td>COUNT()</td>
+<td>返回某列的行数</td>
+</tr>
+<tr>
+<td>MAX()</td>
+<td>返回某列的最大值</td>
+</tr>
+<tr>
+<td>MIN()</td>
+<td>返回某列的最小值</td>
+</tr>
+<tr>
+<td>SUM()</td>
+<td>返回某列值之和</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 汇总操作</span></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">avg</span>(prod_price) <span class="keyword">from</span> products;</span><br><span class="line">+<span class="comment">-----------------+</span></span><br><span class="line">| avg(prod_price) |</span><br><span class="line">+<span class="comment">-----------------+</span></span><br><span class="line">|       16.133571 |</span><br><span class="line">+<span class="comment">-----------------+</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 复杂汇总操作</span></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">count</span>(*) <span class="keyword">as</span> num_items, <span class="keyword">min</span>(prod_price) <span class="keyword">as</span> price_min, <span class="keyword">max</span>(prod_price) <span class="keyword">as</span> price_max, <span class="keyword">avg</span>(prod_price) <span class="keyword">as</span> price_avg <span class="keyword">from</span> products;</span><br><span class="line">+<span class="comment">-----------+-----------+-----------+-----------+</span></span><br><span class="line">| num_items | price_min | price_max | price_avg |</span><br><span class="line">+<span class="comment">-----------+-----------+-----------+-----------+</span></span><br><span class="line">|        14 |      2.50 |     55.00 | 16.133571 |</span><br><span class="line">+<span class="comment">-----------+-----------+-----------+-----------+</span></span><br></pre></td></tr></table></figure>
+<h3 id="分组数据"><a href="#分组数据" class="headerlink" title="分组数据"></a>分组数据</h3><p>MySQL允许对数据进行分组操作，分组允许把数据分为多个逻辑组，以便能对每个组进行聚集计算。</p>
+<ul>
+<li>“group by” 操作符，提供了对数据进行分组的能力。</li>
+<li>“having” 操作符，提供了对分组数据进行过滤的能力。用法和“where”操作符无异，只是“where”操作对象为所有数据，“having”操作对象为分组后的数据。</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 分组查找数据</span></span><br><span class="line"><span class="keyword">select</span> vend_id, <span class="keyword">count</span>(*) <span class="keyword">as</span> num_prods <span class="keyword">from</span> products <span class="keyword">group</span> <span class="keyword">by</span> vend_id;</span><br><span class="line">+<span class="comment">---------+-----------+</span></span><br><span class="line">| vend_id | num_prods |</span><br><span class="line">+<span class="comment">---------+-----------+</span></span><br><span class="line">|    1001 |         3 |</span><br><span class="line">|    1002 |         2 |</span><br><span class="line">|    1003 |         7 |</span><br><span class="line">|    1005 |         2 |</span><br><span class="line">+<span class="comment">---------+-----------+</span></span><br><span class="line"><span class="comment">-- 对分组查找的数据进行过滤操作</span></span><br><span class="line"><span class="keyword">select</span> vend_id, <span class="keyword">count</span>(*) <span class="keyword">as</span> num_prods <span class="keyword">from</span> products <span class="keyword">group</span> <span class="keyword">by</span> vend_id <span class="keyword">having</span> <span class="keyword">count</span>(*)&gt;=<span class="number">2</span>;</span><br><span class="line">+<span class="comment">---------+-----------+</span></span><br><span class="line">| vend_id | num_prods |</span><br><span class="line">+<span class="comment">---------+-----------+</span></span><br><span class="line">|    1001 |         3 |</span><br><span class="line">|    1002 |         2 |</span><br><span class="line">|    1003 |         7 |</span><br><span class="line">|    1005 |         2 |</span><br><span class="line">+<span class="comment">---------+-----------+</span></span><br></pre></td></tr></table></figure>
+<h3 id="子句查询"><a href="#子句查询" class="headerlink" title="子句查询"></a>子句查询</h3><p>mysql支持子查询，就是将嵌套使用select操作。在复杂的数据库操作中，是非常有用的。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 利用子查询进行过滤</span></span><br><span class="line"><span class="keyword">select</span> cust_name,  cust_contact <span class="keyword">from</span> customers <span class="keyword">where</span> cust_id <span class="keyword">in</span> (</span><br><span class="line">    <span class="keyword">select</span> cust_id <span class="keyword">from</span> orders <span class="keyword">where</span> order_num <span class="keyword">in</span> (</span><br><span class="line">        <span class="keyword">select</span> order_num <span class="keyword">from</span> orderitems <span class="keyword">where</span> prod_id=<span class="string">'TNT2'</span>));</span><br><span class="line">+<span class="comment">----------------+--------------+</span></span><br><span class="line">| cust_name      | cust_contact |</span><br><span class="line">+<span class="comment">----------------+--------------+</span></span><br><span class="line">| Coyote Inc.    | Y Lee        |</span><br><span class="line">| Yosemite Place | Y Sam        |</span><br><span class="line">+<span class="comment">----------------+--------------+</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 作为计算字段利用子查询</span></span><br><span class="line"><span class="keyword">select</span> cust_name, cust_state, (</span><br><span class="line">    <span class="keyword">select</span> <span class="keyword">count</span>(*) <span class="keyword">from</span> orders <span class="keyword">where</span> orders.cust_id=customers.cust_id) <span class="keyword">as</span> order_count</span><br><span class="line">    <span class="keyword">from</span> customers <span class="keyword">order</span> <span class="keyword">by</span> cust_name;</span><br><span class="line">+<span class="comment">----------------+------------+-------------+</span></span><br><span class="line">| cust_name      | cust_state | order_count |</span><br><span class="line">+<span class="comment">----------------+------------+-------------+</span></span><br><span class="line">| Coyote Inc.    | MI         |           2 |</span><br><span class="line">| E Fudd         | IL         |           1 |</span><br><span class="line">| Mouse House    | OH         |           0 |</span><br><span class="line">| Wascals        | IN         |           1 |</span><br><span class="line">| Yosemite Place | AZ         |           1 |</span><br><span class="line">+<span class="comment">----------------+------------+-------------+</span></span><br></pre></td></tr></table></figure>
+<h2 id="实验数据"><a href="#实验数据" class="headerlink" title="实验数据"></a>实验数据</h2><p><a href="http://www.forta.com/books/0672327120/mysql_scripts.zip" target="_blank" rel="noopener">Mysql必知必会-实现数据</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/基础/" rel="tag"># 基础</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/20/网络-Https的理解/" rel="next" title="网络-Https的理解">
+                <i class="fa fa-chevron-left"></i> 网络-Https的理解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/29/Node-koa-compose洋葱圈模型介绍/" rel="prev" title="Node-Koa中间件的洋葱圈模型">
+                Node-Koa中间件的洋葱圈模型 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">戴益波</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/AbeDai" target="_blank" title="GitHub">
+                      GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/daiyibo123" target="_blank" title="CSND">
+                      CSND</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#连接数据库"><span class="nav-number">1.</span> <span class="nav-text">连接数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库操作"><span class="nav-number">2.</span> <span class="nav-text">数据库操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#表单操作"><span class="nav-number">3.</span> <span class="nav-text">表单操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查找操作"><span class="nav-number">4.</span> <span class="nav-text">查找操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SELECT子句顺序"><span class="nav-number">4.1.</span> <span class="nav-text">SELECT子句顺序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#控制行数"><span class="nav-number">4.2.</span> <span class="nav-text">控制行数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#排序操作"><span class="nav-number">4.3.</span> <span class="nav-text">排序操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#过滤操作"><span class="nav-number">4.4.</span> <span class="nav-text">过滤操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多条件过滤操作符"><span class="nav-number">4.5.</span> <span class="nav-text">多条件过滤操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通配符过滤"><span class="nav-number">4.6.</span> <span class="nav-text">通配符过滤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正则表达式过滤"><span class="nav-number">4.7.</span> <span class="nav-text">正则表达式过滤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拼接字段"><span class="nav-number">4.8.</span> <span class="nav-text">拼接字段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用别名"><span class="nav-number">4.9.</span> <span class="nav-text">使用别名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用算数计算"><span class="nav-number">4.10.</span> <span class="nav-text">使用算数计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文本处理内置函数"><span class="nav-number">4.11.</span> <span class="nav-text">文本处理内置函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时间处理内置函数"><span class="nav-number">4.12.</span> <span class="nav-text">时间处理内置函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数值处理函数"><span class="nav-number">4.13.</span> <span class="nav-text">数值处理函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#汇总数据"><span class="nav-number">4.14.</span> <span class="nav-text">汇总数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分组数据"><span class="nav-number">4.15.</span> <span class="nav-text">分组数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#子句查询"><span class="nav-number">4.16.</span> <span class="nav-text">子句查询</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实验数据"><span class="nav-number">5.</span> <span class="nav-text">实验数据</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">戴益波</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 Hexo 强力驱动</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

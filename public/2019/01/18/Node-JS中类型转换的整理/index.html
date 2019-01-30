@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/favicon.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="类型转换JS中取值类型非常灵活，在进行算数运算符或比较运算符操作时，常常会进行类型转换操作。最近对类型转换做了系统的梳理。原始值之间的转换规则如下： 对象转换操作对象转换，相比于原始值相互转换要稍微复杂点。在讲解对象转换前，先说两个对象内置的方法： 1234567891011121314151617/** * 默认情况下，toString() -&amp;gt; &quot;[object Object]&quot; * 许">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Node-JS中类型转换的整理">
+<meta property="og:url" content="http://blog.daiyibo.cn/2019/01/18/Node-JS中类型转换的整理/index.html">
+<meta property="og:site_name" content="波波星球">
+<meta property="og:description" content="类型转换JS中取值类型非常灵活，在进行算数运算符或比较运算符操作时，常常会进行类型转换操作。最近对类型转换做了系统的梳理。原始值之间的转换规则如下： 对象转换操作对象转换，相比于原始值相互转换要稍微复杂点。在讲解对象转换前，先说两个对象内置的方法： 1234567891011121314151617/** * 默认情况下，toString() -&amp;gt; &quot;[object Object]&quot; * 许">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://blog.daiyibo.cn/image/js_type.png">
+<meta property="og:updated_time" content="2019-01-27T02:02:08.302Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Node-JS中类型转换的整理">
+<meta name="twitter:description" content="类型转换JS中取值类型非常灵活，在进行算数运算符或比较运算符操作时，常常会进行类型转换操作。最近对类型转换做了系统的梳理。原始值之间的转换规则如下： 对象转换操作对象转换，相比于原始值相互转换要稍微复杂点。在讲解对象转换前，先说两个对象内置的方法： 1234567891011121314151617/** * 默认情况下，toString() -&amp;gt; &quot;[object Object]&quot; * 许">
+<meta name="twitter:image" content="http://blog.daiyibo.cn/image/js_type.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.daiyibo.cn/2019/01/18/Node-JS中类型转换的整理/"/>
+
+
+
+
+
+  <title>Node-JS中类型转换的整理 | 波波星球</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">波波星球</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.daiyibo.cn/2019/01/18/Node-JS中类型转换的整理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="戴益波">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="波波星球">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Node-JS中类型转换的整理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-18T14:51:04+08:00">
+                2019-01-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/后台/" itemprop="url" rel="index">
+                    <span itemprop="name">后台</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h2><p>JS中取值类型非常灵活，在进行算数运算符或比较运算符操作时，常常会进行类型转换操作。最近对类型转换做了系统的梳理。原始值之间的转换规则如下：<br><img src="/image/js_type.png" alt="原始值类型转换"></p>
+<h3 id="对象转换操作"><a href="#对象转换操作" class="headerlink" title="对象转换操作"></a>对象转换操作</h3><p>对象转换，相比于原始值相互转换要稍微复杂点。在讲解对象转换前，先说两个对象内置的方法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 默认情况下，toString() -&gt; "[object Object]"</span></span><br><span class="line"><span class="comment"> * 许多类都继承了toString()方法，例如数组：</span></span><br><span class="line"><span class="comment"> * [1].toString() -&gt; "1"</span></span><br><span class="line"><span class="comment"> * ['1'].toString() -&gt; "1"</span></span><br><span class="line"><span class="comment"> * [1, 2].toString() -&gt; "1, 2"</span></span><br><span class="line"><span class="comment"> * @return 返回一个反映这个对象的字符串</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line">toString() &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 默认情况下， valueOf() -&gt; 对象本身。因为对象是复合值，而且大多数对象无法真正的表示一个原始值</span></span><br><span class="line"><span class="comment"> * 许多类都继承了valueOf()方法，例如日期类：</span></span><br><span class="line"><span class="comment"> * (new Date()).valueOf() -&gt; 1548296513124</span></span><br><span class="line"><span class="comment"> * @return 如果存在任意原始值，它就默认将对象转换为表示它的原始值。</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line">valueOf() &#123;&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="对象到字符串的转换流程"><a href="#对象到字符串的转换流程" class="headerlink" title="对象到字符串的转换流程"></a>对象到字符串的转换流程</h4><ul>
+<li>如果对象具有toString()方法，则调用这个方法。如果他返回一个原始值，JS将这个值转换为字符串（如果本身不是字符串的话），并返回这个字符串结果。</li>
+<li>如果对象没有toString()方法，或者这个方法并不返回这个原始值，那么JS会调用valueOf()方法。如果存在这个方法，则JS调用他。如果返回值是原始值，JS将这个值转换为字符串（如果本身不是字符串的话），并返回这个字符串结果。</li>
+<li>否则，JS无法从toString()或者valueOf()获取一个原始值，因此这时他将抛出一个类型错误异常。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 对象转字符串伪代码</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">obj2String</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">let</span> temp = <span class="literal">null</span>;</span><br><span class="line">  <span class="keyword">if</span> (!!obj.toString) &#123;</span><br><span class="line">    temp = obj.toString();</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> temp === 原始值) &#123;</span><br><span class="line">      <span class="keyword">return</span> 原始值转化规则(temp);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (!!obj.valueOf) &#123;</span><br><span class="line">    temp = obj.valueOf();</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> temp === 原始值) &#123;</span><br><span class="line">      <span class="keyword">return</span> 原始值转化规则(temp);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">throw</span> <span class="built_in">TypeError</span>(<span class="string">'转化失败'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="对象到数值的转换流程"><a href="#对象到数值的转换流程" class="headerlink" title="对象到数值的转换流程"></a>对象到数值的转换流程</h4><ul>
+<li>如果对象具有valueOf()方法，或者返回一个原始值，则JS将这个原始值转换为数字，并返回这个数字。</li>
+<li>否则，如果对象具有toString()方法，后者返回一个原始值，则JS将其转换并返回</li>
+<li>否则，JS抛出一个类型错误异常</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 对象转数值伪代码</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">obj2Number</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">let</span> temp = <span class="literal">null</span>;</span><br><span class="line">  <span class="keyword">if</span> (!!obj.valueOf) &#123;</span><br><span class="line">    temp = obj.valueOf();</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> temp === 原始值) &#123;</span><br><span class="line">      <span class="keyword">return</span> 原始值转化规则(temp);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (!!obj.toString) &#123;</span><br><span class="line">    temp = obj.toString();</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> temp === 原始值) &#123;</span><br><span class="line">      <span class="keyword">return</span> 原始值转化规则(temp);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">throw</span> <span class="built_in">TypeError</span>(<span class="string">'转化失败'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="对象到原始值的转换流程"><a href="#对象到原始值的转换流程" class="headerlink" title="对象到原始值的转换流程"></a>对象到原始值的转换流程</h4><p>在使用“+”，“==”，“!=”和关系运算符是唯一执行这种特殊的字符串到原始值的转换方式的运算符。因为这些运算符不太清楚要将对象转成String还是Number。将对象转成原始值时，会首先尝试调用valueOf()，然后调用toString()。唯一例外的是Date类型，Date类型会首先尝试调用toString()，然后调用valueOf()。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 对象转原始值伪代码</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">obj2OriginalValue</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> obj == <span class="built_in">Date</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!!obj.toString) &#123;</span><br><span class="line">      <span class="keyword">return</span> obj.toString();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (!!obj.valueOf) &#123;</span><br><span class="line">      <span class="keyword">return</span> obj.valueOf();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!!obj.valueOf) &#123;</span><br><span class="line">      <span class="keyword">return</span> obj.valueOf();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (!!obj.toString) &#123;</span><br><span class="line">      <span class="keyword">return</span> obj.toString();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="举例说明"><a href="#举例说明" class="headerlink" title="举例说明"></a>举例说明</h2><h3 id="“-”-操作符功能简介"><a href="#“-”-操作符功能简介" class="headerlink" title="“+” 操作符功能简介"></a>“+” 操作符功能简介</h3><p>操作符的运算优先级为：string &gt; 其他类型</p>
+<ul>
+<li>存在string类型时，其他类型都会转换成string类型，然后进行字符串连接</li>
+<li>不存在string类型时，会尝试将其他类型转换成数字，然后进行数字相加操作</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 存在string类型</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'str+'</span> + <span class="literal">undefined</span>);  <span class="comment">//str+undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'str+'</span> + <span class="literal">null</span>);  <span class="comment">//str+null</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'str+'</span> + <span class="literal">false</span>);  <span class="comment">//str+false</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'str+'</span> + <span class="literal">true</span>);  <span class="comment">//str+true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'str+'</span> + <span class="number">123</span>);  <span class="comment">//str+123</span></span><br><span class="line"><span class="comment">// 不存在string类型</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="literal">undefined</span> + <span class="number">123</span>);  <span class="comment">//NaN</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="literal">undefined</span> + <span class="literal">null</span>);  <span class="comment">//NaN</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="literal">undefined</span> + <span class="literal">false</span>);  <span class="comment">//NaN</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="literal">undefined</span> + <span class="literal">true</span>);  <span class="comment">//NaN</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">123</span> + <span class="literal">null</span>);  <span class="comment">//123</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">123</span> + <span class="literal">false</span>);  <span class="comment">//123</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">123</span> + <span class="literal">true</span>);  <span class="comment">//124</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="literal">null</span> + <span class="literal">true</span>);  <span class="comment">//1</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="literal">null</span> + <span class="literal">false</span>);  <span class="comment">//1</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="literal">true</span> + <span class="literal">false</span>);  <span class="comment">//1</span></span><br></pre></td></tr></table></figure>
+<h3 id="“-”-操作符功能简介-1"><a href="#“-”-操作符功能简介-1" class="headerlink" title="“-” 操作符功能简介"></a>“-” 操作符功能简介</h3><p>基本类型进行“—”操作符运算时，将基本类型转换为数字，然后进行数字相减操作。“*”操作符和“/”操作符类似。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="number">123</span> - <span class="literal">null</span>);  <span class="comment">//123</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">123</span> - <span class="literal">undefined</span>);  <span class="comment">//NaN</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">123</span> - <span class="literal">false</span>); <span class="number">123</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">123</span> - <span class="literal">true</span>);  <span class="comment">//122</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">123</span> - <span class="string">'1'</span>);  <span class="comment">//122</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/13/Node-JS中多进程的应用/" rel="next" title="Node-JS中多进程的应用">
+                <i class="fa fa-chevron-left"></i> Node-JS中多进程的应用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/20/网络-Https的理解/" rel="prev" title="网络-Https的理解">
+                网络-Https的理解 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">戴益波</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/AbeDai" target="_blank" title="GitHub">
+                      GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/daiyibo123" target="_blank" title="CSND">
+                      CSND</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#类型转换"><span class="nav-number">1.</span> <span class="nav-text">类型转换</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#对象转换操作"><span class="nav-number">1.1.</span> <span class="nav-text">对象转换操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#对象到字符串的转换流程"><span class="nav-number">1.1.1.</span> <span class="nav-text">对象到字符串的转换流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对象到数值的转换流程"><span class="nav-number">1.1.2.</span> <span class="nav-text">对象到数值的转换流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对象到原始值的转换流程"><span class="nav-number">1.1.3.</span> <span class="nav-text">对象到原始值的转换流程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#举例说明"><span class="nav-number">2.</span> <span class="nav-text">举例说明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#“-”-操作符功能简介"><span class="nav-number">2.1.</span> <span class="nav-text">“+” 操作符功能简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#“-”-操作符功能简介-1"><span class="nav-number">2.2.</span> <span class="nav-text">“-” 操作符功能简介</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">戴益波</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 Hexo 强力驱动</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
