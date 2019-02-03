@@ -1024,7 +1024,7 @@ pre .javascript .function {
   margin-right: 0;
 }
 .pagination .page-number.current {
-  color: #fff;
+  color: #000000;
   background: transparent;
   border-top-color: transparent;
 }
