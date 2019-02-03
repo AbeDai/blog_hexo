@@ -22,8 +22,8 @@
   <div class="{{ container_class }} {% block page_class %}{% endblock %}">
     <div class="headband"></div>
 
-    <div style="position:absolute; right:0px; width:80px; height:135px;"> 
-      <a href="https://github.com/AbeDai/blog_hexo"><img width="80" height="135" src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png"  class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"/></a>
+    <div class="github-screen" style="position:absolute; right:0px; width:80px; height:135px;"> 
+      <a href="https://github.com/AbeDai/blog_hexo"><img width="80" height="135" src="http://blog.daiyibo.cn/github.png"  class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"/></a>
     </div> 
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
