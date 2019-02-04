@@ -1176,7 +1176,10 @@
   top: 0;
   right: 2em;
 }
-.gt-comment-like .gt-comment-edit {
+.gt-comment-like {
+  border-bottom: 0px solid #fff;
+}
+.gt-comment-edit {
   border-bottom: 0px solid #fff;
 }
 .gt-container .gt-comment-edit,
