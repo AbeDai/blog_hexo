@@ -705,6 +705,7 @@
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
 
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
 
    <script type="text/javascript">
         var gitalk = new Gitalk({
@@ -713,7 +714,7 @@
           repo: 'blog_hexo',
           owner: 'AbeDai',
           admin: ['AbeDai'],
-          id: location.pathname,
+          id: md5(location.pathname),
           labels: 'gitalk'.split(',').filter(l => l),
           perPage: 15,
           pagerDirection: 'last',
