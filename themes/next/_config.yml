@@ -812,3 +812,18 @@ images: images
 
 # Theme version
 version: 5.1.4
+
+# gitalk评论系统
+gitalk:
+  enable: true
+  ClientID: 6dbf18957525ca655262
+  ClientSecret: afa5556ced55809bf1ab29816432f15bd29ad107
+  repo: blog_hexo
+  owner: AbeDai
+  adminUser: AbeDai
+  ID: location.pathname
+  labels: gitalk
+  perPage: 15
+  pagerDirection: last
+  createIssueManually: true
+  distractionFreeMode: false
