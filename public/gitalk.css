@@ -1131,8 +1131,8 @@
   transition: all ease 0.25s;
 }
 .gt-container .gt-comment-content:hover {
-  -webkit-box-shadow: 0 0.625em 3.75em 0 #141313;
-          box-shadow: 0 0.625em 3.75em 0 #141313;
+  -webkit-box-shadow: 0 0.625em 3.75em 0 #D1C9BF;
+          box-shadow: 0 0.625em 3.75em 0 #D1C9BF;
 }
 @media (max-width: 479px) {
   .gt-container .gt-comment-content {
@@ -1175,6 +1175,9 @@
 .gt-container .gt-comment-like {
   top: 0;
   right: 2em;
+}
+.gt-comment-like {
+  border-bottom: 0px solid #fff;
 }
 .gt-container .gt-comment-edit,
 .gt-container .gt-comment-reply {
