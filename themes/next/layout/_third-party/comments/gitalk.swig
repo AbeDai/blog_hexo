@@ -1,6 +1,6 @@
 {% if page.comments && theme.gitalk.enable %}
 
-  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <link rel="stylesheet" href="http://blog.daiyibo.cn/gitalk.css">
 
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
   <script src="/js/src/md5.min.js"></script>
