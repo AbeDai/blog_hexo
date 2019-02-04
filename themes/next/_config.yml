@@ -822,7 +822,8 @@ gitalk:
   owner: AbeDai
   adminUser: AbeDai
   ID: location.pathname
-  labels: gitalk
+  labels:
+    - gitalk
   perPage: 15
   pagerDirection: last
   createIssueManually: true
