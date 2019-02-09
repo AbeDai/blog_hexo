@@ -630,7 +630,7 @@ select prod_name, vend_name, prod_price, quantity from orderitems, products, ven
 +----------------+-------------+------------+----------+
 
 -- 自联结
-select p1.* from products as p1, products as p2 where p1.vend_id=p2.vend_id and p1.prod_id='DTNTR';
+select p2.* from products as p1, products as p2 where p1.vend_id=p2.vend_id and p1.prod_id='DTNTR';
 +---------+---------+-----------+------------+-------------------------------------------------+
 | prod_id | vend_id | prod_name | prod_price | prod_desc                                       |
 +---------+---------+-----------+------------+-------------------------------------------------+
