@@ -82,7 +82,7 @@ Objective建议是2~5个，Key Result建议是2~4个
 
 ### OKR与邮件相关联
 
-![](/image/okr_email.gif)
+![](/image/okr_email.jpeg)
 
 ### 避开OKR中常见的坑
 - 设置多个目标：如果你设置了过多的目标，所有人都不会记得公司的目标到底是什么。
