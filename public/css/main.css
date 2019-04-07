@@ -1024,7 +1024,7 @@ pre .javascript .function {
   margin-right: 0;
 }
 .pagination .page-number.current {
-  color: #000000;
+  color: #000;
   background: transparent;
   border-top-color: transparent;
 }
@@ -1096,6 +1096,11 @@ pre .javascript .function {
 }
 .header-inner {
   position: relative;
+}
+@media screen and (max-width: 767px) {
+  .github-screen {
+    display: none;
+  }
 }
 .headband {
   height: 3px;
@@ -1803,7 +1808,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ff54b4;
+  background: #7ceb40;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -1980,6 +1985,14 @@ pre .javascript .function {
 }
 .cc-license img {
   display: inline-block;
+}
+.gt-header a,
+.gt-comments a,
+.gt-popup a {
+  border-bottom: none;
+}
+.gt-container .gt-popup .gt-action.is--active:before {
+  top: 0.7em;
 }
 .theme-next #ds-thread #ds-reset {
   color: #555;
