@@ -15,7 +15,7 @@ categories: 客户端
 
 持续集成的目的，就是让产品可以快速迭代，同时还能保持高质量。它的核心措施是，代码集成到主干之前，必须通过自动化测试。只要有一个测试用例失败，就不能集成。
 
-> [持续集成是什么？](http://www.ruanyifeng.com/blog/2015/09/continuous-integration.html)<br>
+> [持续集成是什么？](http://www.ruanyifeng.com/blog/2015/09/continuous-integration.html)
 > [如何理解持续集成、持续交付、持续部署？](https://www.zhihu.com/question/23444990)
 
 
