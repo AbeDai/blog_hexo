@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://blog.daiyibo.cn/2019/05/08/Git-git-config%E4%BD%BF%E7%94%A8%E4%BB%8B%E7%BB%8D/</loc>
+    <lastmod>2019-05-08</lastmod>
+  </url>  <url>
+    <loc>http://blog.daiyibo.cn/2019/02/04/%E7%BB%84%E7%BB%87%E7%AE%A1%E7%90%86-%E8%B0%88%E8%B0%88%E6%88%91%E5%AF%B9OKR%E7%9A%84%E7%90%86%E8%A7%A3/</loc>
+    <lastmod>2019-05-06</lastmod>
+  </url>  <url>
+    <loc>http://blog.daiyibo.cn/2019/04/15/Git-%E6%96%87%E4%BB%B6%E5%A4%A7%E5%B0%8F%E5%86%99%E8%A1%A5%E6%BC%8F/</loc>
+    <lastmod>2019-04-15</lastmod>
+  </url>  <url>
+    <loc>http://blog.daiyibo.cn/2019/03/22/Android-%E6%90%AD%E5%BB%BAJenkins%E6%9C%8D%E5%8A%A1%E6%B5%81%E7%A8%8B/</loc>
+    <lastmod>2019-04-10</lastmod>
+  </url>  <url>
     <loc>http://blog.daiyibo.cn/2019/03/22/Android-Debug%E8%B0%83%E8%AF%95%E5%8E%9F%E7%90%86/</loc>
     <lastmod>2019-03-25</lastmod>
   </url>  <url>
@@ -9,9 +21,6 @@
   </url>  <url>
     <loc>http://blog.daiyibo.cn/2019/02/20/Java-%E7%90%86%E8%A7%A3Boolean%E5%AF%B9-%E6%93%8D%E4%BD%9C%E7%AC%A6%E7%9A%84%E4%BD%BF%E7%94%A8/</loc>
     <lastmod>2019-02-20</lastmod>
-  </url>  <url>
-    <loc>http://blog.daiyibo.cn/2019/02/04/%E7%BB%84%E7%BB%87%E7%AE%A1%E7%90%86-%E8%B0%88%E8%B0%88%E6%88%91%E5%AF%B9OKR%E7%9A%84%E7%90%86%E8%A7%A3/</loc>
-    <lastmod>2019-02-09</lastmod>
   </url>  <url>
     <loc>http://blog.daiyibo.cn/2019/01/24/%E6%95%B0%E6%8D%AE%E5%BA%93-MySql%E6%93%8D%E4%BD%9C%E5%A4%A7%E5%85%A8/</loc>
     <lastmod>2019-02-04</lastmod>

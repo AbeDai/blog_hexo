@@ -3,6 +3,57 @@
   
     
     <entry>
+      <title>Git-git config使用介绍</title>
+      <link href="/2019/05/08/Git-git-config%E4%BD%BF%E7%94%A8%E4%BB%8B%E7%BB%8D/"/>
+      <url>/2019/05/08/Git-git-config%E4%BD%BF%E7%94%A8%E4%BB%8B%E7%BB%8D/</url>
+      
+        <content type="html"><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Git 提供了一个叫做 git config 的工具。主要用来配置或者读取相应的环境变量。而这些环境变量，决定了 Git 在各个环节的具体工作方式和行为。</p><h2 id="配置文件的位置"><a href="#配置文件的位置" class="headerlink" title="配置文件的位置"></a>配置文件的位置</h2><p>git config 文件的存放位置主要有三个处：</p><ul><li><strong>./etc/gitconfig 文件</strong>：包含了适用于系统所有用户和所有Git仓库的值。可以通过传递 <code>--system</code> 使 Git 读或写这个特定的文件。</li><li><strong>~/.gitconfig 文件</strong>：具体到当前用户和当前用户Git仓库的值。可以通过传递 <code>--global</code> 使 Git 读或写这个特定的文件。</li><li><strong>gitDir/.git/config 文件</strong>：特定指向工作区的单一的Git仓库。每个级别重写前一个级别的值。</li></ul><p>覆盖规则如下：</p><ul><li>gitDir/.git/config -&gt; ~/.gitconfig -&gt; ./etc/gitconfig</li></ul><h2 id="查看当前Git仓库配置"><a href="#查看当前Git仓库配置" class="headerlink" title="查看当前Git仓库配置"></a>查看当前Git仓库配置</h2><p>如果你想查看当前Git仓库的配置，你可以使用 <code>git config --list</code> 命令来列出Git在该处找到的所有的设置:</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">daiyibodeMacBook-Pro:maven-upload-tool daiyibo$ git config --list</span><br><span class="line">user.name=daiyibo</span><br><span class="line">user.email=daiyibo@souche.com</span><br><span class="line">core.autocrlf=input</span><br><span class="line">core.excludesfile=/Users/daiyibo/.gitignore_global</span><br><span class="line">difftool.sourcetree.cmd=opendiff "$LOCAL" "$REMOTE"</span><br><span class="line">difftool.sourcetree.path=</span><br><span class="line">mergetool.sourcetree.cmd=/Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh "$LOCAL" "$REMOTE" -ancestor "$BASE" -merge "$MERGED"</span><br><span class="line">mergetool.sourcetree.trustexitcode=true</span><br><span class="line">color.ui=auto</span><br><span class="line">core.repositoryformatversion=0</span><br><span class="line">core.filemode=true</span><br><span class="line">core.bare=false</span><br><span class="line">core.logallrefupdates=true</span><br><span class="line">core.ignorecase=true</span><br><span class="line">core.precomposeunicode=true</span><br><span class="line">remote.origin.url=git@git.souche-inc.com:souche-wireless-architecture/Pakun/maven-upload-tool.git</span><br><span class="line">remote.origin.fetch=+refs/heads/*:refs/remotes/origin/*</span><br><span class="line">branch.master.remote=origin</span><br><span class="line">branch.master.merge=refs/heads/master</span><br></pre></td></tr></table></figure><h2 id="调整-git-config文件"><a href="#调整-git-config文件" class="headerlink" title="调整.git/config文件"></a>调整.git/config文件</h2><p>调整git仓库是否支持大小写，其实是在<code>gitDir/.git/config</code>下修改了配置项</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">daiyibodeMacBook-Pro:maven-upload-tool daiyibo$ cat .git/config | grep "ignorecase"</span><br><span class="line">ignorecase = true</span><br><span class="line">daiyibodeMacBook-Pro:maven-upload-tool daiyibo$ git config core.ignorecase false</span><br><span class="line">daiyibodeMacBook-Pro:maven-upload-tool daiyibo$ cat .git/config | grep "ignorecase"</span><br><span class="line">ignorecase = false</span><br></pre></td></tr></table></figure><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://blog.csdn.net/gdutxiaoxu/article/details/79253737" target="_blank" rel="noopener">https://blog.csdn.net/gdutxiaoxu/article/details/79253737</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 基础 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    <entry>
+      <title>Git-文件大小写补漏</title>
+      <link href="/2019/04/15/Git-%E6%96%87%E4%BB%B6%E5%A4%A7%E5%B0%8F%E5%86%99%E8%A1%A5%E6%BC%8F/"/>
+      <url>/2019/04/15/Git-%E6%96%87%E4%BB%B6%E5%A4%A7%E5%B0%8F%E5%86%99%E8%A1%A5%E6%BC%8F/</url>
+      
+        <content type="html"><![CDATA[<h2 id="怎么解决Git文件大小？"><a href="#怎么解决Git文件大小？" class="headerlink" title="怎么解决Git文件大小？"></a>怎么解决Git文件大小？</h2><h3 id="使用Git-MV-★★★"><a href="#使用Git-MV-★★★" class="headerlink" title="使用Git MV ★★★"></a>使用Git MV ★★★</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git mv xxx.file XXX.file</span><br></pre></td></tr></table></figure><h3 id="手动修改-★★"><a href="#手动修改-★★" class="headerlink" title="手动修改 ★★"></a>手动修改 ★★</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 删除原文件</span><br><span class="line">git rm xxx.file</span><br><span class="line">// 修改文件名，大小写进行区分</span><br><span class="line">mv xxx.file XXX.file</span><br><span class="line">// 提交新文件</span><br><span class="line">git add XXX.file</span><br></pre></td></tr></table></figure><h3 id="配置Git仓库-★"><a href="#配置Git仓库-★" class="headerlink" title="配置Git仓库 ★"></a>配置Git仓库 ★</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 关闭忽略大小写配置</span><br><span class="line">git config core.ignorecase false</span><br><span class="line">// 打开忽略大小写配置</span><br><span class="line">git config core.ignorecase true</span><br></pre></td></tr></table></figure><h2 id="git为什么默认不区分文件大小写？"><a href="#git为什么默认不区分文件大小写？" class="headerlink" title="git为什么默认不区分文件大小写？"></a>git为什么默认不区分文件大小写？</h2><p>macOS 默认是『 Mac OS 扩展（日志式）』格式的磁盘，这个是不区分大小写的，而 Linux 是区分大小写的，所以其实还是要注意这个方面把。</p><p>另外你可以把磁盘抹成『 Mac OS 扩展（区分大小写，日志式）』，但是有些软件可能就挂了，所以还是别瞎折腾了。</p><p>可以通过 git mv 操作来避免 git 未识别：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git mv myfolder tmp</span><br><span class="line">git mv tmp MyFolder</span><br></pre></td></tr></table></figure><p>你也可以修改 git config 来达到区分大小写：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config core.ignorecase false</span><br></pre></td></tr></table></figure><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.cnblogs.com/haojiahong/p/5594257.html" target="_blank" rel="noopener">https://www.cnblogs.com/haojiahong/p/5594257.html</a><br><a href="https://www.zhihu.com/question/57779034" target="_blank" rel="noopener">https://www.zhihu.com/question/57779034</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 基础 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    <entry>
+      <title>Android-搭建Jenkins服务流程</title>
+      <link href="/2019/03/22/Android-%E6%90%AD%E5%BB%BAJenkins%E6%9C%8D%E5%8A%A1%E6%B5%81%E7%A8%8B/"/>
+      <url>/2019/03/22/Android-%E6%90%AD%E5%BB%BAJenkins%E6%9C%8D%E5%8A%A1%E6%B5%81%E7%A8%8B/</url>
+      
+        <content type="html"><![CDATA[<h2 id="持续集成简介"><a href="#持续集成简介" class="headerlink" title="持续集成简介"></a>持续集成简介</h2><p>持续集成指的是，频繁地（一天多次）将代码集成到主干。</p><p>它的好处主要有两个。</p><ol><li>快速发现错误。每完成一点更新，就集成到主干，可以快速发现错误，定位错误也比较容易。</li><li>防止分支大幅偏离主干。如果不是经常集成，主干又在不断更新，会导致以后集成的难度变大，甚至难以集成。</li></ol><p>持续集成的目的，就是让产品可以快速迭代，同时还能保持高质量。它的核心措施是，代码集成到主干之前，必须通过自动化测试。只要有一个测试用例失败，就不能集成。</p><blockquote><p><a href="http://www.ruanyifeng.com/blog/2015/09/continuous-integration.html" target="_blank" rel="noopener">持续集成是什么？</a><br><a href="https://www.zhihu.com/question/23444990" target="_blank" rel="noopener">如何理解持续集成、持续交付、持续部署？</a></p></blockquote><h2 id="Jenkins安装篇"><a href="#Jenkins安装篇" class="headerlink" title="Jenkins安装篇"></a>Jenkins安装篇</h2><ul><li>安装Java运行环境：Jenkins的运行依赖Java环境，所以在安装Jenkins之前必须要安装JDK或JRE</li><li><p>安装Jenkins工具：在mac上安装Jenkins服务极其简单，只需要下载<a href="https://jenkins.io/download/" target="_blank" rel="noopener">Jenkins安装包</a>，双击安装即可</p></li><li><p>启动和停止Jenkins服务</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 启动Jenkins</span><br><span class="line">sudo launchctl load /Library/LaunchDaemons/org.jenkins-ci.plist</span><br><span class="line">// 终止Jenkins</span><br><span class="line">sudo launchctl unload /Library/LaunchDaemons/org.jenkins-ci.plist</span><br></pre></td></tr></table></figure></li></ul><h2 id="Jenkins配置Android项目"><a href="#Jenkins配置Android项目" class="headerlink" title="Jenkins配置Android项目"></a>Jenkins配置Android项目</h2><ul><li>全局配置android环境，gradle环境，java环境</li><li>配置Git仓库地址</li><li>编写构建Android项目脚本</li><li>编译后文件存档</li></ul><blockquote><p><a href="https://blog.csdn.net/it_talk/article/details/50261229" target="_blank" rel="noopener">Jenkins配置Android项目</a></p></blockquote><h2 id="Jenkins搭建分布式构建"><a href="#Jenkins搭建分布式构建" class="headerlink" title="Jenkins搭建分布式构建"></a>Jenkins搭建分布式构建</h2><ul><li>配置ssh秘钥</li><li>通过ssh建立master与slave之间的关联</li><li>启动节点</li><li>将构建任务分配给slave节点执行</li></ul><blockquote><p><a href="https://blog.csdn.net/jiang1986829/article/details/51141731" target="_blank" rel="noopener">Jenkins创建slave节点-Linux平台</a></p></blockquote><h2 id="Jenkins自动化测试（Sonarqueb）"><a href="#Jenkins自动化测试（Sonarqueb）" class="headerlink" title="Jenkins自动化测试（Sonarqueb）"></a>Jenkins自动化测试（Sonarqueb）</h2><ul><li>安装Sonarqube工具</li><li>配置mysql数据库</li><li>加入扫描插件</li><li>配置jenkins构建工程，加入sonarqueb步骤</li><li>构建，产生报表</li></ul><blockquote><p><a href="https://yq.aliyun.com/articles/541761" target="_blank" rel="noopener">Jenkins+Sonarqueb进行自动化测试和代码质量检测</a></p></blockquote><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://daiyibo.oss-cn-hongkong.aliyuncs.com/blog_file/Jenkins%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%40www.jqhtml.com.pdf" target="_blank" rel="noopener">Jenkins权威指南</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 客户端 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    <entry>
       <title>Android-Debug调试原理</title>
       <link href="/2019/03/22/Android-Debug%E8%B0%83%E8%AF%95%E5%8E%9F%E7%90%86/"/>
       <url>/2019/03/22/Android-Debug%E8%B0%83%E8%AF%95%E5%8E%9F%E7%90%86/</url>
