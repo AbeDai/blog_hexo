@@ -4,8 +4,6 @@ date: 2019-05-04 13:21:27
 tags: 客户端
 ---
 
-TODO: 还没写好
-
 ## Gradle 常用操作
 - **doFirst**：任务最先执行的action
 - **doLast**：任务最后执行的action
@@ -180,15 +178,9 @@ Gradle生命周期有三个阶段，分别是：实例化阶段->配置阶段->�
 参考：http://docs.groovy-lang.org/latest/html/documentation/core-domain-specific-languages.html
 参考：https://www.jianshu.com/p/ae10f75b37cf
 
-# @daiyibo 理解groovy的闭包，并将maven上传的闭包都改成java代码来实现。
-看看maven的闭包是怎么实现的。然后简单探究下。稍微深入一下。
-
 # gradle执行Android app运行任务的原理
-<img width="600" src="/image/gradle_android_build_flow.jpg">
-https://developer.android.com/studio/build
-https://blog.csdn.net/qq_23012315/article/details/74230956
-http://www.androiddocs.com/tools/building/plugin-for-gradle.html
-https://www.imooc.com/article/41609
+参考：https://mp.weixin.qq.com/s/aqo6ueTUxEOdGx5tyzQrPQ
+参考：https://mp.weixin.qq.com/s/DzuLtqx_CBFm9tJos9j2Ag
 
 ## 参考
 Gradle核心思想：http://liuwangshu.cn/tags/Gradle%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3/
