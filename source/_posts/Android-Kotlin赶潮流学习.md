@@ -51,13 +51,29 @@ dependencies {
 }
 ```
 
-## kotlin-android-extensions介绍（意义不大）
-Kotlin Android Extensions是Kotlin官方推出的简化Android开发的Gradle插件，目前主要针对如下几种场景：
+## 插件 kotlin-android-extensions 介绍
+Kotlin Android Extensions是Kotlin官方推出的简化Android开发的Gradle插件。目前主要针对如下几种场景：
 - View Binding：即UI绑定，不需要再依赖其它library(如butterknife)，即可实现UI绑定
 - View Caching：UI缓存，内置已实现了UI的缓存策略
 - Parcelable：使用注解即可实现Android的Parcelable序列化
 
+**注: 个人感觉这个插件意义不大**
 
+## Kotlin在编译时对比
+
+通过编译任务对比，发现`kotlin-android`为编译任务多添加了一个`compileXXXXKotlin`任务。该任务的目标是将kotlin代码编译成jvm字节码
+![](/image/android_kotlin_compare_1.png)
+
+源码版本为 `kotlin-gradle-plugin:1.3.31`
+
+插件 `kotlin-android` 定义
+```
+// kotlin-android.properties
+implementation-class=org.jetbrains.kotlin.gradle.plugin.KotlinAndroidPluginWrapper
+```
+
+Kotlin编译 `compileXXXXKotlin` 任务
+实现类为 org.jetbrains.kotlin.gradle.tasks.Tasks.kt 内部类 KotlinCompile
 
 ## 参考
 https://droidyue.com/blog/2017/05/08/how-to-study-kotlin/
