@@ -1,7 +1,7 @@
 ---
 title: Node-JS中的EventEmitter订阅发布
 date: 2019-01-01 10:50:01
-categories: 后台
+categories: 全栈
 ---
 
 ## 简介

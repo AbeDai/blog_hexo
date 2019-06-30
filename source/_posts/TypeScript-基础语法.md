@@ -1,7 +1,7 @@
 ---
 title: TypeScript-基础语法
 date: 2019-06-11 08:18:22
-tags:
+tags: 全栈
 ---
 
 ## 简介

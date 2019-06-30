@@ -1,7 +1,7 @@
 ---
 title: 组织管理-GMTC参会有感
 date: 2019-06-21 13:46:06
-categories: 工作
+categories: 成长
 ---
 
 ![成长方向](/image/gmtc_growing.png)

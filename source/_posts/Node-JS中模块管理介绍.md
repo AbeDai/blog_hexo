@@ -1,7 +1,7 @@
 ---
 title: Node-JS中模块管理介绍
 date: 2018-12-16 13:21:10
-categories: 后台
+categories: 全栈
 ---
 
 ## exports、module.exports、require的使用介绍
