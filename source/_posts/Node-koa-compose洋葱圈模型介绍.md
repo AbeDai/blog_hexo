@@ -1,16 +1,18 @@
 ---
 title: Node-Koa中间件的洋葱圈模型
 date: 2019-01-29 20:33:25
-tags: 全栈
+categories: 全栈
 ---
 
-## Koa洋葱圈模型
-Koa的中间件选择了洋葱圈模型。中间件结构如下所示：
+## Koa 洋葱圈模型
+
+Koa 的中间件选择了洋葱圈模型。中间件结构如下所示：
 ![](/image/koa_middleware.png)
 
 所有的请求经过一个中间件的时候都会执行两次，Koa 的洋葱圈模型可以非常方便的实现后置处理逻辑。
 
-## Koa洋葱圈实例
+## Koa 洋葱圈实例
+
 ```javascript
 const Koa = require('koa');
 
@@ -47,10 +49,12 @@ app.listen(3000);
 ```
 
 ## 源码分析
-本文重点在于讲解koa中间件的洋葱圈模型。因此，会省略部分无关代码。
 
-#### koa.use方法
-use方法，为声明中间件的方法，将中间件存储在middleware数组中。
+本文重点在于讲解 koa 中间件的洋葱圈模型。因此，会省略部分无关代码。
+
+#### koa.use 方法
+
+use 方法，为声明中间件的方法，将中间件存储在 middleware 数组中。
 
 ```javascript
 use(fn) {
@@ -62,8 +66,9 @@ use(fn) {
   }
 ```
 
-#### koa.listen方法
-listen方法，为启动http-server的简便操作。关键操作还是在callback方法上。
+#### koa.listen 方法
+
+listen 方法，为启动 http-server 的简便操作。关键操作还是在 callback 方法上。
 
 ```javascript
 listen(...args) {
@@ -73,8 +78,9 @@ listen(...args) {
   }
 ```
 
-#### koa.callback方法
-callback方法，返回参数为(req, res)的方法，每次http-server发生回调时，都会调用callback方法。因此，callback方法才是真正的koa执行http-server的源头。
+#### koa.callback 方法
+
+callback 方法，返回参数为(req, res)的方法，每次 http-server 发生回调时，都会调用 callback 方法。因此，callback 方法才是真正的 koa 执行 http-server 的源头。
 
 ```javascript
 callback() {
@@ -90,15 +96,16 @@ callback() {
   }
 ```
 
-#### koa-compose的compose方法
-compose方法，主要作用是将中间件数组，包装成了洋葱圈模型中间件。
+#### koa-compose 的 compose 方法
+
+compose 方法，主要作用是将中间件数组，包装成了洋葱圈模型中间件。
 
 ```javascript
-function compose (middleware) {
+function compose(middleware) {
   // 校验middleware格式，必须为数组，子元素必须为方法
-  if (!Array.isArray(middleware)) throw new TypeError('Middleware stack must be an array!')
+  if (!Array.isArray(middleware)) throw new TypeError('Middleware stack must be an array!');
   for (const fn of middleware) {
-    if (typeof fn !== 'function') throw new TypeError('Middleware must be composed of functions!')
+    if (typeof fn !== 'function') throw new TypeError('Middleware must be composed of functions!');
   }
 
   /**
@@ -107,31 +114,32 @@ function compose (middleware) {
    * @api public
    */
 
-  return function (context, next) {
+  return function(context, next) {
     // last called middleware #
-    let index = -1
-    return dispatch(0)
-    function dispatch (i) {
+    let index = -1;
+    return dispatch(0);
+    function dispatch(i) {
       // 正常情况下， index 永远小于 i，除非next()被多次调用。
-      if (i <= index) return Promise.reject(new Error('next() called multiple times'))
-      index = i
-      let fn = middleware[i]
+      if (i <= index) return Promise.reject(new Error('next() called multiple times'));
+      index = i;
+      let fn = middleware[i];
       // 如果next参数存在，则next方法在最后调用。
-      if (i === middleware.length) fn = next
-      if (!fn) return Promise.resolve()
+      if (i === middleware.length) fn = next;
+      if (!fn) return Promise.resolve();
       try {
-      	// 递归调用dispatch方法实现从中间件数组到洋葱圈模型中间件的转变。
+        // 递归调用dispatch方法实现从中间件数组到洋葱圈模型中间件的转变。
         return Promise.resolve(fn(context, dispatch.bind(null, i + 1)));
       } catch (err) {
-        return Promise.reject(err)
+        return Promise.reject(err);
       }
     }
-  }
+  };
 }
 ```
 
-#### koa.handleRequest方法
-handleRequest方法，消费洋葱圈模型中间件。
+#### koa.handleRequest 方法
+
+handleRequest 方法，消费洋葱圈模型中间件。
 
 ```javascript
 handleRequest(ctx, fnMiddleware) {
@@ -145,8 +153,7 @@ handleRequest(ctx, fnMiddleware) {
   }
 ```
 
-
 ## 参考
+
 https://eggjs.org/zh-cn/intro/egg-and-koa.html
 https://www.jianshu.com/p/5d0f1d9ef746
-

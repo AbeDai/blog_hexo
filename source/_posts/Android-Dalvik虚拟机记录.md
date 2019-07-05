@@ -1,7 +1,7 @@
 ---
 title: Android-Dalvik虚拟机记录
 date: 2019-04-07 14:33:37
-tags: 客户端
+categories: 客户端
 ---
 
 ## LocalSocket 介绍

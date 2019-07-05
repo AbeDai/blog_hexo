@@ -1,50 +1,48 @@
 ---
 title: 数据库-MySql操作大全
 date: 2019-01-24 19:58:22
-tags: 基础
+categories: 基础
 ---
 
 ## 数据类型介绍
 
 ### 数值类型
 
-| 类型 | 大小 | 范围 | 详情 |
-| ----- | ----- | ----- | ----- |
-| TINYINT |	1 字节 | 有符号:(-128，127) </br>无符号:(0，255) |	极小整数值 |
-| SMALLINT | 2 字节 | 有符号:(-32 768，32 767) </br>无符号:(0，65 535) | 小整数值 |
-| MEDIUMINT | 3 字节 | 有符号:(-8 388 608，8 388 607) </br>无符号:(0，16 777 215) | 中等整数值 |
-| INT或INTEGER | 4 字节 | 有符号:(-2 147 483 648，2 147 483 647) </br>无符号:(0，4 294 967 295) | 大整数值 | 
-| BIGINT | 8 字节 | 有符号:(-9,223,372,036,854,775,808，9 223 372 036 854 775 807) </br>无符号:(0，18 446 744 073 709 551 615) | 极大整数值| 
-| FLOAT | 4 字节 | 有符号:(-3.402 823 466 E+38，-1.175 494 351 E-38)，0，(1.175 494 351 E-38，3.402 823 466 351 E+38) </br>无符号:0，(1.175 494 351 E-38，3.402 823 466 E+38) | 单精度浮点数值 | 
-| DOUBLE | 8 字节 | 有符号:(-1.797 693 134 862 315 7 E+308，-2.225 073 858 507 201 4 E-308)，0，(2.225 073 858 507 201 4 E-308，1.797 693 134 862 315 7 E+308) </br>无符号:0，(2.225 073 858 507 201 4 E-308，1.797 693 134 862 315 7 E+308) | 双精度浮点数值 |
-| DECIMAL | 对DECIMAL(M,D) ，如果M>D，为M+2否则为D+2 | 依赖于M和D的值 | 小数值 |
+| 类型           | 大小                                          | 范围                                                                                                                                                                                                                     | 详情           |
+| -------------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------- |
+| TINYINT        | 1 字节                                        | 有符号:(-128，127) </br>无符号:(0，255)                                                                                                                                                                                  | 极小整数值     |
+| SMALLINT       | 2 字节                                        | 有符号:(-32 768，32 767) </br>无符号:(0，65 535)                                                                                                                                                                         | 小整数值       |
+| MEDIUMINT      | 3 字节                                        | 有符号:(-8 388 608，8 388 607) </br>无符号:(0，16 777 215)                                                                                                                                                               | 中等整数值     |
+| INT 或 INTEGER | 4 字节                                        | 有符号:(-2 147 483 648，2 147 483 647) </br>无符号:(0，4 294 967 295)                                                                                                                                                    | 大整数值       |
+| BIGINT         | 8 字节                                        | 有符号:(-9,223,372,036,854,775,808，9 223 372 036 854 775 807) </br>无符号:(0，18 446 744 073 709 551 615)                                                                                                               | 极大整数值     |
+| FLOAT          | 4 字节                                        | 有符号:(-3.402 823 466 E+38，-1.175 494 351 E-38)，0，(1.175 494 351 E-38，3.402 823 466 351 E+38) </br>无符号:0，(1.175 494 351 E-38，3.402 823 466 E+38)                                                               | 单精度浮点数值 |
+| DOUBLE         | 8 字节                                        | 有符号:(-1.797 693 134 862 315 7 E+308，-2.225 073 858 507 201 4 E-308)，0，(2.225 073 858 507 201 4 E-308，1.797 693 134 862 315 7 E+308) </br>无符号:0，(2.225 073 858 507 201 4 E-308，1.797 693 134 862 315 7 E+308) | 双精度浮点数值 |
+| DECIMAL        | 对 DECIMAL(M,D) ，如果 M>D，为 M+2 否则为 D+2 | 依赖于 M 和 D 的值                                                                                                                                                                                                       | 小数值         |
 
 ### 日期和时间类型
 
-| 类型 | 大小 | 范围 | 格式 | 详情 |
-| ----- | ----- | ----- | ----- | ----- |
-| DATE | 3字节 | 1000-01-01 到 9999-12-31 | YYYY-MM-DD | 日期值 |
-| TIME | 3字节 | -838:59:59 到 838:59:59 | HH:MM:SS | 时间值或持续时间 |
-| YEAR | 1字节 | 1901 到 2155 | YYYY | 年份值
-| DATETIME | 8字节 | 1000-01-01 00:00:00 到 9999-12-31 23:59:59 | YYYY-MM-DD HH:MM:SS | 混合日期和时间值 |
-| TIMESTAMP | 4字节 | 1970-01-01 00:00:00 到 2038年1月19日 凌晨 03:14:07（格林尼治时间）   | YYYYMMDD HHMMSS | 混合日期和时间值，时间戳 |
-
+| 类型      | 大小   | 范围                                                                    | 格式                | 详情                     |
+| --------- | ------ | ----------------------------------------------------------------------- | ------------------- | ------------------------ |
+| DATE      | 3 字节 | 1000-01-01 到 9999-12-31                                                | YYYY-MM-DD          | 日期值                   |
+| TIME      | 3 字节 | -838:59:59 到 838:59:59                                                 | HH:MM:SS            | 时间值或持续时间         |
+| YEAR      | 1 字节 | 1901 到 2155                                                            | YYYY                | 年份值                   |
+| DATETIME  | 8 字节 | 1000-01-01 00:00:00 到 9999-12-31 23:59:59                              | YYYY-MM-DD HH:MM:SS | 混合日期和时间值         |
+| TIMESTAMP | 4 字节 | 1970-01-01 00:00:00 到 2038 年 1 月 19 日 凌晨 03:14:07（格林尼治时间） | YYYYMMDD HHMMSS     | 混合日期和时间值，时间戳 |
 
 ### 字符串类型
 
-| 类型 | 大小 | 详情 |
-| ----- | ----- | ----- |
-| CHAR | 0 到 255B | 定长字符串 |
-| VARCHAR | 0 到 64K | 变长字符串 |
-| TINYBLOB | 0 到 255B | 不超过 255 个字符的二进制字符串 |
-| TINYTEXT | 0 到 255B | 短文本字符串 |
-| BLOB | 0 到 64K | 二进制形式的长文本数据 |
-| TEXT | 0 到 64K | 长文本数据 |
-| MEDIUMBLOB | 0 到 16K | 二进制形式的中等长度文本数据 |
-| MEDIUMTEXT | 0 到 16K | 中等长度文本数据 |
-| LONGBLOB | 0 到 4GB | 二进制形式的极大文本数据 |
-| LONGTEXT | 0 到 4GB | 极大文本数据 |
-
+| 类型       | 大小      | 详情                            |
+| ---------- | --------- | ------------------------------- |
+| CHAR       | 0 到 255B | 定长字符串                      |
+| VARCHAR    | 0 到 64K  | 变长字符串                      |
+| TINYBLOB   | 0 到 255B | 不超过 255 个字符的二进制字符串 |
+| TINYTEXT   | 0 到 255B | 短文本字符串                    |
+| BLOB       | 0 到 64K  | 二进制形式的长文本数据          |
+| TEXT       | 0 到 64K  | 长文本数据                      |
+| MEDIUMBLOB | 0 到 16K  | 二进制形式的中等长度文本数据    |
+| MEDIUMTEXT | 0 到 16K  | 中等长度文本数据                |
+| LONGBLOB   | 0 到 4GB  | 二进制形式的极大文本数据        |
+| LONGTEXT   | 0 到 4GB  | 极大文本数据                    |
 
 ## 连接数据库
 
@@ -155,7 +153,7 @@ select distinct vend_id from products;
 +---------+
 ```
 
-### SELECT子句顺序
+### SELECT 子句顺序
 
 ```sql
 顺序：1      2              3                 4              5                  6              7
@@ -191,6 +189,7 @@ select prod_name from products limit 1, 5;
 ```
 
 ### 排序操作
+
 ```sql
 -- 查找数据后进行排序
 select vend_id, prod_name, prod_price from products order by vend_id, prod_name desc, prod_price desc;
@@ -215,7 +214,9 @@ select vend_id, prod_name, prod_price from products order by vend_id, prod_name 
 ```
 
 ### 过滤操作
+
 将查找后的数据，进行过滤操作。
+
 > 过滤操作的操作符如下：
 > =，<>，!=， <， <=， >， >=， between and，is null
 
@@ -249,7 +250,9 @@ select cust_email from customers where cust_email is null;
 ```
 
 ### 多条件过滤操作符
+
 将多个条件操作符组合起来，进行多条件过滤操作。
+
 - AND：就是条件“且”的意思
 - OR：就是条件“或”的意思
 
@@ -321,10 +324,11 @@ select prod_name, prod_price, vend_id from products where vend_id not in (1002, 
 ```
 
 ### 通配符过滤
-通配符过滤操作，有点类似于模糊过滤操作。下面主要介绍%和_两个操作符。
+
+通配符过滤操作，有点类似于模糊过滤操作。下面主要介绍%和\_两个操作符。
 
 - “%” 操作符，表示匹配出现任何次数的任意字符。
-- “_” 操作符，表示匹配任何出现的单个字符。
+- “\_” 操作符，表示匹配任何出现的单个字符。
 
 ```sql
 -- “%” 操作符使用介绍
@@ -347,7 +351,8 @@ select cust_contact, cust_id from customers where cust_contact like "___am";
 ```
 
 ### 正则表达式过滤
-mysql支持正则表达式。若要使用正则表达式，则用regexp作为操作符。
+
+mysql 支持正则表达式。若要使用正则表达式，则用 regexp 作为操作符。
 
 ```sql
 select * from customers where cust_address regexp "^2.";
@@ -359,7 +364,9 @@ select * from customers where cust_address regexp "^2.";
 ```
 
 ### 拼接字段
-可以通过concat方法对字段内容进行拼接操作。
+
+可以通过 concat 方法对字段内容进行拼接操作。
+
 ```sql
 select concat(vend_name, '(', vend_country, ')') from vendors order by vend_name;
 +-------------------------------------------+
@@ -375,7 +382,9 @@ select concat(vend_name, '(', vend_country, ')') from vendors order by vend_name
 ```
 
 ### 使用别名
-别名是一个字段或值的替代名。通过as关键字赋予别名。如果使用了别名，相当于可以对字段进行重新命名。
+
+别名是一个字段或值的替代名。通过 as 关键字赋予别名。如果使用了别名，相当于可以对字段进行重新命名。
+
 ```sql
 select concat(vend_name, '(', vend_country, ')') as vend_title from vendors order by vend_name;
 +------------------------+
@@ -391,7 +400,9 @@ select concat(vend_name, '(', vend_country, ')') as vend_title from vendors orde
 ```
 
 ### 使用算数计算
-可以通过算数运算符对字段进行运算操作。支持的操作符有+，-，*，/。
+
+可以通过算数运算符对字段进行运算操作。支持的操作符有+，-，\*，/。
+
 ```sql
 select prod_id, quantity, item_price, quantity*item_price as expanded_price from orderitems where order_num = 20005;
 +---------+----------+------------+----------------+
@@ -405,16 +416,17 @@ select prod_id, quantity, item_price, quantity*item_price as expanded_price from
 ```
 
 ### 文本处理内置函数
--  Left()： 返回串左边的字符
--  Length()：返回串的长度
--  Locate()：找出串的一个子串
--  Lower()：将串转换为小写
--  LTrim()：去掉串左边的空格
--  Right()：返回串右边的字符
--  RTrim()：去掉串右边的空格
--  Soundex()：返回串的SOUNDEX值
--  SubString()：返回子串的字符
--  Upper()：将串转换为大写
+
+- Left()： 返回串左边的字符
+- Length()：返回串的长度
+- Locate()：找出串的一个子串
+- Lower()：将串转换为小写
+- LTrim()：去掉串左边的空格
+- Right()：返回串右边的字符
+- RTrim()：去掉串右边的空格
+- Soundex()：返回串的 SOUNDEX 值
+- SubString()：返回子串的字符
+- Upper()：将串转换为大写
 
 ```sql
 select upper(prod_name) from products;
@@ -439,17 +451,18 @@ select upper(prod_name) from products;
 ```
 
 ### 时间处理内置函数
+
 - AddDate()：增加一个日期(天、周等)
 - AddTime()：增加一个时间(时、分等)
 - CurDate()：返回当前日期
 - CurTime()：返回当前时间
-- Date()：返回日期时间的日期部分 
+- Date()：返回日期时间的日期部分
 - DateDiff()：计算两个日期之差
 - Date_Add()：高度灵活的日期运算函数
 - Date_Format()：返回一个格式化的日期或时间串
 - Day()：返回一个日期的天数部分
 - DayOfWeek()：对于一个日期，返回对应的星期几
-- Hour()：返回一个时间的小时部分 
+- Hour()：返回一个时间的小时部分
 - Minute()：返回一个时间的分钟部分
 - Month()：返回一个日期的月份部分
 - Now()：返回当前日期和时间
@@ -481,9 +494,10 @@ select month(order_date) as month from orders where month(order_date)>9;
 ```
 
 ### 数值处理函数
+
 - Abs()：返回一个数的绝对值
 - Cos()：返回一个角度的余弦
-- Exp()：返回一个数的指数值 
+- Exp()：返回一个数的指数值
 - Mod()：返回除操作的余数
 - Pi()：返回圆周率
 - Rand()：返回一个随机数
@@ -501,7 +515,8 @@ select abs(-1);
 ```
 
 ### 汇总数据
-- AVG()：返回某列的平均值 
+
+- AVG()：返回某列的平均值
 - COUNT()：返回某列的行数
 - MAX()：返回某列的最大值
 - MIN()：返回某列的最小值
@@ -526,7 +541,9 @@ select count(*) as num_items, min(prod_price) as price_min, max(prod_price) as p
 ```
 
 ### 分组数据
-MySQL允许对数据进行分组操作，分组允许把数据分为多个逻辑组，以便能对每个组进行聚集计算。
+
+MySQL 允许对数据进行分组操作，分组允许把数据分为多个逻辑组，以便能对每个组进行聚集计算。
+
 - “group by” 操作符，提供了对数据进行分组的能力。
 - “having” 操作符，提供了对分组数据进行过滤的能力。用法和“where”操作符无异，只是“where”操作对象为所有数据，“having”操作对象为分组后的数据。
 
@@ -554,7 +571,8 @@ select vend_id, count(*) as num_prods from products group by vend_id having coun
 ```
 
 ### 子句查询
-mysql支持子查询，就是将嵌套使用select操作。在复杂的数据库操作中，是非常有用的。
+
+mysql 支持子查询，就是将嵌套使用 select 操作。在复杂的数据库操作中，是非常有用的。
 
 ```sql
 -- 利用子查询进行过滤
@@ -584,6 +602,7 @@ select cust_name, cust_state, (
 ```
 
 ### 联结表
+
 关系型数据库，会将数据组合成多个关系表的形式。此时，如果想要一次性查找多个表中的数据，就需要用到联结。联结操作有如下几种形式：
 
 - 内部联结：此联结操作只展示相关联的行。将两个表之间的数据，通过联结操作将关联的数据过滤出来，并展示出来。
@@ -645,12 +664,13 @@ select p2.* from products as p1, products as p2 where p1.vend_id=p2.vend_id and 
 ```
 
 ### 组合查询
-组合查询通过union或union all关键字将多个查询条件组合起来。使用组合查询的规则如下：
 
-- 每条select语句之间，必须通过union隔离
-- 每条select语句，必须包含相同的列数
-- union all，表示合并多条select语句的查询结果，但不对重复数据做额外处理
-- union，表示合并多条select语句的查询结果，并对重复数据去重
+组合查询通过 union 或 union all 关键字将多个查询条件组合起来。使用组合查询的规则如下：
+
+- 每条 select 语句之间，必须通过 union 隔离
+- 每条 select 语句，必须包含相同的列数
+- union all，表示合并多条 select 语句的查询结果，但不对重复数据做额外处理
+- union，表示合并多条 select 语句的查询结果，并对重复数据去重
 
 ```sql
 -- union组合操作
@@ -685,6 +705,7 @@ select vend_id, prod_id, prod_price from products where prod_price <= 5 union al
 ```
 
 ## 插入数据
+
 插入数据，分为插入完整的行，插入部分的行，插入多行，插入查询结果。
 
 ```sql
@@ -702,6 +723,7 @@ insert into customers_new(cust_id, cust_name, cust_address) select customers.cus
 ```
 
 ## 更新数据
+
 更新数据操作，很简单，直接上代码。
 
 ```sql
@@ -713,6 +735,7 @@ update customers set cust_email='elmer@fudd.com', cust_name='The Fudds' where cu
 ```
 
 ## 删除数据
+
 删除数据操作，很简单，直接上代码。
 
 ```sql
@@ -723,15 +746,16 @@ delete from customers where cust_id=10005;
 ## 表操作
 
 #### 创建表
-使用create table来创建customers表单。在创建表单时，可以使用null，primary key，auto_increment，default关键字来对字段进行修饰操作。
 
-- null：指定列是否允许null值，not null表示该列不允许存在null值。
+使用 create table 来创建 customers 表单。在创建表单时，可以使用 null，primary key，auto_increment，default 关键字来对字段进行修饰操作。
+
+- null：指定列是否允许 null 值，not null 表示该列不允许存在 null 值。
 - primary key：指定表单的主键。
 - foreign key：指定外键。
 - auto_increment：指定主键是否自增。
 - default：指定字段的默认值。
 
-``` sql
+```sql
 -- 创建表
 create table customers (
     cust_id      int      not null auto_increment,
@@ -750,30 +774,34 @@ create table customers (
 ```
 
 #### 删除表
+
 ```sql
 -- 删除表操作
 drop table customers;
 ```
 
 #### 重命名表
+
 ```sql
 -- 重命名表操作
 rename table customers2 to customers;
 ```
 
 #### 更新字段
-``` sql
+
+```sql
 -- 添加字段
 alter table customers add new_id INT;
 -- 删除字段
 alter table customers drop new_id;
 -- 修改字段（将类型调整为char(10)）
-alter table customers modify new_id char(10) 
+alter table customers modify new_id char(10)
 -- 修改字段（将字段名new_id改为new_id_2，将类型调整为INT）
 alter table customers change new_id new_id_2 int;
 ```
 
 #### 设置外键
+
 ```sql
 -- 添加外键
 alter table Orders add foreign key(fk_id) references TestTable(primary_id);
@@ -782,12 +810,13 @@ alter table Orders drop foreign key fk_id;
 ```
 
 ## 事务简介
+
 在 MySQL 中只有使用了 Innodb 数据库引擎的数据库或表才支持事务。关键字介绍：
 
 - begin：显式地开启一个事务
-- commit：也可以使用commit work，不过二者是等价的。commit会提交事务，并使已对数据库进行的所有修改成为永久性的
-- rollback：有可以使用rollback work，不过二者是等价的。回滚会结束用户的事务，并撤销正在进行的所有未提交的修改
-- savepoint identifier：savepoint允许在事务中创建一个保存点，一个事务中可以有多个savepoint
+- commit：也可以使用 commit work，不过二者是等价的。commit 会提交事务，并使已对数据库进行的所有修改成为永久性的
+- rollback：有可以使用 rollback work，不过二者是等价的。回滚会结束用户的事务，并撤销正在进行的所有未提交的修改
+- savepoint identifier：savepoint 允许在事务中创建一个保存点，一个事务中可以有多个 savepoint
 - rollback to identifier：把事务回滚到标记点
 
 ```sql
@@ -810,5 +839,5 @@ select * from runoob_transaction_test;
 ```
 
 ## 实验数据
-[Mysql必知必会-实现数据](http://www.forta.com/books/0672327120/mysql_scripts.zip)
 
+[Mysql 必知必会-实现数据](http://www.forta.com/books/0672327120/mysql_scripts.zip)

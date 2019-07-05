@@ -1,7 +1,7 @@
 ---
 title: Android-Maven依赖规则
 date: 2019-06-11 08:18:53
-tags: 客户端
+categories: 客户端
 ---
 
 ## dependencies 字段说明
