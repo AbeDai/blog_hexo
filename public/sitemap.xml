@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.daiyibo.cn/2019/07/13/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E6%9E%B6%E6%9E%84%E6%BC%AB%E8%B0%88/</loc>
+    
+    <lastmod>2019-07-13T07:46:15.058Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.daiyibo.cn/2019/04/07/Android-Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%AE%B0%E5%BD%95/</loc>
     
     <lastmod>2019-07-05T08:27:18.656Z</lastmod>
@@ -121,14 +128,14 @@
   </url>
   
   <url>
-    <loc>http://blog.daiyibo.cn/2018/11/10/Node-JS%E4%B8%AD%E5%8E%9F%E5%9E%8B%E7%9A%84%E7%90%86%E8%A7%A3/</loc>
+    <loc>http://blog.daiyibo.cn/2018/11/25/Node-JS%E4%B8%ADPromise%E7%9A%84%E7%90%86%E8%A7%A3/</loc>
     
     <lastmod>2019-06-30T07:57:39.572Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.daiyibo.cn/2018/11/25/Node-JS%E4%B8%ADPromise%E7%9A%84%E7%90%86%E8%A7%A3/</loc>
+    <loc>http://blog.daiyibo.cn/2018/11/10/Node-JS%E4%B8%AD%E5%8E%9F%E5%9E%8B%E7%9A%84%E7%90%86%E8%A7%A3/</loc>
     
     <lastmod>2019-06-30T07:57:39.572Z</lastmod>
     
