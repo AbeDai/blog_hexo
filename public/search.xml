@@ -3,6 +3,23 @@
   
     
     <entry>
+      <title>工作回顾-搜车之星统一规则</title>
+      <link href="/2019/09/03/%E5%B7%A5%E4%BD%9C%E5%9B%9E%E9%A1%BE-%E6%90%9C%E8%BD%A6%E4%B9%8B%E6%98%9F%E7%BB%9F%E4%B8%80%E8%A7%84%E5%88%99/"/>
+      <url>/2019/09/03/%E5%B7%A5%E4%BD%9C%E5%9B%9E%E9%A1%BE-%E6%90%9C%E8%BD%A6%E4%B9%8B%E6%98%9F%E7%BB%9F%E4%B8%80%E8%A7%84%E5%88%99/</url>
+      
+        <content type="html"><![CDATA[<h1 id="“搜车之星”统一规则"><a href="#“搜车之星”统一规则" class="headerlink" title="“搜车之星”统一规则"></a>“搜车之星”统一规则</h1><h2 id="“搜车之星”是什么？"><a href="#“搜车之星”是什么？" class="headerlink" title="“搜车之星”是什么？"></a><a href="#6n0ktd"></a>“搜车之星”是什么？</h2><p>鼓励阅读、分享、总结、贡献、交流，年中和年底两次盘点和奖励，并且未来可能会成为跟随员工终身的一个信息标签。<br>对应的输出会获得不同数量的 ★，10 个 ★ 兑换一个 🌙 ，五个 🌙 兑换一个 🌞</p><h2 id="形式"><a href="#形式" class="headerlink" title="形式"></a><a href="#400ncf"></a>形式</h2><p>归类一下目前存在的几种可选形式</p><h3 id="CODE-REVIEW"><a href="#CODE-REVIEW" class="headerlink" title="CODE REVIEW"></a><a href="#g9rihg"></a>CODE REVIEW</h3><p>可以是实现某个功能的一段有价值的代码，<br>可以是代码规范，<br>可以是你最近的一些新的想法，和大家分享，寻找一起钻研的人。</p><h3 id="文章精读"><a href="#文章精读" class="headerlink" title="文章精读"></a><a href="#d9wdzg"></a>文章精读</h3><p>每周一位同学，挑选一篇自己看到的有意义的文章，产出自己的心得体会，与大家分享。</p><h3 id="SmallTalk-or-话题交流"><a href="#SmallTalk-or-话题交流" class="headerlink" title="SmallTalk or 话题交流"></a><a href="#xhx8tq"></a>SmallTalk or 话题交流</h3><p>确定主题 -&gt; 发布主题，组员自行预约 -&gt; 茶话会分享 -&gt; 总结分享产出总结</p><h3 id="技术博客"><a href="#技术博客" class="headerlink" title="技术博客"></a><a href="#v6ciwk"></a>技术博客</h3><p><a href="https://blog.souche.com/admin" target="_blank" rel="noopener">https://blog.souche.com/admin</a></p><h3 id="公司级分享"><a href="#公司级分享" class="headerlink" title="公司级分享"></a><a href="#lpqpso"></a>公司级分享</h3><p>联系公司技术分享 HR 报名</p><h3 id="无线大团队分享"><a href="#无线大团队分享" class="headerlink" title="无线大团队分享"></a>无线大团队分享</h3><p>准备话题在整个无线团队分享</p><h2 id="积分制度"><a href="#积分制度" class="headerlink" title="积分制度"></a><a href="#s9xveu"></a>积分制度</h2><p>10 个 ★ 兑换一个 🌙 ，五个 🌙 兑换一个 🌞</p><table><thead><tr><th>形式</th><th>积分</th></tr></thead><tbody><tr><td>精读文章</td><td>★</td></tr><tr><td>Code Review</td><td>★★</td></tr><tr><td>茶话会/SmallTalk</td><td>★★</td></tr><tr><td>技术博客</td><td>★★</td></tr><tr><td>内部开源项目 MR 被合并</td><td>★★★</td></tr><tr><td>公司级分享</td><td>★★★★★</td></tr><tr><td>无线大团队分享</td><td>★★★★★</td></tr></tbody></table><p>每个团队在每次分享有更新的时候记录每个人的积分数，每半年我们会对积分进行一次盘点和奖励，未来有可能会成为员工内网的标准技术属性。</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 回顾 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>读书笔记-架构漫谈</title>
       <link href="/2019/07/13/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E6%9E%B6%E6%9E%84%E6%BC%AB%E8%B0%88/"/>
       <url>/2019/07/13/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E6%9E%B6%E6%9E%84%E6%BC%AB%E8%B0%88/</url>
