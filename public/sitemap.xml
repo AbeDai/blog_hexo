@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.daiyibo.cn/2019/11/13/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E7%A1%85%E8%B0%B7%E5%A2%9E%E9%95%BF%E9%BB%91%E5%AE%A2%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0/</loc>
+    
+    <lastmod>2019-11-15T06:05:53.656Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.daiyibo.cn/2019/11/11/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E5%92%96%E5%95%A1%E5%92%96%E5%95%A1%E5%A4%84%E5%A4%84%E5%BC%80/</loc>
     
     <lastmod>2019-11-12T10:15:45.971Z</lastmod>
@@ -184,14 +191,14 @@
   </url>
   
   <url>
-    <loc>http://blog.daiyibo.cn/2018/11/10/Node-JS%E4%B8%AD%E5%8E%9F%E5%9E%8B%E7%9A%84%E7%90%86%E8%A7%A3/</loc>
+    <loc>http://blog.daiyibo.cn/2018/12/31/Node-JS%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E6%9C%BA%E5%88%B6/</loc>
     
     <lastmod>2019-06-30T07:57:39.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.daiyibo.cn/2018/11/25/Node-JS%E4%B8%ADPromise%E7%9A%84%E7%90%86%E8%A7%A3/</loc>
+    <loc>http://blog.daiyibo.cn/2018/09/19/%E5%BB%BA%E7%AB%99%E5%88%9D%E8%A1%B7/</loc>
     
     <lastmod>2019-06-30T07:57:39.000Z</lastmod>
     
@@ -212,7 +219,21 @@
   </url>
   
   <url>
+    <loc>http://blog.daiyibo.cn/2018/11/10/Node-JS%E4%B8%AD%E5%8E%9F%E5%9E%8B%E7%9A%84%E7%90%86%E8%A7%A3/</loc>
+    
+    <lastmod>2019-06-30T07:57:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.daiyibo.cn/2019/01/01/Node-JS%E4%B8%AD%E7%9A%84EventEmitter%E8%AE%A2%E9%98%85%E5%8F%91%E5%B8%83/</loc>
+    
+    <lastmod>2019-06-30T07:57:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.daiyibo.cn/2018/12/16/Node-JS%E4%B8%AD%E6%A8%A1%E5%9D%97%E7%AE%A1%E7%90%86%E4%BB%8B%E7%BB%8D/</loc>
     
     <lastmod>2019-06-30T07:57:39.000Z</lastmod>
     
@@ -226,21 +247,7 @@
   </url>
   
   <url>
-    <loc>http://blog.daiyibo.cn/2018/09/19/%E5%BB%BA%E7%AB%99%E5%88%9D%E8%A1%B7/</loc>
-    
-    <lastmod>2019-06-30T07:57:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.daiyibo.cn/2018/12/31/Node-JS%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E6%9C%BA%E5%88%B6/</loc>
-    
-    <lastmod>2019-06-30T07:57:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.daiyibo.cn/2018/12/16/Node-JS%E4%B8%AD%E6%A8%A1%E5%9D%97%E7%AE%A1%E7%90%86%E4%BB%8B%E7%BB%8D/</loc>
+    <loc>http://blog.daiyibo.cn/2018/11/25/Node-JS%E4%B8%ADPromise%E7%9A%84%E7%90%86%E8%A7%A3/</loc>
     
     <lastmod>2019-06-30T07:57:39.000Z</lastmod>
     
@@ -387,14 +394,7 @@
   </url>
   
   <url>
-    <loc>http://blog.daiyibo.cn/2018/09/29/Effective-Java-%E9%80%9A%E7%94%A8%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/</loc>
-    
-    <lastmod>2018-10-07T02:32:56.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.daiyibo.cn/2018/10/01/Effective-Java-%E5%BC%82%E5%B8%B8/</loc>
+    <loc>http://blog.daiyibo.cn/2018/09/20/Effective-Java-%E6%96%B9%E6%B3%95%E8%AE%BE%E8%AE%A1/</loc>
     
     <lastmod>2018-10-07T02:32:56.000Z</lastmod>
     
@@ -408,7 +408,14 @@
   </url>
   
   <url>
-    <loc>http://blog.daiyibo.cn/2018/09/20/Effective-Java-%E6%96%B9%E6%B3%95%E8%AE%BE%E8%AE%A1/</loc>
+    <loc>http://blog.daiyibo.cn/2018/09/29/Effective-Java-%E9%80%9A%E7%94%A8%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/</loc>
+    
+    <lastmod>2018-10-07T02:32:56.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.daiyibo.cn/2018/10/01/Effective-Java-%E5%BC%82%E5%B8%B8/</loc>
     
     <lastmod>2018-10-07T02:32:56.000Z</lastmod>
     
