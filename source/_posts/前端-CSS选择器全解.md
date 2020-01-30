@@ -90,7 +90,7 @@ id 选择器可以为标有特定 id 的 HTML 元素指定特定的样式。
 | [attribute] | 用于选取带有指定属性的元素。 |
 | [attribute=value] | 用于选取带有指定属性和值的元素。 |
 | [attribute~=value] | 用于选取属性值中包含指定词汇的元素。 |
-| [attribute\|=value] | 用于选取带有以指定值开头的属性值的元素，该值必须是整个单词。 |
+| [attribute¦=value] | 用于选取带有以指定值开头的属性值的元素，该值必须是整个单词。 |
 | [attribute^=value] | 匹配属性值以指定值开头的每个元素。 |
 | [attribute$=value] | 匹配属性值以指定值结尾的每个元素。 |
 | [attribute*=value] | 匹配属性值中包含指定值的每个元素。 |
@@ -117,30 +117,6 @@ a[href] {color:red;}
 ```css
 // 将同时有 href 和 title 属性的 HTML 超链接的文本设置为红色
 a[href][title] {color:red;}
-```
-
-#### 派生选择器
-
-派生选择器允许你根据文档的上下文关系来确定某个标签的样式。
-
-```css
-// css
-strong {
-  color: red;
-  }
-
-h2 {
-  color: red;
-  }
-
-h2 strong {
-  color: blue;
-  }
-  
-// html
-<p>P标签中的Strong标签下的文字是<strong>红色</strong></p>
-<h2>H2标签下的文字是红色</h2>
-<h2>H2标签中的Strong标签下的文字是<strong>蓝色</strong></h2>
 ```
 
 #### 伪类选择器
