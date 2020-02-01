@@ -86,7 +86,7 @@
 <meta property="og:image" content="http://blog.daiyibo.cn/image/web_xuanran_2.png">
 <meta property="og:image" content="http://blog.daiyibo.cn/image/web_xuanran_3.png">
 <meta property="og:image" content="http://blog.daiyibo.cn/image/web_xuanran_4.png">
-<meta property="og:updated_time" content="2020-02-01T08:23:16.840Z">
+<meta property="og:updated_time" content="2020-02-01T08:32:58.461Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端-初识浏览器渲染原理">
 <meta name="twitter:description" content="浏览器的内核是指支持浏览器运行的最核心的程序，分为两个部分的，一是渲染引擎，另一个是JS引擎。Chrome 和 Safari 都是基于 WebKit 开发的。本文我们主要介绍关于 WebKit 的这部分渲染引擎内容。 浏览器工作大体流程 浏览器工作流程大体分为如下三部分：  浏览器会解析三个东西： a. HTML，解析HTML会产生一个DOM Tree。 b. CSS，解析CSS会产生CSS Ru">
@@ -379,7 +379,7 @@
 <h2 id="关键步骤详解"><a href="#关键步骤详解" class="headerlink" title="关键步骤详解"></a>关键步骤详解</h2><h4 id="构建DOM"><a href="#构建DOM" class="headerlink" title="构建DOM"></a>构建DOM</h4><p><img src="/image/web_xuanran_2.png" alt=""></p>
 <ol>
 <li>浏览器从磁盘或网络读取HTML的原始字节，并根据文件的指定编码（例如 UTF-8）将它们转换成字符串。</li>
-<li>将字符串转换成Token，例如：<html>、<body>等。Token中会标识出当前Token是“开始标签”或是“结束标签”亦或是“文本”等信息。</body></html></li>
+<li>将字符串转换成Token，例如：&lt;html>、&lt;body>等。Token中会标识出当前Token是“开始标签”或是“结束标签”亦或是“文本”等信息。</li>
 <li>生成节点对象并构建DOM。</li>
 </ol>
 <h4 id="构建CSSOM"><a href="#构建CSSOM" class="headerlink" title="构建CSSOM"></a>构建CSSOM</h4><p><img src="/image/web_xuanran_3.png" alt=""></p>
