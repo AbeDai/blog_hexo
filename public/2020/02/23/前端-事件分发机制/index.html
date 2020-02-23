@@ -75,17 +75,19 @@
 
 
 
-<meta name="description" content="检验参数的有效性 应该在方法开头就检验参数的有效性，及时报出参数错误。  传递无效参数给方法，这个方法在执行之前先对参数进行检验，那么他很快就会失败，并且清楚地呈现出适当的异常。如果这个方法没有检查他的参数，就有可能发生以下几种情景。该方法可能在处理过程中失败，并且产生令人费解的异常。更糟糕的是，该方法可以正常方法，但是会悄悄地计算出错误结果。最糟糕的是，该方法可以正常返回，但是却使得某个对象处于">
+<meta name="description" content="事件监听添加事件监听方式 html标签中声明点击事件： &amp;lt;button onclick=&amp;quot;onClicked&amp;quot;&amp;gt;点击&amp;lt;/button&amp;gt;   JS代码赋值点击事件： const btn = document.querySelector(&amp;quot;button&amp;quot;); btn.onclick = function bgChange() { aler">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Effective Java 方法设计">
-<meta property="og:url" content="http://blog.daiyibo.cn/2018/09/20/Effective-Java-方法设计/index.html">
+<meta property="og:title" content="前端-事件分发机制">
+<meta property="og:url" content="http://blog.daiyibo.cn/2020/02/23/前端-事件分发机制/index.html">
 <meta property="og:site_name" content="波波星球">
-<meta property="og:description" content="检验参数的有效性 应该在方法开头就检验参数的有效性，及时报出参数错误。  传递无效参数给方法，这个方法在执行之前先对参数进行检验，那么他很快就会失败，并且清楚地呈现出适当的异常。如果这个方法没有检查他的参数，就有可能发生以下几种情景。该方法可能在处理过程中失败，并且产生令人费解的异常。更糟糕的是，该方法可以正常方法，但是会悄悄地计算出错误结果。最糟糕的是，该方法可以正常返回，但是却使得某个对象处于">
+<meta property="og:description" content="事件监听添加事件监听方式 html标签中声明点击事件： &amp;lt;button onclick=&amp;quot;onClicked&amp;quot;&amp;gt;点击&amp;lt;/button&amp;gt;   JS代码赋值点击事件： const btn = document.querySelector(&amp;quot;button&amp;quot;); btn.onclick = function bgChange() { aler">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-09-01T08:05:36.449Z">
+<meta property="og:image" content="http://blog.daiyibo.cn/image/8AAED450-2559-45DF-85BC-284825C9F31D.png">
+<meta property="og:updated_time" content="2020-02-23T12:52:39.361Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Effective Java 方法设计">
-<meta name="twitter:description" content="检验参数的有效性 应该在方法开头就检验参数的有效性，及时报出参数错误。  传递无效参数给方法，这个方法在执行之前先对参数进行检验，那么他很快就会失败，并且清楚地呈现出适当的异常。如果这个方法没有检查他的参数，就有可能发生以下几种情景。该方法可能在处理过程中失败，并且产生令人费解的异常。更糟糕的是，该方法可以正常方法，但是会悄悄地计算出错误结果。最糟糕的是，该方法可以正常返回，但是却使得某个对象处于">
+<meta name="twitter:title" content="前端-事件分发机制">
+<meta name="twitter:description" content="事件监听添加事件监听方式 html标签中声明点击事件： &amp;lt;button onclick=&amp;quot;onClicked&amp;quot;&amp;gt;点击&amp;lt;/button&amp;gt;   JS代码赋值点击事件： const btn = document.querySelector(&amp;quot;button&amp;quot;); btn.onclick = function bgChange() { aler">
+<meta name="twitter:image" content="http://blog.daiyibo.cn/image/8AAED450-2559-45DF-85BC-284825C9F31D.png">
 
 
 
@@ -115,13 +117,13 @@
 
 
 
-  <link rel="canonical" href="http://blog.daiyibo.cn/2018/09/20/Effective-Java-方法设计/"/>
+  <link rel="canonical" href="http://blog.daiyibo.cn/2020/02/23/前端-事件分发机制/"/>
 
 
 
 
 
-  <title>Effective Java 方法设计 | 波波星球</title>
+  <title>前端-事件分发机制 | 波波星球</title>
   
 
 
@@ -274,7 +276,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.daiyibo.cn/2018/09/20/Effective-Java-方法设计/">
+    <link itemprop="mainEntityOfPage" href="http://blog.daiyibo.cn/2020/02/23/前端-事件分发机制/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="戴益波">
@@ -291,7 +293,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Effective Java 方法设计</h1>
+          <h1 class="post-title" itemprop="name headline">前端-事件分发机制</h1>
         
 
         <div class="post-meta">
@@ -303,8 +305,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-20T22:27:11+08:00">
-                2018-09-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-23T20:46:46+08:00">
+                2020-02-23
               </time>
             
 
@@ -326,8 +328,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/客户端/" itemprop="url" rel="index">
-                    <span itemprop="name">客户端</span>
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
                   </a>
                 </span>
 
@@ -363,59 +365,81 @@
       
 
       
-        <h2 id="检验参数的有效性"><a href="#检验参数的有效性" class="headerlink" title="检验参数的有效性"></a>检验参数的有效性</h2><ul>
-<li><p>应该在方法开头就检验参数的有效性，及时报出参数错误。</p>
-<blockquote>
-<p>传递无效参数给方法，这个方法在执行之前先对参数进行检验，那么他很快就会失败，并且清楚地呈现出适当的异常。如果这个方法没有检查他的参数，就有可能发生以下几种情景。该方法可能在处理过程中失败，并且产生令人费解的异常。更糟糕的是，该方法可以正常方法，但是会悄悄地计算出错误结果。最糟糕的是，该方法可以正常返回，但是却使得某个对象处于被破坏的状态，将来在某个不确定的时候，在某个不相关的点上会引发错误。</p>
-</blockquote>
+        <h2 id="事件监听"><a href="#事件监听" class="headerlink" title="事件监听"></a>事件监听</h2><h4 id="添加事件监听方式"><a href="#添加事件监听方式" class="headerlink" title="添加事件监听方式"></a>添加事件监听方式</h4><ul>
+<li>html标签中声明点击事件：<blockquote>
+<pre><code>&lt;button onclick=&quot;onClicked&quot;&gt;点击&lt;/button&gt;
+</code></pre></blockquote>
 </li>
-<li><p>public方法的参数校验直接抛出异常，包内方法则使用assert断言校验参数。</p>
+<li>JS代码赋值点击事件：<blockquote>
+<pre><code>const btn = document.querySelector(&quot;button&quot;);
+btn.onclick = function bgChange() { alert(&quot;触发弹框&quot;); };
+</code></pre></blockquote>
+</li>
+<li><p>JS代码函数添加点击事件：</p>
+<ul>
+<li>addEventListener(event, function, useCapture)添加事件<ul>
+<li>event：必传。字符串，指定事件名。例如：”click”。<a href="https://www.runoob.com/jsref/dom-obj-event.html" target="_blank" rel="noopener">参考</a></li>
+<li>function：必传。函数，表示要事件触发时执行的函数。</li>
+<li>useCapture：可选。布尔值，指定事件是否在捕获或冒泡阶段执行。</li>
+</ul>
+</li>
+<li><p>removeEventListener(event, function, useCapture)移除事件</p>
+<ul>
+<li>参数意义与addEventListener相同。</li>
+</ul>
 <blockquote>
-<p>对于未被导出方法，作为包的创建者，你可以控制这个方法将在哪些情况下被调用，因此你可以，也应该确保只将有效的参数值传递进来。因此，非公有的方法通常应该使用断言来检查它们的参数。</p>
-</blockquote>
+<pre><code>const btn = document.querySelector(&quot;button&quot;);
+const func = function() {
+    alert(&quot;移除点击事件&quot;);
+    btn.removeEventListener(&quot;click&quot;, func);
+};
+btn.addEventListener(&quot;click&quot;, func, /*是否为捕获*/);
+</code></pre></blockquote>
 </li>
 </ul>
-<h2 id="必要时进行保护性拷贝"><a href="#必要时进行保护性拷贝" class="headerlink" title="必要时进行保护性拷贝"></a>必要时进行保护性拷贝</h2><ul>
-<li><p>方法的入参和出参都需要考虑保护性拷贝。防止外部方法对其进行破坏性操作。这里的外部方法是指使用类的第三方方法。保护性拷贝不是必须的，但是每次在代码的时候，都应该考虑到这一步操作。尤其是写底层库的时候。</p>
-<blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 入参的保护性拷贝</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">newClass</span><span class="params">(List&lt;String&gt; args)</span></span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.list = <span class="keyword">new</span> ArrayList&lt;String&gt;(args);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 出参的保护性拷贝</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">getList</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">new</span> ArrayList&lt;String&gt;(<span class="keyword">this</span>.list);	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</blockquote>
 </li>
 </ul>
-<h2 id="谨慎设计方法签名"><a href="#谨慎设计方法签名" class="headerlink" title="谨慎设计方法签名"></a>谨慎设计方法签名</h2><ul>
-<li><p>方法名称很重要，在设计方法名时，应该始终遵守标准的命名习惯。</p>
-<blockquote>
-<p>尽量让自己的方法名看起来像一句话一样。在定好自己的方法名之后，最后写伪代码调用自己的方法，验证方法的可读性。设计底层库时很重要。</p>
-</blockquote>
-</li>
-<li><p>避免过长的方法参数列表。</p>
-<blockquote>
-<p>方法的参数最好不超过4个。如果方法参数真的很长，可以考虑Build模式，让使用者优雅的设值，或者考虑外观类，给复杂的实现方法套一层简单的壳。</p>
-</blockquote>
-</li>
-<li><p>boolean类型参数最好用枚举替代。</p>
-<blockquote>
-<p>这是boolean类型参数的小小建议。如果要在参数中使用boolean类型，最好用枚举类型进行替代。首先枚举更具有可读性，其次枚举更利于以后的扩展。</p>
-</blockquote>
-</li>
+<h4 id="常用事件类型"><a href="#常用事件类型" class="headerlink" title="常用事件类型"></a>常用事件类型</h4><ul>
+<li>onclick：点击事件</li>
+<li>ondblclick：双击事件</li>
+<li>onmouseover：鼠标移入</li>
+<li>onmouseout：鼠标移出</li>
 </ul>
-<h2 id="慎用重载"><a href="#慎用重载" class="headerlink" title="慎用重载"></a>慎用重载</h2><ul>
-<li><p>Java语言要调用哪个重载方法是在编译时做出决定的。这一点不符合Java语言的运行时特性。一般情况下，我们认为覆盖操作比较符合Java标准的运行时特性。</p>
-<blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 重载了classify方法</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CollectionClassifier</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">classify</span><span class="params">(Set&lt;?&gt; s)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">"Set"</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">classify</span><span class="params">(List&lt;?&gt; lst)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">"List"</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">classify</span><span class="params">(Collection&lt;?&gt; c)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">"Unknown Collection"</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Collection&lt;?&gt;[] collections = &#123; <span class="keyword">new</span> HashSet&lt;String&gt;(),</span><br><span class="line">				<span class="keyword">new</span> ArrayList&lt;BigInteger&gt;(),</span><br><span class="line">				<span class="keyword">new</span> HashMap&lt;String, String&gt;().values() &#125;;</span><br><span class="line">		<span class="keyword">for</span> (Collection&lt;?&gt; c : collections)</span><br><span class="line">			System.out.println(classify(c));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 预期是打印出Set，List，Unknown Collection。但是实际上是打印出Unknown Collection，</span></span><br><span class="line"><span class="comment">// Unknown Collection，Unknown Collection。因为重载是根据编译时决定要调用的是哪个方法。</span></span><br></pre></td></tr></table></figure>
-</blockquote>
-<blockquote>
-<p>由于重载容易引起编程时的想法和运行结果不一致。所以，在使用重载编写设计API的时候，应该尽量避免使用。防止API使用者引起误会。如果重载方法的参数的类型有继承关系，例如parse(String content)和parse(Object content)，最好用方法名区分开，paeseString(String content)和parseObject(Object content)。<strong>总之，方法参数数目相同的方法，应该尽量避免重载。</strong></p>
-</blockquote>
-</li>
+<h4 id="事件对象"><a href="#事件对象" class="headerlink" title="事件对象"></a>事件对象</h4><p>事件对象，它被自动传递给事件处理函数，以提供额外的功能和信息。</p>
+<ul>
+<li>event.taget：表示当前事件的目标对象。</li>
+<li>event.type：表示当前事件类型。</li>
+<li>event.preventDefault：表示取消当前标签的默认操作事件。</li>
 </ul>
-<h2 id="返回零长度的集合，而不是null"><a href="#返回零长度的集合，而不是null" class="headerlink" title="返回零长度的集合，而不是null"></a>返回零长度的集合，而不是null</h2><ul>
-<li><p>方法返回集合时，如果集合内容为空，则返回一个空的集合对象，而不是null。</p>
-<blockquote>
-<p>因为对于返回null而不是零长度集合的方法来说，每次调用该方法时都需要判断下返回对象是都为null，从而防止NullPointerException，对于方法使用者很不友好。</p>
-</blockquote>
-</li>
+<h2 id="事件分发机制"><a href="#事件分发机制" class="headerlink" title="事件分发机制"></a>事件分发机制</h2><h4 id="事件传递"><a href="#事件传递" class="headerlink" title="事件传递"></a>事件传递</h4><p>当一个事件发生在具有父元素的元素上时，现代浏览器运行两个不同的阶段 - 捕获阶段和冒泡阶段。 </p>
+<p>在捕获阶段：</p>
+<ul>
+<li>浏览器检查元素的最外层祖先<code>&lt;html&gt;</code>，是否在捕获阶段中注册了一个onclick事件处理程序，如果是，则运行它。</li>
+<li>然后，它移动到<code>&lt;html&gt;</code>中单击元素的下一个祖先元素，并执行相同的操作，然后是单击元素再下一个祖先元素，依此类推，直到到达实际点击的元素。</li>
 </ul>
+<p>在冒泡阶段，恰恰相反:</p>
+<ul>
+<li>浏览器检查实际点击的元素是否在冒泡阶段中注册了一个onclick事件处理程序，如果是，则运行它</li>
+<li>然后它移动到下一个直接的祖先元素，并做同样的事情，然后是下一个，等等，直到它到达<code>&lt;html&gt;</code>元素。</li>
+</ul>
+<p><img src="/image/8AAED450-2559-45DF-85BC-284825C9F31D.png" alt=""></p>
+<h4 id="Touch事件与Click事件的关系"><a href="#Touch事件与Click事件的关系" class="headerlink" title="Touch事件与Click事件的关系"></a>Touch事件与Click事件的关系</h4><p>类比Android触摸和点击之间的使用方法和传递关系，两个基本一致。</p>
+<ul>
+<li>在浏览器中，事件触发机制都是都是通过addEventListener方法来实现。例如Touch事件，从API设计的角度上看，和Click事件是一样的。</li>
+<li>但从内部实现原理上讲，Touch事件优先级高于Click事件。例如，在touchstart时间中，调用e.preventDefault()屏蔽默认实现后，click事件将不被触发。</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"div"</span> <span class="attr">style</span>=<span class="string">"background-color: antiquewhite; width: 100%; height: 1000px;"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">    // 获取El</span></span><br><span class="line"><span class="undefined">    const container = document.getElementById("div");</span></span><br><span class="line"><span class="undefined">    // 监听事件</span></span><br><span class="line"><span class="undefined">    container.addEventListener(</span></span><br><span class="line"><span class="undefined">      "click",</span></span><br><span class="line"><span class="undefined">      function (e) &#123;</span></span><br><span class="line"><span class="undefined">        console.log("click");</span></span><br><span class="line"><span class="undefined">      &#125;,</span></span><br><span class="line"><span class="undefined">      true</span></span><br><span class="line"><span class="undefined">    );</span></span><br><span class="line"><span class="undefined">    container.addEventListener(</span></span><br><span class="line"><span class="undefined">      "touchstart",</span></span><br><span class="line"><span class="undefined">      function (e) &#123;</span></span><br><span class="line"><span class="undefined">        const touch = e.changedTouches[0];</span></span><br><span class="line"><span class="undefined">        if (touch) &#123;</span></span><br><span class="line"><span class="undefined">          console.log(`touchstart:($&#123;touch.pageX&#125;: $&#123;touch.pageY&#125;)`);</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">      &#125;,</span></span><br><span class="line"><span class="undefined">      true</span></span><br><span class="line"><span class="undefined">    );</span></span><br><span class="line"><span class="undefined">    container.addEventListener(</span></span><br><span class="line"><span class="undefined">      "touchend",</span></span><br><span class="line"><span class="undefined">      function (e) &#123;</span></span><br><span class="line"><span class="undefined">        const touch = e.changedTouches[0];</span></span><br><span class="line"><span class="undefined">        if (touch) &#123;</span></span><br><span class="line"><span class="undefined">          console.log(`touchend:($&#123;touch.pageX&#125;: $&#123;touch.pageY&#125;)`);</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">      &#125;,</span></span><br><span class="line"><span class="undefined">      true</span></span><br><span class="line"><span class="undefined">    );</span></span><br><span class="line"><span class="undefined">    container.addEventListener(</span></span><br><span class="line"><span class="undefined">      "touchmove",</span></span><br><span class="line"><span class="undefined">      function (e) &#123;</span></span><br><span class="line"><span class="undefined">        const touch = e.changedTouches[0];</span></span><br><span class="line"><span class="undefined">        if (touch) &#123;</span></span><br><span class="line"><span class="undefined">          console.log(`touchmove:($&#123;touch.pageX&#125;: $&#123;touch.pageY&#125;)`);</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">      &#125;,</span></span><br><span class="line"><span class="undefined">      true</span></span><br><span class="line"><span class="undefined">    );</span></span><br><span class="line"><span class="undefined">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="事件拦截"><a href="#事件拦截" class="headerlink" title="事件拦截"></a>事件拦截</h4><p>stopPropagation()的函数, 当在事件对象上调用该函数时，它只会让当前事件处理程序运行，但事件不会在冒泡链上进一步扩大，因此将不会有更多事件处理器被运行(不会向上冒泡)。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"div"</span>&gt;</span></span><br><span class="line">      父元素</span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">"span"</span>&gt;</span>子元素<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">      // 获取El</span></span><br><span class="line"><span class="undefined">      const parent = document.getElementById("div");</span></span><br><span class="line"><span class="undefined">      const children = document.getElementById("span");</span></span><br><span class="line"><span class="undefined">      // 监听事件</span></span><br><span class="line"><span class="undefined">      parent.addEventListener(</span></span><br><span class="line"><span class="undefined">        "click",</span></span><br><span class="line"><span class="undefined">        function(e) &#123;</span></span><br><span class="line"><span class="undefined">          // e.stopPropagation(); 拦截捕获传递链</span></span><br><span class="line"><span class="undefined">          console.log("捕获：父元素点击事件");</span></span><br><span class="line"><span class="undefined">        &#125;,</span></span><br><span class="line"><span class="undefined">        true</span></span><br><span class="line"><span class="undefined">      );</span></span><br><span class="line"><span class="undefined">      children.addEventListener(</span></span><br><span class="line"><span class="undefined">        "click",</span></span><br><span class="line"><span class="undefined">        function(e) &#123;</span></span><br><span class="line"><span class="undefined">          console.log("捕获：子元素点击事件");</span></span><br><span class="line"><span class="undefined">        &#125;,</span></span><br><span class="line"><span class="undefined">        true</span></span><br><span class="line"><span class="undefined">      );</span></span><br><span class="line"><span class="undefined">      parent.addEventListener("click", function(e) &#123;</span></span><br><span class="line"><span class="undefined">        console.log("冒泡：父元素点击事件");</span></span><br><span class="line"><span class="undefined">      &#125;);</span></span><br><span class="line"><span class="undefined">      children.addEventListener("click", function(e) &#123;</span></span><br><span class="line"><span class="undefined">        // e.stopPropagation(); 拦截冒泡传递链</span></span><br><span class="line"><span class="undefined">        console.log("冒泡：子元素点击事件");</span></span><br><span class="line"><span class="undefined">      &#125;);</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="Vue的事件处理映射"><a href="#Vue的事件处理映射" class="headerlink" title="Vue的事件处理映射"></a>Vue的事件处理映射</h2><p>Vue在覆盖了Web事件功能的基础上，做了一些符合业务的优化。</p>
+<ul>
+<li>【覆盖】事件监听：通过v-on:xxxx实现，例如：v-on:click。</li>
+<li>【覆盖】事件拦截：支持e.stopPropagation、e.preventDefault功能。</li>
+<li>【覆盖】事件监听时机：支持冒泡阶段、捕获阶段。默认为冒泡阶段。例如：v-on:click，冒泡；v-on:click.capture，捕获。</li>
+<li>【覆盖】触摸事件：通过v-on:touchmove实现。</li>
+<li>【创新】事件修饰符：提供解决常用场景问题的时间修饰符。例如，阻止事件冒泡的修饰符v-on:click.stop，表示点击事件将阻止向上冒泡。</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>事件介绍：<a href="https://developer.mozilla.org/zh-CN/docs/Learn/JavaScript/Building_blocks/Events" target="_blank" rel="noopener">https://developer.mozilla.org/zh-CN/docs/Learn/JavaScript/Building_blocks/Events</a><br>触摸事件：<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Touch_events" target="_blank" rel="noopener">https://developer.mozilla.org/zh-CN/docs/Web/API/Touch_events</a><br>Vue事件处理：<a href="https://cn.vuejs.org/v2/guide/events.html" target="_blank" rel="noopener">https://cn.vuejs.org/v2/guide/events.html</a></p>
 
       
     </div>
@@ -440,8 +464,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/19/建站初衷/" rel="next" title="建站初衷">
-                <i class="fa fa-chevron-left"></i> 建站初衷
+              <a href="/2020/02/22/读书笔记-指数基金投资指南/" rel="next" title="读书笔记-指数基金投资指南">
+                <i class="fa fa-chevron-left"></i> 读书笔记-指数基金投资指南
               </a>
             
           </div>
@@ -449,10 +473,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/09/22/Google-I-O-2018-摘要/" rel="prev" title="Google I/O' 2018 摘要">
-                Google I/O' 2018 摘要 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -594,7 +614,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#检验参数的有效性"><span class="nav-number">1.</span> <span class="nav-text">检验参数的有效性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#必要时进行保护性拷贝"><span class="nav-number">2.</span> <span class="nav-text">必要时进行保护性拷贝</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#谨慎设计方法签名"><span class="nav-number">3.</span> <span class="nav-text">谨慎设计方法签名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#慎用重载"><span class="nav-number">4.</span> <span class="nav-text">慎用重载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#返回零长度的集合，而不是null"><span class="nav-number">5.</span> <span class="nav-text">返回零长度的集合，而不是null</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#事件监听"><span class="nav-number">1.</span> <span class="nav-text">事件监听</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#添加事件监听方式"><span class="nav-number">1.0.1.</span> <span class="nav-text">添加事件监听方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常用事件类型"><span class="nav-number">1.0.2.</span> <span class="nav-text">常用事件类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#事件对象"><span class="nav-number">1.0.3.</span> <span class="nav-text">事件对象</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事件分发机制"><span class="nav-number">2.</span> <span class="nav-text">事件分发机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#事件传递"><span class="nav-number">2.0.1.</span> <span class="nav-text">事件传递</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Touch事件与Click事件的关系"><span class="nav-number">2.0.2.</span> <span class="nav-text">Touch事件与Click事件的关系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#事件拦截"><span class="nav-number">2.0.3.</span> <span class="nav-text">事件拦截</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vue的事件处理映射"><span class="nav-number">3.</span> <span class="nav-text">Vue的事件处理映射</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
