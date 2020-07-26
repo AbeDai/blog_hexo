@@ -75,17 +75,17 @@
 
 
 
-<meta name="description" content="只针对异常情况才使用异常控制正常流程时不应该使用异常，只有当程序发生异常时才应该抛出Exception。Exception就是来描述程序发生异常的，不要职责不清地让异常来处理非异常的事情。例如下面的for-each循环，不应该用异常来控制循环，而应该用状态测试来控制循环。 12345678910111213141516// 错误示范，通过异常来控制for-each循环流程// 通过Iterator">
+<meta name="description" content="用法介绍这对选项需要一起使用，以允许一个祖先组件向其所有子孙后代注入一个依赖，不论组件层次有多深，并在起上下游关系成立的时间里始终生效。 provide 介绍 选项应该是一个对象或返回一个对象的函数。该对象包含可注入其子孙的 property。 inject 介绍  一个字符串数组，或 一个对象，对象的 key 是本地的绑定名，value 是： 在可用的注入内容中搜索用的 key (字符串或 Sy">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Effective Java 异常">
-<meta property="og:url" content="http://blog.daiyibo.cn/2018/10/01/Effective-Java-异常/index.html">
+<meta property="og:title" content="前端 - Vue 跨组件通讯（Provider和Inject）">
+<meta property="og:url" content="http://blog.daiyibo.cn/2020/07/26/前端-Vue-跨组件通讯（Provider和Inject）/index.html">
 <meta property="og:site_name" content="波波星球">
-<meta property="og:description" content="只针对异常情况才使用异常控制正常流程时不应该使用异常，只有当程序发生异常时才应该抛出Exception。Exception就是来描述程序发生异常的，不要职责不清地让异常来处理非异常的事情。例如下面的for-each循环，不应该用异常来控制循环，而应该用状态测试来控制循环。 12345678910111213141516// 错误示范，通过异常来控制for-each循环流程// 通过Iterator">
+<meta property="og:description" content="用法介绍这对选项需要一起使用，以允许一个祖先组件向其所有子孙后代注入一个依赖，不论组件层次有多深，并在起上下游关系成立的时间里始终生效。 provide 介绍 选项应该是一个对象或返回一个对象的函数。该对象包含可注入其子孙的 property。 inject 介绍  一个字符串数组，或 一个对象，对象的 key 是本地的绑定名，value 是： 在可用的注入内容中搜索用的 key (字符串或 Sy">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-10-07T02:32:56.000Z">
+<meta property="og:updated_time" content="2020-07-26T14:38:06.144Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Effective Java 异常">
-<meta name="twitter:description" content="只针对异常情况才使用异常控制正常流程时不应该使用异常，只有当程序发生异常时才应该抛出Exception。Exception就是来描述程序发生异常的，不要职责不清地让异常来处理非异常的事情。例如下面的for-each循环，不应该用异常来控制循环，而应该用状态测试来控制循环。 12345678910111213141516// 错误示范，通过异常来控制for-each循环流程// 通过Iterator">
+<meta name="twitter:title" content="前端 - Vue 跨组件通讯（Provider和Inject）">
+<meta name="twitter:description" content="用法介绍这对选项需要一起使用，以允许一个祖先组件向其所有子孙后代注入一个依赖，不论组件层次有多深，并在起上下游关系成立的时间里始终生效。 provide 介绍 选项应该是一个对象或返回一个对象的函数。该对象包含可注入其子孙的 property。 inject 介绍  一个字符串数组，或 一个对象，对象的 key 是本地的绑定名，value 是： 在可用的注入内容中搜索用的 key (字符串或 Sy">
 
 
 
@@ -115,13 +115,13 @@
 
 
 
-  <link rel="canonical" href="http://blog.daiyibo.cn/2018/10/01/Effective-Java-异常/"/>
+  <link rel="canonical" href="http://blog.daiyibo.cn/2020/07/26/前端-Vue-跨组件通讯（Provider和Inject）/"/>
 
 
 
 
 
-  <title>Effective Java 异常 | 波波星球</title>
+  <title>前端 - Vue 跨组件通讯（Provider和Inject） | 波波星球</title>
   
 
 
@@ -274,7 +274,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.daiyibo.cn/2018/10/01/Effective-Java-异常/">
+    <link itemprop="mainEntityOfPage" href="http://blog.daiyibo.cn/2020/07/26/前端-Vue-跨组件通讯（Provider和Inject）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="戴益波">
@@ -291,7 +291,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Effective Java 异常</h1>
+          <h1 class="post-title" itemprop="name headline">前端 - Vue 跨组件通讯（Provider和Inject）</h1>
         
 
         <div class="post-meta">
@@ -303,8 +303,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-01T22:19:13+08:00">
-                2018-10-01
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-26T22:36:46+08:00">
+                2020-07-26
               </time>
             
 
@@ -326,8 +326,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/客户端/" itemprop="url" rel="index">
-                    <span itemprop="name">客户端</span>
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
                   </a>
                 </span>
 
@@ -363,22 +363,28 @@
       
 
       
-        <h2 id="只针对异常情况才使用异常"><a href="#只针对异常情况才使用异常" class="headerlink" title="只针对异常情况才使用异常"></a>只针对异常情况才使用异常</h2><p>控制正常流程时不应该使用异常，只有当程序发生异常时才应该抛出Exception。Exception就是来描述程序发生异常的，不要职责不清地让异常来处理非异常的事情。例如下面的for-each循环，不应该用异常来控制循环，而应该用状态测试来控制循环。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 错误示范，通过异常来控制for-each循环流程</span></span><br><span class="line"><span class="comment">// 通过Iterator.next()的NoSuchElementException来判断循环是否结束</span></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">	Iterator&lt;Foo&gt; i = collection.iterator();</span><br><span class="line">	<span class="keyword">while</span>(<span class="keyword">true</span>)&#123;</span><br><span class="line">		Foo foo = i.next();</span><br><span class="line">	&#125;</span><br><span class="line">&#125; <span class="keyword">catch</span> (NoSuchElementException e)&#123;</span><br><span class="line">    <span class="comment">// 终止循环</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 正确示范，通过状态测试方法来控制for-each循环流程</span></span><br><span class="line"><span class="comment">// 通过Iterator.hasNext()方法来判断循环是否结束</span></span><br><span class="line">Iterator&lt;Foo&gt; i = collection.iterator();</span><br><span class="line"><span class="keyword">while</span>(i.hasNext())&#123;</span><br><span class="line">	Foo foo = i.next();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="对于可恢复的情况使用受检异常，对于编程错误使用运行时异常"><a href="#对于可恢复的情况使用受检异常，对于编程错误使用运行时异常" class="headerlink" title="对于可恢复的情况使用受检异常，对于编程错误使用运行时异常"></a>对于可恢复的情况使用受检异常，对于编程错误使用运行时异常</h2><ul>
-<li>受检异常：如果期望调用者能够适当地恢复，对于这种情况就应该使用受检的异常。例如文件操作后，文件流的关闭操作。</li>
-<li>非受检异常：如果程序抛出未受检异常或者错误，往往就属于不可恢复的情形，继续执行下去有害无益。例如List.get()的数据越界操作。</li>
-</ul>
-<h2 id="避免不必要地使用受检异常"><a href="#避免不必要地使用受检异常" class="headerlink" title="避免不必要地使用受检异常"></a>避免不必要地使用受检异常</h2><p>当方法存在受检异常时，会给API调用者增加使用成本，例如每次调用该方法时，都要加try-catch代码块。应当少用受检异常。</p>
-<p>使用受检异常的原则</p>
+        <h3 id="用法介绍"><a href="#用法介绍" class="headerlink" title="用法介绍"></a>用法介绍</h3><p>这对选项需要一起使用，以允许一个祖先组件向其所有子孙后代注入一个依赖，不论组件层次有多深，并在起上下游关系成立的时间里始终生效。</p>
+<p><strong>provide 介绍</strong></p>
+<p>选项应该是一个对象或返回一个对象的函数。该对象包含可注入其子孙的 property。</p>
+<p><strong>inject 介绍</strong></p>
 <ul>
-<li>正确地使用API并不能阻止这种异常条件的产生。参考文件操作，无法保证文件操作不会抛出异常。</li>
-<li>产生异常后，API调用者可以立即采用有效操作。参考文件操作，文件操作抛出异常后，马上关闭文件，然后执行文件处理失败逻辑。</li>
+<li>一个字符串数组，或</li>
+<li>一个对象，对象的 key 是本地的绑定名，value 是：<ul>
+<li>在可用的注入内容中搜索用的 key (字符串或 Symbol)，或</li>
+<li>一个对象，该对象的：<ul>
+<li>from property 是在可用的注入内容中搜索用的 key (字符串或 Symbol)</li>
+<li>default property 是降级情况下使用的 value</li>
 </ul>
-<h2 id="优先使用标准的异常"><a href="#优先使用标准的异常" class="headerlink" title="优先使用标准的异常"></a>优先使用标准的异常</h2><p>利用Java提供的标准异常，相当于站在了巨人的肩膀上。可以使你的API更加易于学习，易于使用，更加可读。</p>
-<h2 id="抛出与抽象相对应的异常"><a href="#抛出与抽象相对应的异常" class="headerlink" title="抛出与抽象相对应的异常"></a>抛出与抽象相对应的异常</h2><p>方法抛出的异常，应该与当前方法有联系。上层实现应该捕获下层异常，同时抛出符合上层语义的异常。例如集合中的异常处理示例：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 将NoSuchElementException改为IndexOutOfBoundException</span></span><br><span class="line"><span class="comment">// 使方法抛出的异常更符合语义，提高了代码的可读性。</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> E <span class="title">get</span><span class="params">(<span class="keyword">int</span> index)</span></span>&#123;</span><br><span class="line">	ListIterator&lt;E&gt; i = listIterator(index);</span><br><span class="line">	<span class="keyword">try</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> i.next();</span><br><span class="line">	&#125; <span class="keyword">catch</span> (NoSuchElementException e)&#123;</span><br><span class="line">		<span class="keyword">throw</span> <span class="keyword">new</span> IndexOutOfBoundException(<span class="string">"Index:"</span> + index);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="异常中包含能捕获失败的信息"><a href="#异常中包含能捕获失败的信息" class="headerlink" title="异常中包含能捕获失败的信息"></a>异常中包含能捕获失败的信息</h2><p>异常面向的用户是开发者，异常信息的内容，应该提供异常堆栈信息，异常信息描述的详细内容等。因为异常面向开发者，所以描述信息最好为英文。</p>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 父级组件提供 'foo'</span></span><br><span class="line"><span class="keyword">var</span> Provider = &#123;</span><br><span class="line">  provide: &#123;</span><br><span class="line">    oldFoo: <span class="string">'bar'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 子组件注入 'foo'</span></span><br><span class="line"><span class="keyword">var</span> Child = &#123;</span><br><span class="line">  inject: foo: &#123; <span class="attr">from</span>: <span class="string">'oldFoo'</span>, <span class="attr">default</span>: <span class="string">'foo'</span> &#125;,</span><br><span class="line">  created () &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.foo) <span class="comment">// =&gt; "bar"</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="原理分析"><a href="#原理分析" class="headerlink" title="原理分析"></a>原理分析</h3><h4 id="provide-浅析"><a href="#provide-浅析" class="headerlink" title="provide 浅析"></a>provide 浅析</h4><p>创建组件时，调用 Vue 初始化方法（Vue._init）。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Vue 组件混入模式</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">initMixin</span> (<span class="params">Vue</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// Vue 组件初始化方法</span></span><br><span class="line">  Vue.prototype._init = <span class="function"><span class="keyword">function</span> (<span class="params">options</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> vm = <span class="keyword">this</span>;</span><br><span class="line">    ...</span><br><span class="line">    <span class="comment">// expose real self</span></span><br><span class="line">    vm._self = vm;</span><br><span class="line">    initInjections(vm); <span class="comment">// resolve injections before data/props (处理注入数据逻辑)</span></span><br><span class="line">    initState(vm);</span><br><span class="line">    initProvide(vm); <span class="comment">// resolve provide after data/props (处理提供数据逻辑)</span></span><br><span class="line">    ...</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 通过此方法将 provide 需要提供的数据挂载到 VM 的 _provided 属性上。</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">initProvide</span> (<span class="params">vm</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> provide = vm.$options.provide;</span><br><span class="line">  <span class="keyword">if</span> (provide) &#123;</span><br><span class="line">    vm._provided = <span class="keyword">typeof</span> provide === <span class="string">'function'</span></span><br><span class="line">      ? provide.call(vm)</span><br><span class="line">      : provide;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="inject-浅析"><a href="#inject-浅析" class="headerlink" title="inject 浅析"></a>inject 浅析</h4><p>创建组件时，调用 Vue 初始化方法（Vue._init）。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Vue 组件混入模式</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">initMixin</span> (<span class="params">Vue</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// Vue 组件初始化方法</span></span><br><span class="line">  Vue.prototype._init = <span class="function"><span class="keyword">function</span> (<span class="params">options</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> vm = <span class="keyword">this</span>;</span><br><span class="line">    ...</span><br><span class="line">    <span class="comment">// expose real self</span></span><br><span class="line">    vm._self = vm;</span><br><span class="line">    initInjections(vm); <span class="comment">// resolve injections before data/props (处理注入数据逻辑)</span></span><br><span class="line">    initState(vm);</span><br><span class="line">    initProvide(vm); <span class="comment">// resolve provide after data/props (处理提供数据逻辑)</span></span><br><span class="line">    ...</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 寻找祖先组件中 provide 的对象，并将 数据挂载到 当前组件上。</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">initInjections</span> (<span class="params">vm</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 从祖先组件中寻找inject所需的数据。</span></span><br><span class="line">  <span class="keyword">var</span> result = resolveInject(vm.$options.inject, vm);</span><br><span class="line">  <span class="keyword">if</span> (result) &#123;</span><br><span class="line">    toggleObserving(<span class="literal">false</span>);</span><br><span class="line">    <span class="built_in">Object</span>.keys(result).forEach(<span class="function"><span class="keyword">function</span> (<span class="params">key</span>) </span>&#123;</span><br><span class="line">      <span class="comment">/* istanbul ignore else */</span></span><br><span class="line">      <span class="keyword">if</span> (process.env.NODE_ENV !== <span class="string">'production'</span>) &#123;</span><br><span class="line">        <span class="comment">// 将数据挂载到 当前组件上</span></span><br><span class="line">        defineReactive$$<span class="number">1</span>(vm, key, result[key], <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">          warn(</span><br><span class="line">            <span class="string">"Avoid mutating an injected value directly since the changes will be "</span> +</span><br><span class="line">            <span class="string">"overwritten whenever the provided component re-renders. "</span> +</span><br><span class="line">            <span class="string">"injection being mutated: \""</span> + key + <span class="string">"\""</span>,</span><br><span class="line">            vm</span><br><span class="line">          );</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 将数据挂载到 当前组件上</span></span><br><span class="line">        defineReactive$$<span class="number">1</span>(vm, key, result[key]);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    toggleObserving(<span class="literal">true</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 根据 $parent 递归寻找祖先组件中的元素，</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">resolveInject</span> (<span class="params">inject, vm</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (inject) &#123;</span><br><span class="line">    <span class="keyword">var</span> result = <span class="built_in">Object</span>.create(<span class="literal">null</span>);</span><br><span class="line">    <span class="keyword">var</span> keys = hasSymbol</span><br><span class="line">      ? <span class="built_in">Reflect</span>.ownKeys(inject)</span><br><span class="line">      : <span class="built_in">Object</span>.keys(inject);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; keys.length; i++) &#123;</span><br><span class="line">      <span class="keyword">var</span> key = keys[i];</span><br><span class="line">      <span class="keyword">var</span> provideKey = inject[key].from;<span class="comment">// 处理 inject 的 from 属性逻辑</span></span><br><span class="line">      <span class="keyword">var</span> source = vm;</span><br><span class="line">      <span class="keyword">while</span> (source) &#123;</span><br><span class="line">        <span class="keyword">if</span> (source._provided &amp;&amp; hasOwn(source._provided, provideKey)) &#123;</span><br><span class="line">          result[key] = source._provided[provideKey];</span><br><span class="line">          <span class="keyword">break</span></span><br><span class="line">        &#125;</span><br><span class="line">        source = source.$parent;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (!source) &#123;</span><br><span class="line">        <span class="comment">// 处理 inject 的 default 函数逻辑</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="string">'default'</span> <span class="keyword">in</span> inject[key]) &#123;</span><br><span class="line">          <span class="keyword">var</span> provideDefault = inject[key].default;</span><br><span class="line">          result[key] = <span class="keyword">typeof</span> provideDefault === <span class="string">'function'</span></span><br><span class="line">            ? provideDefault.call(vm)</span><br><span class="line">            : provideDefault;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://cn.vuejs.org/v2/api/#provide-inject" target="_blank" rel="noopener">https://cn.vuejs.org/v2/api/#provide-inject</a></p>
 
       
     </div>
@@ -403,8 +409,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/29/Effective-Java-通用程序设计/" rel="next" title="Effective Java 通用程序设计">
-                <i class="fa fa-chevron-left"></i> Effective Java 通用程序设计
+              <a href="/2020/07/26/前端-JS中的宏任务和微任务/" rel="next" title="前端-JS中的宏任务和微任务">
+                <i class="fa fa-chevron-left"></i> 前端-JS中的宏任务和微任务
               </a>
             
           </div>
@@ -412,10 +418,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/10/03/Effective-Java-同步/" rel="prev" title="Effective Java 同步">
-                Effective Java 同步 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -557,7 +559,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#只针对异常情况才使用异常"><span class="nav-number">1.</span> <span class="nav-text">只针对异常情况才使用异常</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对于可恢复的情况使用受检异常，对于编程错误使用运行时异常"><span class="nav-number">2.</span> <span class="nav-text">对于可恢复的情况使用受检异常，对于编程错误使用运行时异常</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#避免不必要地使用受检异常"><span class="nav-number">3.</span> <span class="nav-text">避免不必要地使用受检异常</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优先使用标准的异常"><span class="nav-number">4.</span> <span class="nav-text">优先使用标准的异常</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#抛出与抽象相对应的异常"><span class="nav-number">5.</span> <span class="nav-text">抛出与抽象相对应的异常</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异常中包含能捕获失败的信息"><span class="nav-number">6.</span> <span class="nav-text">异常中包含能捕获失败的信息</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#用法介绍"><span class="nav-number">1.</span> <span class="nav-text">用法介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原理分析"><span class="nav-number">2.</span> <span class="nav-text">原理分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#provide-浅析"><span class="nav-number">2.1.</span> <span class="nav-text">provide 浅析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#inject-浅析"><span class="nav-number">2.2.</span> <span class="nav-text">inject 浅析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
