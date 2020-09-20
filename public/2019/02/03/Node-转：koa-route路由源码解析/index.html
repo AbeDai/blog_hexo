@@ -6,10 +6,10 @@
 
 
 <html class="theme-next mist use-motion" lang="zh-Hans">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="theme-color" content="#222">
 
 
@@ -20,8 +20,8 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -44,9 +44,9 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=5.1.4">
@@ -64,7 +64,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Hexo, NexT">
 
 
 
@@ -85,7 +85,7 @@
 <meta property="og:image" content="http://blog.daiyibo.cn/image/koa_router_method_struct.png">
 <meta property="og:image" content="http://blog.daiyibo.cn/image/koa_route_method_flow.png">
 <meta property="og:image" content="http://blog.daiyibo.cn/image/koa_route_route_and_layer.png">
-<meta property="og:updated_time" content="2019-07-05T08:27:14.000Z">
+<meta property="og:updated_time" content="2020-09-20T15:33:03.115Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Node-#转：koa-route路由源码解析">
 <meta name="twitter:description" content="koa-route 在 koa 中负责路由分发，是很重要的一环。本打算自己写篇文章总结下的，但在segmentfault上看到了一篇总结得很到位的文章。感觉自己写也就只能写成这样了，所以直接转载了 😂  文章地址：https://segmentfault.com/a/1190000007468233   代码结构 执行流程  上面两张图主要将 koa-router 的整体代码结构和大概的执行流程">
@@ -119,7 +119,7 @@
 
 
 
-  <link rel="canonical" href="http://blog.daiyibo.cn/2019/02/03/Node-转：koa-route路由源码解析/"/>
+  <link rel="canonical" href="http://blog.daiyibo.cn/2019/02/03/Node-转：koa-route路由源码解析/">
 
 
 
@@ -153,7 +153,7 @@
     
 
     <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
+      <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">波波星球</span>
         <span class="logo-line-after"><i></i></span>
@@ -183,7 +183,7 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
             首页
           </a>
@@ -193,7 +193,7 @@
         <li class="menu-item menu-item-categories">
           <a href="/categories/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
             
             分类
           </a>
@@ -203,7 +203,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
             
             归档
           </a>
@@ -216,7 +216,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
             
             搜索
           </a>
@@ -237,9 +237,7 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off"
-             placeholder="搜索..." spellcheck="false"
-             type="text" id="local-search-input">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -256,7 +254,7 @@
  </div>
     </header>
 
-    <a href="https://github.com/AbeDai/blog_hexo"><img class="github-screen" style="position:absolute; top:0px; right:0px; width:80px;" src="http://blog.daiyibo.cn/github.svg"/></a>
+    <a href="https://github.com/AbeDai/blog_hexo"><img class="github-screen" style="position:absolute; top:0px; right:0px; width:80px;" src="http://blog.daiyibo.cn/github.svg"></a>
 
     <main id="main" class="main">
       <div class="main-inner">
@@ -282,7 +280,7 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="戴益波">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
@@ -318,7 +316,7 @@
           </span>
 
           
-            <span class="post-category" >
+            <span class="post-category">
             
               <span class="post-meta-divider">|</span>
             
@@ -372,8 +370,8 @@
 <p>文章地址：<a href="https://segmentfault.com/a/1190000007468233" target="_blank" rel="noopener">https://segmentfault.com/a/1190000007468233</a></p>
 </blockquote>
 <hr>
-<h2 id="代码结构"><a href="#代码结构" class="headerlink" title="代码结构"></a>代码结构</h2><p><img src="/image/koa_router_method_struct.png" alt=""></p>
-<h2 id="执行流程"><a href="#执行流程" class="headerlink" title="执行流程"></a>执行流程</h2><p><img src="/image/koa_route_method_flow.png" alt=""></p>
+<h2 id="代码结构"><a href="#代码结构" class="headerlink" title="代码结构"></a>代码结构</h2><p><img src="/image/koa_router_method_struct.png" alt></p>
+<h2 id="执行流程"><a href="#执行流程" class="headerlink" title="执行流程"></a>执行流程</h2><p><img src="/image/koa_route_method_flow.png" alt></p>
 <blockquote>
 <p>上面两张图主要将 koa-router 的整体代码结构和大概的执行流程画了出来，画的不够具体。那下面主要讲 koa-router 中的几处的关键代码解读一下。</p>
 </blockquote>
@@ -384,7 +382,7 @@
 <li><strong><a href="https://github.com/jshttp/methods" target="_blank" rel="noopener">methods</a></strong>： node 中支持的 http 动词，就是 http.METHODS，可以在终端输出看看</li>
 <li><strong><a href="https://github.com/pillarjs/path-to-regexp" target="_blank" rel="noopener">path-to-regexp</a></strong>： 将路径字符串转换成强大的正则表达式，还可以输出路径参数</li>
 </ul>
-<h2 id="Router-amp-Layer"><a href="#Router-amp-Layer" class="headerlink" title="Router &amp; Layer"></a>Router &amp; Layer</h2><p><img src="/image/koa_route_route_and_layer.png" alt=""></p>
+<h2 id="Router-amp-Layer"><a href="#Router-amp-Layer" class="headerlink" title="Router &amp; Layer"></a>Router &amp; Layer</h2><p><img src="/image/koa_route_route_and_layer.png" alt></p>
 <p>Router 和 Layer 分别是两个构造函数，分别在 router.js 和 layer.js 中，koa-router 的所有代码也就在这两个文件中，可以知道它的代码量并不是很多。</p>
 <h4 id="Router-创建管理整个路由模块的实例"><a href="#Router-创建管理整个路由模块的实例" class="headerlink" title="Router: 创建管理整个路由模块的实例"></a>Router: 创建管理整个路由模块的实例</h4><ul>
 <li><strong>this.methods</strong>: 在后面要讲的 allowedMethods 方法中要用到的，目的是响应 options 请求和请求出错的处理</li>
@@ -539,7 +537,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">87</span>
+                  <span class="site-state-item-count">88</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -599,7 +597,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#代码结构"><span class="nav-number">1.</span> <span class="nav-text">代码结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#执行流程"><span class="nav-number">2.</span> <span class="nav-text">执行流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三方模块说明"><span class="nav-number">3.</span> <span class="nav-text">第三方模块说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Router-amp-Layer"><span class="nav-number">4.</span> <span class="nav-text">Router &amp; Layer</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Router-创建管理整个路由模块的实例"><span class="nav-number">4.0.1.</span> <span class="nav-text">Router: 创建管理整个路由模块的实例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Layer-创建各个路由实例"><span class="nav-number">4.0.2.</span> <span class="nav-text">Layer: 创建各个路由实例</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#router-register-注册路由"><span class="nav-number">5.</span> <span class="nav-text">router.register() 注册路由</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#router-verb-注册路由"><span class="nav-number">6.</span> <span class="nav-text">router.verb() 注册路由</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#router-routes-启动路由"><span class="nav-number">7.</span> <span class="nav-text">router.routes() 启动路由</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#router-allowMethods-处理请求出错逻辑"><span class="nav-number">8.</span> <span class="nav-text">router.allowMethods() 处理请求出错逻辑</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#代码结构"><span class="nav-number">1.</span> <span class="nav-text">代码结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#执行流程"><span class="nav-number">2.</span> <span class="nav-text">执行流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三方模块说明"><span class="nav-number">3.</span> <span class="nav-text">第三方模块说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Router-amp-Layer"><span class="nav-number">4.</span> <span class="nav-text">Router &amp; Layer</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Router-创建管理整个路由模块的实例"><span class="nav-number">4.0.1.</span> <span class="nav-text">Router: 创建管理整个路由模块的实例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Layer-创建各个路由实例"><span class="nav-number">4.0.2.</span> <span class="nav-text">Layer: 创建各个路由实例</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#router-register-注册路由"><span class="nav-number">5.</span> <span class="nav-text">router.register() 注册路由</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#router-verb-注册路由"><span class="nav-number">6.</span> <span class="nav-text">router.verb() 注册路由</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#router-routes-启动路由"><span class="nav-number">7.</span> <span class="nav-text">router.routes() 启动路由</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#router-allowMethods-处理请求出错逻辑"><span class="nav-number">8.</span> <span class="nav-text">router.allowMethods() 处理请求出错逻辑</span></a></li></div>
             
 
           </div>
