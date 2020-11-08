@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.daiyibo.cn/2020/11/08/Android-JS%E5%BC%95%E6%93%8E%E6%8A%80%E6%9C%AF%E9%80%89%E5%9E%8B/</loc>
+    
+    <lastmod>2020-11-08T07:08:03.337Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.daiyibo.cn/2020/11/08/%E6%80%8E%E4%B9%88%E7%94%BB%E5%A5%BD%E4%B8%80%E5%BC%A0%E6%9E%B6%E6%9E%84%E5%9B%BE%EF%BC%9F/</loc>
+    
+    <lastmod>2020-11-08T07:02:20.371Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.daiyibo.cn/2020/10/05/%E5%89%8D%E7%AB%AF-Vuex-%E5%8E%9F%E7%90%86%E4%BB%8B%E7%BB%8D/</loc>
     
     <lastmod>2020-10-05T07:50:31.541Z</lastmod>
@@ -30,28 +44,7 @@
   </url>
   
   <url>
-    <loc>http://blog.daiyibo.cn/2020/01/10/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E9%BB%91%E5%AE%A2%E4%B8%8E%E7%94%BB%E5%AE%B6/</loc>
-    
-    <lastmod>2020-09-20T15:33:03.127Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.daiyibo.cn/2019/07/05/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E7%A8%BB%E7%9B%9B%E5%92%8C%E5%A4%AB-%E5%BF%83%E6%B3%95/</loc>
-    
-    <lastmod>2020-09-20T15:33:03.127Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://blog.daiyibo.cn/2019/07/13/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E6%9E%B6%E6%9E%84%E6%BC%AB%E8%B0%88/</loc>
-    
-    <lastmod>2020-09-20T15:33:03.127Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.daiyibo.cn/2019/11/13/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E7%A1%85%E8%B0%B7%E5%A2%9E%E9%95%BF%E9%BB%91%E5%AE%A2%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0/</loc>
     
     <lastmod>2020-09-20T15:33:03.127Z</lastmod>
     
@@ -65,21 +58,28 @@
   </url>
   
   <url>
+    <loc>http://blog.daiyibo.cn/2019/07/05/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E7%A8%BB%E7%9B%9B%E5%92%8C%E5%A4%AB-%E5%BF%83%E6%B3%95/</loc>
+    
+    <lastmod>2020-09-20T15:33:03.127Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.daiyibo.cn/2019/11/13/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E7%A1%85%E8%B0%B7%E5%A2%9E%E9%95%BF%E9%BB%91%E5%AE%A2%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0/</loc>
+    
+    <lastmod>2020-09-20T15:33:03.127Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.daiyibo.cn/2020/01/10/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E9%BB%91%E5%AE%A2%E4%B8%8E%E7%94%BB%E5%AE%B6/</loc>
+    
+    <lastmod>2020-09-20T15:33:03.127Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.daiyibo.cn/2020/01/24/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E6%9E%AA%E7%82%AE%E3%80%81%E7%97%85%E8%8F%8C%E4%B8%8E%E9%92%A2%E9%93%81%EF%BC%9A%E4%BA%BA%E7%B1%BB%E7%A4%BE%E4%BC%9A%E7%9A%84%E5%91%BD%E8%BF%90/</loc>
-    
-    <lastmod>2020-09-20T15:33:03.126Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.daiyibo.cn/2019/12/07/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E6%97%B6%E9%97%B4%E7%9A%84%E7%A7%A9%E5%BA%8F/</loc>
-    
-    <lastmod>2020-09-20T15:33:03.126Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.daiyibo.cn/2019/11/11/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E5%92%96%E5%95%A1%E5%92%96%E5%95%A1%E5%A4%84%E5%A4%84%E5%BC%80/</loc>
     
     <lastmod>2020-09-20T15:33:03.126Z</lastmod>
     
@@ -100,6 +100,27 @@
   </url>
   
   <url>
+    <loc>http://blog.daiyibo.cn/2019/11/11/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E5%92%96%E5%95%A1%E5%92%96%E5%95%A1%E5%A4%84%E5%A4%84%E5%BC%80/</loc>
+    
+    <lastmod>2020-09-20T15:33:03.126Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.daiyibo.cn/2019/12/07/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E6%97%B6%E9%97%B4%E7%9A%84%E7%A7%A9%E5%BA%8F/</loc>
+    
+    <lastmod>2020-09-20T15:33:03.126Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.daiyibo.cn/2020/02/13/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E5%8D%8A%E5%B0%8F%E6%97%B6%E6%BC%AB%E7%94%BB%E7%BB%8F%E6%B5%8E%E5%AD%A6/</loc>
+    
+    <lastmod>2020-09-20T15:33:03.125Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.daiyibo.cn/2020/05/17/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E5%88%BB%E6%84%8F%E7%BB%83%E4%B9%A0/</loc>
     
     <lastmod>2020-09-20T15:33:03.125Z</lastmod>
@@ -114,9 +135,9 @@
   </url>
   
   <url>
-    <loc>http://blog.daiyibo.cn/2020/02/13/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E5%8D%8A%E5%B0%8F%E6%97%B6%E6%BC%AB%E7%94%BB%E7%BB%8F%E6%B5%8E%E5%AD%A6/</loc>
+    <loc>http://blog.daiyibo.cn/2018/11/04/%E7%BD%91%E7%BB%9C-%E5%AF%B9%E4%BA%8E%E3%80%8ASocket%E5%BF%83%E8%B7%B3%E5%8C%85%E3%80%8B%E7%9A%84%E6%80%9D%E8%80%83/</loc>
     
-    <lastmod>2020-09-20T15:33:03.125Z</lastmod>
+    <lastmod>2020-09-20T15:33:03.124Z</lastmod>
     
   </url>
   
@@ -128,23 +149,9 @@
   </url>
   
   <url>
-    <loc>http://blog.daiyibo.cn/2018/11/04/%E7%BD%91%E7%BB%9C-%E5%AF%B9%E4%BA%8E%E3%80%8ASocket%E5%BF%83%E8%B7%B3%E5%8C%85%E3%80%8B%E7%9A%84%E6%80%9D%E8%80%83/</loc>
-    
-    <lastmod>2020-09-20T15:33:03.124Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://blog.daiyibo.cn/2020/02/09/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E4%B8%89%E4%BD%93/</loc>
     
     <lastmod>2020-09-20T15:33:03.124Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.daiyibo.cn/2018/10/11/%E7%BD%91%E7%BB%9C-OSI-%E4%B8%83%E5%B1%82%E9%80%9A%E8%AE%AF/</loc>
-    
-    <lastmod>2020-09-20T15:33:03.123Z</lastmod>
     
   </url>
   
@@ -170,28 +177,14 @@
   </url>
   
   <url>
-    <loc>http://blog.daiyibo.cn/2019/02/04/%E7%BB%84%E7%BB%87%E7%AE%A1%E7%90%86-%E8%B0%88%E8%B0%88%E6%88%91%E5%AF%B9OKR%E7%9A%84%E7%90%86%E8%A7%A3/</loc>
+    <loc>http://blog.daiyibo.cn/2018/10/11/%E7%BD%91%E7%BB%9C-OSI-%E4%B8%83%E5%B1%82%E9%80%9A%E8%AE%AF/</loc>
     
-    <lastmod>2020-09-20T15:33:03.122Z</lastmod>
+    <lastmod>2020-09-20T15:33:03.123Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://blog.daiyibo.cn/2019/01/03/%E7%AE%97%E6%B3%95-%E7%BA%A2%E9%BB%91%E6%A0%91%E7%9A%84%E6%80%9D%E8%80%83/</loc>
-    
-    <lastmod>2020-09-20T15:33:03.122Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.daiyibo.cn/2019/09/08/%E7%BB%84%E7%BB%87%E7%AE%A1%E7%90%86-%E5%AE%A3%E8%AE%B2%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/</loc>
-    
-    <lastmod>2020-09-20T15:33:03.122Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.daiyibo.cn/2019/06/19/%E7%BB%84%E7%BB%87%E7%AE%A1%E7%90%86-%E8%A7%84%E5%88%92%E7%9A%84%E6%96%B9%E6%B3%95%E8%AE%BA/</loc>
     
     <lastmod>2020-09-20T15:33:03.122Z</lastmod>
     
@@ -205,9 +198,23 @@
   </url>
   
   <url>
-    <loc>http://blog.daiyibo.cn/2019/07/01/%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0-%E8%A1%A5%E6%BC%8F/</loc>
+    <loc>http://blog.daiyibo.cn/2019/09/08/%E7%BB%84%E7%BB%87%E7%AE%A1%E7%90%86-%E5%AE%A3%E8%AE%B2%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/</loc>
     
-    <lastmod>2020-09-20T15:33:03.121Z</lastmod>
+    <lastmod>2020-09-20T15:33:03.122Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.daiyibo.cn/2019/02/04/%E7%BB%84%E7%BB%87%E7%AE%A1%E7%90%86-%E8%B0%88%E8%B0%88%E6%88%91%E5%AF%B9OKR%E7%9A%84%E7%90%86%E8%A7%A3/</loc>
+    
+    <lastmod>2020-09-20T15:33:03.122Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.daiyibo.cn/2019/06/19/%E7%BB%84%E7%BB%87%E7%AE%A1%E7%90%86-%E8%A7%84%E5%88%92%E7%9A%84%E6%96%B9%E6%B3%95%E8%AE%BA/</loc>
+    
+    <lastmod>2020-09-20T15:33:03.122Z</lastmod>
     
   </url>
   
@@ -226,9 +233,9 @@
   </url>
   
   <url>
-    <loc>http://blog.daiyibo.cn/2018/09/19/%E5%BB%BA%E7%AB%99%E5%88%9D%E8%A1%B7/</loc>
+    <loc>http://blog.daiyibo.cn/2019/07/01/%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0-%E8%A1%A5%E6%BC%8F/</loc>
     
-    <lastmod>2020-09-20T15:33:03.120Z</lastmod>
+    <lastmod>2020-09-20T15:33:03.121Z</lastmod>
     
   </url>
   
@@ -247,9 +254,9 @@
   </url>
   
   <url>
-    <loc>http://blog.daiyibo.cn/2019/09/21/%E5%B7%A5%E4%BD%9C%E5%9B%9E%E9%A1%BE-%E8%B7%AF%E7%94%B1%E6%A1%86%E6%9E%B6/</loc>
+    <loc>http://blog.daiyibo.cn/2018/09/19/%E5%BB%BA%E7%AB%99%E5%88%9D%E8%A1%B7/</loc>
     
-    <lastmod>2020-09-20T15:33:03.119Z</lastmod>
+    <lastmod>2020-09-20T15:33:03.120Z</lastmod>
     
   </url>
   
@@ -268,16 +275,16 @@
   </url>
   
   <url>
-    <loc>http://blog.daiyibo.cn/2019/09/20/%E5%B7%A5%E4%BD%9C%E5%9B%9E%E9%A1%BE-%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E6%A1%86%E6%9E%B6/</loc>
+    <loc>http://blog.daiyibo.cn/2019/09/21/%E5%B7%A5%E4%BD%9C%E5%9B%9E%E9%A1%BE-%E8%B7%AF%E7%94%B1%E6%A1%86%E6%9E%B6/</loc>
     
     <lastmod>2020-09-20T15:33:03.119Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.daiyibo.cn/2019/09/22/%E5%B7%A5%E4%BD%9C%E5%9B%9E%E9%A1%BE-%E5%A3%B3%E5%B7%A5%E7%A8%8B%E4%B8%9A%E5%8A%A1/</loc>
+    <loc>http://blog.daiyibo.cn/2019/09/20/%E5%B7%A5%E4%BD%9C%E5%9B%9E%E9%A1%BE-%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E6%A1%86%E6%9E%B6/</loc>
     
-    <lastmod>2020-09-20T15:33:03.118Z</lastmod>
+    <lastmod>2020-09-20T15:33:03.119Z</lastmod>
     
   </url>
   
@@ -290,6 +297,13 @@
   
   <url>
     <loc>http://blog.daiyibo.cn/2019/09/22/%E5%B7%A5%E4%BD%9C%E5%9B%9E%E9%A1%BE-%E5%B7%A5%E7%A8%8B%E8%BE%85%E5%8A%A9%E7%B3%BB%E7%BB%9F/</loc>
+    
+    <lastmod>2020-09-20T15:33:03.118Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.daiyibo.cn/2019/09/22/%E5%B7%A5%E4%BD%9C%E5%9B%9E%E9%A1%BE-%E5%A3%B3%E5%B7%A5%E7%A8%8B%E4%B8%9A%E5%8A%A1/</loc>
     
     <lastmod>2020-09-20T15:33:03.118Z</lastmod>
     
@@ -317,20 +331,6 @@
   </url>
   
   <url>
-    <loc>http://blog.daiyibo.cn/2020/01/31/%E5%89%8D%E7%AB%AF-%E5%8A%A8%E7%94%BB%E3%80%81%E8%BF%87%E6%B8%A1%E7%94%A8%E6%B3%95%E4%BB%8B%E7%BB%8D/</loc>
-    
-    <lastmod>2020-09-20T15:33:03.117Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.daiyibo.cn/2020/02/17/%E5%89%8D%E7%AB%AF-Weex%E5%88%9D%E4%BD%93%E9%AA%8C-%E7%94%A8%E6%B3%95%E6%A6%82%E8%A7%88/</loc>
-    
-    <lastmod>2020-09-20T15:33:03.117Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://blog.daiyibo.cn/2020/02/23/%E5%89%8D%E7%AB%AF-%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91%E6%9C%BA%E5%88%B6/</loc>
     
     <lastmod>2020-09-20T15:33:03.117Z</lastmod>
@@ -345,14 +345,21 @@
   </url>
   
   <url>
-    <loc>http://blog.daiyibo.cn/2020/01/01/%E5%89%8D%E7%AB%AF-Vue%E7%BB%84%E4%BB%B6%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</loc>
+    <loc>http://blog.daiyibo.cn/2020/01/31/%E5%89%8D%E7%AB%AF-%E5%8A%A8%E7%94%BB%E3%80%81%E8%BF%87%E6%B8%A1%E7%94%A8%E6%B3%95%E4%BB%8B%E7%BB%8D/</loc>
     
-    <lastmod>2020-09-20T15:33:03.116Z</lastmod>
+    <lastmod>2020-09-20T15:33:03.117Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.daiyibo.cn/2020/06/27/%E5%89%8D%E7%AB%AF-Vue-Virtual-Dom-diff%E5%8E%9F%E7%90%86/</loc>
+    <loc>http://blog.daiyibo.cn/2020/02/17/%E5%89%8D%E7%AB%AF-Weex%E5%88%9D%E4%BD%93%E9%AA%8C-%E7%94%A8%E6%B3%95%E6%A6%82%E8%A7%88/</loc>
+    
+    <lastmod>2020-09-20T15:33:03.117Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.daiyibo.cn/2020/05/17/%E5%89%8D%E7%AB%AF-Webpack%E6%A6%82%E5%BF%B5%E4%BB%8B%E7%BB%8D/</loc>
     
     <lastmod>2020-09-20T15:33:03.116Z</lastmod>
     
@@ -366,21 +373,14 @@
   </url>
   
   <url>
+    <loc>http://blog.daiyibo.cn/2020/06/27/%E5%89%8D%E7%AB%AF-Vue-Virtual-Dom-diff%E5%8E%9F%E7%90%86/</loc>
+    
+    <lastmod>2020-09-20T15:33:03.116Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.daiyibo.cn/2020/07/26/%E5%89%8D%E7%AB%AF-Vue-%E8%B7%A8%E7%BB%84%E4%BB%B6%E9%80%9A%E8%AE%AF%EF%BC%88Provider%E5%92%8CInject%EF%BC%89/</loc>
-    
-    <lastmod>2020-09-20T15:33:03.116Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.daiyibo.cn/2020/06/06/%E5%89%8D%E7%AB%AF-JS%20%E6%A8%A1%E5%9D%97%E5%8C%96%E5%8F%91%E5%B1%95%E8%BF%9B%E7%A8%8B/</loc>
-    
-    <lastmod>2020-09-20T15:33:03.116Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.daiyibo.cn/2020/05/17/%E5%89%8D%E7%AB%AF-Webpack%E6%A6%82%E5%BF%B5%E4%BB%8B%E7%BB%8D/</loc>
     
     <lastmod>2020-09-20T15:33:03.116Z</lastmod>
     
@@ -394,6 +394,13 @@
   </url>
   
   <url>
+    <loc>http://blog.daiyibo.cn/2020/06/06/%E5%89%8D%E7%AB%AF-JS%20%E6%A8%A1%E5%9D%97%E5%8C%96%E5%8F%91%E5%B1%95%E8%BF%9B%E7%A8%8B/</loc>
+    
+    <lastmod>2020-09-20T15:33:03.116Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.daiyibo.cn/2020/02/02/%E5%89%8D%E7%AB%AF-Vue%E4%B8%AD%E7%9A%84%E8%BF%87%E6%B8%A1%E4%B8%8E%E5%8A%A8%E7%94%BB%E7%9F%A5%E8%AF%86/</loc>
     
     <lastmod>2020-09-20T15:33:03.116Z</lastmod>
@@ -401,7 +408,21 @@
   </url>
   
   <url>
-    <loc>http://blog.daiyibo.cn/2020/01/30/%E5%89%8D%E7%AB%AF-CSS%E9%80%89%E6%8B%A9%E5%99%A8%E5%85%A8%E8%A7%A3/</loc>
+    <loc>http://blog.daiyibo.cn/2020/01/01/%E5%89%8D%E7%AB%AF-Vue%E7%BB%84%E4%BB%B6%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</loc>
+    
+    <lastmod>2020-09-20T15:33:03.116Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.daiyibo.cn/2020/01/30/%E5%89%8D%E7%AB%AF-CSS%E6%A0%B7%E5%BC%8F%E8%A1%A8%E5%A3%B0%E6%98%8E/</loc>
+    
+    <lastmod>2020-09-20T15:33:03.115Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.daiyibo.cn/2020/01/01/%E5%89%8D%E7%AB%AF-CSS%E5%B8%83%E5%B1%80%E9%82%A3%E4%BA%9B%E4%BA%8B/</loc>
     
     <lastmod>2020-09-20T15:33:03.115Z</lastmod>
     
@@ -415,7 +436,7 @@
   </url>
   
   <url>
-    <loc>http://blog.daiyibo.cn/2020/01/30/%E5%89%8D%E7%AB%AF-CSS%E6%A0%B7%E5%BC%8F%E8%A1%A8%E5%A3%B0%E6%98%8E/</loc>
+    <loc>http://blog.daiyibo.cn/2018/09/24/%E4%BA%A7%E5%93%81-%E7%A1%AE%E5%AE%9A%E5%8A%9F%E8%83%BD%E7%9A%84%E4%BB%B7%E5%80%BC/</loc>
     
     <lastmod>2020-09-20T15:33:03.115Z</lastmod>
     
@@ -436,37 +457,9 @@
   </url>
   
   <url>
-    <loc>http://blog.daiyibo.cn/2018/09/24/%E4%BA%A7%E5%93%81-%E7%A1%AE%E5%AE%9A%E5%8A%9F%E8%83%BD%E7%9A%84%E4%BB%B7%E5%80%BC/</loc>
+    <loc>http://blog.daiyibo.cn/2020/01/30/%E5%89%8D%E7%AB%AF-CSS%E9%80%89%E6%8B%A9%E5%99%A8%E5%85%A8%E8%A7%A3/</loc>
     
     <lastmod>2020-09-20T15:33:03.115Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.daiyibo.cn/2020/01/01/%E5%89%8D%E7%AB%AF-CSS%E5%B8%83%E5%B1%80%E9%82%A3%E4%BA%9B%E4%BA%8B/</loc>
-    
-    <lastmod>2020-09-20T15:33:03.115Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.daiyibo.cn/2019/01/29/Node-koa-compose%E6%B4%8B%E8%91%B1%E5%9C%88%E6%A8%A1%E5%9E%8B%E4%BB%8B%E7%BB%8D/</loc>
-    
-    <lastmod>2020-09-20T15:33:03.114Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.daiyibo.cn/2019/01/01/Node-JS%E4%B8%AD%E7%9A%84EventEmitter%E8%AE%A2%E9%98%85%E5%8F%91%E5%B8%83/</loc>
-    
-    <lastmod>2020-09-20T15:33:03.114Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.daiyibo.cn/2019/01/18/Node-JS%E4%B8%AD%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%E7%9A%84%E6%95%B4%E7%90%86/</loc>
-    
-    <lastmod>2020-09-20T15:33:03.114Z</lastmod>
     
   </url>
   
@@ -478,7 +471,7 @@
   </url>
   
   <url>
-    <loc>http://blog.daiyibo.cn/2018/12/16/Node-JS%E4%B8%AD%E6%A8%A1%E5%9D%97%E7%AE%A1%E7%90%86%E4%BB%8B%E7%BB%8D/</loc>
+    <loc>http://blog.daiyibo.cn/2019/01/29/Node-koa-compose%E6%B4%8B%E8%91%B1%E5%9C%88%E6%A8%A1%E5%9E%8B%E4%BB%8B%E7%BB%8D/</loc>
     
     <lastmod>2020-09-20T15:33:03.114Z</lastmod>
     
@@ -492,28 +485,28 @@
   </url>
   
   <url>
+    <loc>http://blog.daiyibo.cn/2019/01/01/Node-JS%E4%B8%AD%E7%9A%84EventEmitter%E8%AE%A2%E9%98%85%E5%8F%91%E5%B8%83/</loc>
+    
+    <lastmod>2020-09-20T15:33:03.114Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.daiyibo.cn/2018/12/16/Node-JS%E4%B8%AD%E6%A8%A1%E5%9D%97%E7%AE%A1%E7%90%86%E4%BB%8B%E7%BB%8D/</loc>
+    
+    <lastmod>2020-09-20T15:33:03.114Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.daiyibo.cn/2019/01/18/Node-JS%E4%B8%AD%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%E7%9A%84%E6%95%B4%E7%90%86/</loc>
+    
+    <lastmod>2020-09-20T15:33:03.114Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.daiyibo.cn/2018/11/10/Node-JS%E4%B8%AD%E5%8E%9F%E5%9E%8B%E7%9A%84%E7%90%86%E8%A7%A3/</loc>
-    
-    <lastmod>2020-09-20T15:33:03.113Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.daiyibo.cn/2018/12/18/Java-%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E7%9A%84%E6%80%9D%E8%80%83/</loc>
-    
-    <lastmod>2020-09-20T15:33:03.113Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.daiyibo.cn/2019/02/20/Java-%E7%90%86%E8%A7%A3Boolean%E5%AF%B9-%E6%93%8D%E4%BD%9C%E7%AC%A6%E7%9A%84%E4%BD%BF%E7%94%A8/</loc>
-    
-    <lastmod>2020-09-20T15:33:03.113Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.daiyibo.cn/2019/09/07/Java-%E5%9F%BA%E7%A1%80%E7%B1%BB%E5%9E%8BN%E8%BF%9B%E5%AE%AB/</loc>
     
     <lastmod>2020-09-20T15:33:03.113Z</lastmod>
     
@@ -527,7 +520,28 @@
   </url>
   
   <url>
-    <loc>http://blog.daiyibo.cn/2019/05/08/Git-git-config%E4%BD%BF%E7%94%A8%E4%BB%8B%E7%BB%8D/</loc>
+    <loc>http://blog.daiyibo.cn/2018/12/18/Java-%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E7%9A%84%E6%80%9D%E8%80%83/</loc>
+    
+    <lastmod>2020-09-20T15:33:03.113Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.daiyibo.cn/2019/09/07/Java-%E5%9F%BA%E7%A1%80%E7%B1%BB%E5%9E%8BN%E8%BF%9B%E5%AE%AB/</loc>
+    
+    <lastmod>2020-09-20T15:33:03.113Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.daiyibo.cn/2019/02/20/Java-%E7%90%86%E8%A7%A3Boolean%E5%AF%B9-%E6%93%8D%E4%BD%9C%E7%AC%A6%E7%9A%84%E4%BD%BF%E7%94%A8/</loc>
+    
+    <lastmod>2020-09-20T15:33:03.113Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.daiyibo.cn/2018/09/22/Google-I-O-2018-%E6%91%98%E8%A6%81/</loc>
     
     <lastmod>2020-09-20T15:33:03.112Z</lastmod>
     
@@ -541,7 +555,7 @@
   </url>
   
   <url>
-    <loc>http://blog.daiyibo.cn/2018/09/22/Google-I-O-2018-%E6%91%98%E8%A6%81/</loc>
+    <loc>http://blog.daiyibo.cn/2019/05/08/Git-git-config%E4%BD%BF%E7%94%A8%E4%BB%8B%E7%BB%8D/</loc>
     
     <lastmod>2020-09-20T15:33:03.112Z</lastmod>
     
@@ -590,28 +604,14 @@
   </url>
   
   <url>
-    <loc>http://blog.daiyibo.cn/2019/06/11/Android-Maven%E4%BE%9D%E8%B5%96%E8%A7%84%E5%88%99/</loc>
-    
-    <lastmod>2020-09-20T15:33:03.109Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.daiyibo.cn/2019/05/04/Android-Gradle%E5%AE%9E%E6%88%98/</loc>
-    
-    <lastmod>2020-09-20T15:33:03.109Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.daiyibo.cn/2019/03/22/Android-Debug%E8%B0%83%E8%AF%95%E5%8E%9F%E7%90%86/</loc>
-    
-    <lastmod>2020-09-20T15:33:03.109Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://blog.daiyibo.cn/2019/04/07/Android-Dalvik%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%AE%B0%E5%BD%95/</loc>
+    
+    <lastmod>2020-09-20T15:33:03.109Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.daiyibo.cn/2019/06/11/Android-Maven%E4%BE%9D%E8%B5%96%E8%A7%84%E5%88%99/</loc>
     
     <lastmod>2020-09-20T15:33:03.109Z</lastmod>
     
@@ -626,6 +626,20 @@
   
   <url>
     <loc>http://blog.daiyibo.cn/2019/10/29/Android-Kotlin%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0/</loc>
+    
+    <lastmod>2020-09-20T15:33:03.109Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.daiyibo.cn/2019/05/04/Android-Gradle%E5%AE%9E%E6%88%98/</loc>
+    
+    <lastmod>2020-09-20T15:33:03.109Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.daiyibo.cn/2019/03/22/Android-Debug%E8%B0%83%E8%AF%95%E5%8E%9F%E7%90%86/</loc>
     
     <lastmod>2020-09-20T15:33:03.109Z</lastmod>
     
