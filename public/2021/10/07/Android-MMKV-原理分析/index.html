@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/favicon.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="对外API介绍MMVK 的 Java 测代码非常简单。对标 SharedPreferences 接口，减少学习成本，方便业务替换。 123public class MMKV implements SharedPreferences, SharedPreferences.Editor &amp;#123;    ...&amp;#125; MMKV 底层分为两部分，第一部分是 native-bridge.cpp，这">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android - MMKV 原理分析">
+<meta property="og:url" content="http://blog.daiyibo.cn/2021/10/07/Android-MMKV-原理分析/index.html">
+<meta property="og:site_name" content="波波星球">
+<meta property="og:description" content="对外API介绍MMVK 的 Java 测代码非常简单。对标 SharedPreferences 接口，减少学习成本，方便业务替换。 123public class MMKV implements SharedPreferences, SharedPreferences.Editor &amp;#123;    ...&amp;#125; MMKV 底层分为两部分，第一部分是 native-bridge.cpp，这">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://blog.daiyibo.cn/image/7182C050-A26E-4240-BF68-B9F4554F3175.png">
+<meta property="og:image" content="http://blog.daiyibo.cn/image/2AB92370-4543-4F60-A3B7-098E7F4EA808.png">
+<meta property="og:image" content="http://blog.daiyibo.cn/image/4C3733C2-C9C8-4AC7-B351-751F13031E87.png">
+<meta property="og:updated_time" content="2021-10-07T13:21:48.873Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android - MMKV 原理分析">
+<meta name="twitter:description" content="对外API介绍MMVK 的 Java 测代码非常简单。对标 SharedPreferences 接口，减少学习成本，方便业务替换。 123public class MMKV implements SharedPreferences, SharedPreferences.Editor &amp;#123;    ...&amp;#125; MMKV 底层分为两部分，第一部分是 native-bridge.cpp，这">
+<meta name="twitter:image" content="http://blog.daiyibo.cn/image/7182C050-A26E-4240-BF68-B9F4554F3175.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.daiyibo.cn/2021/10/07/Android-MMKV-原理分析/">
+
+
+
+
+
+  <title>Android - MMKV 原理分析 | 波波星球</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">波波星球</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <a href="https://github.com/AbeDai/blog_hexo"><img class="github-screen" style="position:absolute; top:0px; right:0px; width:80px;" src="http://blog.daiyibo.cn/github.svg"></a>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.daiyibo.cn/2021/10/07/Android-MMKV-原理分析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="戴益波">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="波波星球">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android - MMKV 原理分析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-10-07T21:20:30+08:00">
+                2021-10-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/客户端/" itemprop="url" rel="index">
+                    <span itemprop="name">客户端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="对外API介绍"><a href="#对外API介绍" class="headerlink" title="对外API介绍"></a>对外API介绍</h3><p><code>MMVK</code> 的 <code>Java</code> 测代码非常简单。对标 <code>SharedPreferences</code> 接口，减少学习成本，方便业务替换。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MMKV</span> <span class="keyword">implements</span> <span class="title">SharedPreferences</span>, <span class="title">SharedPreferences</span>.<span class="title">Editor</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>MMKV</code> 底层分为两部分，第一部分是 <code>native-bridge.cpp</code>，这里主要用来做<code>jni</code>透传。第二部分为 <code>mmkv</code> 的底层实现，这里才是真正的 <code>mmkv</code> 实现。</p>
+<h3 id="原理分析"><a href="#原理分析" class="headerlink" title="原理分析"></a>原理分析</h3><h4 id="MMAP-原理简介"><a href="#MMAP-原理简介" class="headerlink" title="MMAP 原理简介"></a>MMAP 原理简介</h4><p><code>mmap</code>是一种内存映射文件的方法，即将一个文件或者其它对象映射到进程的地址空间，实现文件磁盘地址和进程虚拟地址空间中一段虚拟地址的一一对映关系。实现这样的映射关系后，进程就可以采用指针的方式读写操作这一段内存，而系统会自动回写脏页面到对应的文件磁盘上，即完成了对文件的操作而不必再调用<code>read</code>,<code>write</code>等系统调用函数。相反，内核空间对这段区域的修改也直接反映用户空间，从而可以实现不同进程间的文件共享。如下图所示：</p>
+<p><img src="/image/7182C050-A26E-4240-BF68-B9F4554F3175.png" alt="5bee22ac55ebd10a20fbf28d4693c69c"></p>
+<p>由上图可以看出，进程的虚拟地址空间，由多个虚拟内存区域构成。虚拟内存区域是进程的虚拟地址空间中的一个同质区间，即具有同样特性的连续地址范围。上图中所示的text数据段（代码段）、初始数据段、BSS数据段、堆、栈和内存映射，都是一个独立的虚拟内存区域。而为内存映射服务的地址空间处在堆栈之间的空余部分。</p>
+<h5 id="mmap-和常规文件操作的区别"><a href="#mmap-和常规文件操作的区别" class="headerlink" title="mmap 和常规文件操作的区别"></a><code>mmap</code> 和常规文件操作的区别</h5><p>常规文件操作为了提高读写效率和保护磁盘，使用了页缓存机制。这样造成读文件时需要先将文件页从磁盘拷贝到页缓存中，由于页缓存处在内核空间，不能被用户进程直接寻址，所以还需要将页缓存中数据页再次拷贝到内存对应的用户空间中。写操作也是一样，待写入的 <code>buffer</code> 在内核空间不能直接访问，必须要先拷贝至内核空间对应的主存储器，再写回磁盘中（延迟写回），也是需要两次数据拷贝。</p>
+<p>而使用 <code>mmap</code> 操作文件中，创建新的虚拟内存区域和建立文件磁盘地址和虚拟内存区域映射这两步，没有任何文件拷贝操作。而之后访问数据时发现内存中并无数据而发起的缺页异常过程，可以通过已经建立好的映射关系，只使用一次数据拷贝，就从磁盘中将数据传入内存的用户空间中，供进程使用。</p>
+<h4 id="mmap-使用细节"><a href="#mmap-使用细节" class="headerlink" title="mmap 使用细节"></a><code>mmap</code> 使用细节</h4><p>使用 <code>mmap</code> 需要注意的一个关键点是，<code>mmap</code> 映射区域大小必须是物理页大小(<code>page_size</code>)的整倍数（32位系统中通常是 4k 字节）。原因是，内存的最小粒度是页，而进程虚拟地址空间和内存的映射也是以页为单位。为了匹配内存的操作，<code>mmap</code> 从磁盘到虚拟地址空间的映射也必须是页。</p>
+<h4 id="MMKV-与-SP-性能对比"><a href="#MMKV-与-SP-性能对比" class="headerlink" title="MMKV 与 SP 性能对比"></a>MMKV 与 SP 性能对比</h4><p>MMAP对文件的读写操作只需要从磁盘到用户主存的一次数据拷贝过程，减少了数据的拷贝次数，提高了文件读写效率。<br>MMAP使用逻辑内存对磁盘文件进行映射，操作内存就相当于操作文件，不需要开启线程，操作MMAP的速度和操作内存的速度一样快；<br>MMAP提供一段可供随时写入的内存块，App 只管往里面写数据，由操作系统如内存不足、进程退出等时候负责将内存回写到文件，不必担心 crash 导致数据丢失。</p>
+<p>下面来对比一下SP可MMKV同事存储1000条数据的耗时：</p>
+<p><img src="/image/2AB92370-4543-4F60-A3B7-098E7F4EA808.png" alt="9b7ff9b6aeefddbbd5beb2376341af85"></p>
+<p><img src="/image/4C3733C2-C9C8-4AC7-B351-751F13031E87.png" alt="94ea594dec2d3dbbf8150c6a9ddc494c"></p>
+<p>由此可见，MMKV的写入速度远超过了SP！这也是MMAP的优势所在。读取的时候两者都是在app初始化时将数据保存在了一个map中，从内存中读取，所以两者的读取速度是没什么分别的。</p>
+<h3 id="MMKV-初始化"><a href="#MMKV-初始化" class="headerlink" title="MMKV 初始化"></a>MMKV 初始化</h3><p>使用MMKV的时候需要调用MMKV.java中的初始化方法，最终都会调用到C++层的jniInitialize()方法，这个类就不多说了。</p>
+<p>值得一提的是，每次操作数据时都是通过defaultMMKV来使用的，但是它最终new出来的一个新的对象：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> MMKV <span class="title">defaultMMKV</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (rootDir == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">"You should Call MMKV.initialize() first."</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">long</span> handle = getDefaultMMKV();</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> MMKV(handle);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>最终都返回了一个新的实例。为什么不是单例呢？因为真正的mmkv对象是存放在C++层的，最后传递了一个handle参数，这个handle就是MMKV对象在内存中的地址（这个稍后看C源码可知，其实在C++层，是用了一个map来保存MMKV的，因为每次文件保存的路径可能不一样，所以不能使用单例）。拿到了这个地址引用以后，就可以把这个地址传递回C++层，在C++拿到MMKV的对象进行操作。</p>
+<h4 id="C-初始化与实例化"><a href="#C-初始化与实例化" class="headerlink" title="C++初始化与实例化"></a>C++初始化与实例化</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">MMKV::initializeMMKV</span><span class="params">(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span> &amp;rootDir)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">pthread_once_t</span> once_control = PTHREAD_ONCE_INIT;</span><br><span class="line">    pthread_once(&amp;once_control, initialize);</span><br><span class="line"></span><br><span class="line">    g_rootDir = rootDir;</span><br><span class="line">    <span class="keyword">char</span> *path = strdup(g_rootDir.c_str());</span><br><span class="line">    <span class="keyword">if</span> (path) &#123;</span><br><span class="line">        mkPath(path);</span><br><span class="line">        <span class="built_in">free</span>(path);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    MMKVInfo(<span class="string">"root dir: %s"</span>, g_rootDir.c_str());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到，这里初始化其实只创建了一个目录，mkpath方法中创建了一个可读可写权限的文件夹。那么怎么获取实例呢? 源码中的defaultMMKV中调用返回了mmkvWithID（）函数</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">MMKV *<span class="title">MMKV::defaultMMKV</span><span class="params">(MMKVMode mode, <span class="built_in">string</span> *cryptKey)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> mmkvWithID(DEFAULT_MMAP_ID, DEFAULT_MMAP_SIZE, mode, cryptKey);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">MMKV *<span class="title">MMKV::mmkvWithID</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">    <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span> &amp;mmapID, <span class="keyword">int</span> size, MMKVMode mode, <span class="built_in">string</span> *cryptKey, <span class="built_in">string</span> *relativePath)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (mmapID.empty()) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    SCOPEDLOCK(g_instanceLock);</span><br><span class="line">    <span class="comment">// 根据mmapID获取mmkv在map中的key</span></span><br><span class="line">    <span class="keyword">auto</span> mmapKey = mmapedKVKey(mmapID, relativePath);</span><br><span class="line">    <span class="comment">// 从map集合中根据key查找MMKV实例</span></span><br><span class="line">    <span class="keyword">auto</span> itr = g_instanceDic-&gt;find(mmapKey);</span><br><span class="line">    <span class="comment">// 如果map中存在这个实例，就直接返回</span></span><br><span class="line">    <span class="keyword">if</span> (itr != g_instanceDic-&gt;end()) &#123;</span><br><span class="line">        MMKV *kv = itr-&gt;second;</span><br><span class="line">        <span class="keyword">return</span> kv;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 省略一些不关键代码</span></span><br><span class="line">    ...</span><br><span class="line">   </span><br><span class="line">    <span class="comment">// 如果不存在，根据mmapID创建一个实例，并保存到map中，下次用直接从map中取到</span></span><br><span class="line">    <span class="keyword">auto</span> kv = <span class="keyword">new</span> MMKV(mmapID, size, mode, cryptKey, relativePath);</span><br><span class="line">    (*g_instanceDic)[mmapKey] = kv;</span><br><span class="line">    <span class="keyword">return</span> kv;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个函数中传递了一个mmapID， 这个id如果其实相当于SharedPreference中的fileName参数，根据id保存到不同的文件中。获取实例时先判断g_instanceDic集合中是否存在实例，如果存在直接返回，否则创建完成MMKV之后放入g_instanceDic集合中。所以其实在C++层是做了单例处理的。具体细节都在上面注释。当然，获取实例的时候mmapID并不是必传的参数，C++已经为我们设置了一个默认值：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//默认的mmkv文件</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> DEFAULT_MMAP_ID <span class="meta-string">"mmkv.default"</span></span></span><br></pre></td></tr></table></figure>
+<p>在MMKV的构造函数中，可以看到调用了一个loadFromFile函数，这个函数的主要作用就是在初始化的时候，读取MMKV文件，并放入map集合中。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">MMKV::loadFromFile</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 省略不关键代码</span></span><br><span class="line">    ... </span><br><span class="line">    <span class="comment">// 打开MMKV文件</span></span><br><span class="line">    m_fd = open(m_path.c_str(), O_RDWR | O_CREAT, S_IRWXU);</span><br><span class="line">    <span class="keyword">if</span> (m_fd &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="comment">// 打开失败 </span></span><br><span class="line">        MMKVError(<span class="string">"fail to open:%s, %s"</span>, m_path.c_str(), strerror(errno));</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 获取文件大小</span></span><br><span class="line">        m_size = <span class="number">0</span>;</span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">stat</span> <span class="title">st</span> = &#123;</span><span class="number">0</span>&#125;;</span><br><span class="line">        <span class="keyword">if</span> (fstat(m_fd, &amp;st) != <span class="number">-1</span>) &#123;</span><br><span class="line">            m_size = <span class="keyword">static_cast</span>&lt;<span class="keyword">size_t</span>&gt;(st.st_size);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// round up to (n * pagesize)</span></span><br><span class="line">        <span class="keyword">if</span> (m_size &lt; DEFAULT_MMAP_SIZE || (m_size % DEFAULT_MMAP_SIZE != <span class="number">0</span>)) &#123;</span><br><span class="line">            <span class="keyword">size_t</span> oldSize = m_size;</span><br><span class="line">            m_size = ((m_size / DEFAULT_MMAP_SIZE) + <span class="number">1</span>) * DEFAULT_MMAP_SIZE;</span><br><span class="line">            <span class="keyword">if</span> (ftruncate(m_fd, m_size) != <span class="number">0</span>) &#123;</span><br><span class="line">                MMKVError(<span class="string">"fail to truncate [%s] to size %zu, %s"</span>, m_mmapID.c_str(), m_size,</span><br><span class="line">                          strerror(errno));</span><br><span class="line">                m_size = <span class="keyword">static_cast</span>&lt;<span class="keyword">size_t</span>&gt;(st.st_size);</span><br><span class="line">            &#125;</span><br><span class="line">            zeroFillFile(m_fd, oldSize, m_size - oldSize);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 映射到内存</span></span><br><span class="line">        m_ptr = (<span class="keyword">char</span> *) mmap(<span class="literal">nullptr</span>, m_size, PROT_READ | PROT_WRITE, MAP_SHARED, m_fd, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">if</span> (m_ptr == MAP_FAILED) &#123;</span><br><span class="line">            MMKVError(<span class="string">"fail to mmap [%s], %s"</span>, m_mmapID.c_str(), strerror(errno));</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">memcpy</span>(&amp;m_actualSize, m_ptr, Fixed32Size);</span><br><span class="line">            MMKVInfo(<span class="string">"loading [%s] with %zu size in total, file size is %zu, InterProcess %d"</span>,</span><br><span class="line">                     m_mmapID.c_str(), m_actualSize, m_size, m_isInterProcess);</span><br><span class="line">            <span class="keyword">bool</span> loadFromFile = <span class="literal">false</span>, needFullWriteback = <span class="literal">false</span>;</span><br><span class="line">            <span class="keyword">if</span> (m_actualSize &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (m_actualSize &lt; m_size &amp;&amp; m_actualSize + Fixed32Size &lt;= m_size) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (checkFileCRCValid()) &#123;</span><br><span class="line">                        loadFromFile = <span class="literal">true</span>;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        <span class="keyword">auto</span> strategic = mmkv::onMMKVCRCCheckFail(m_mmapID);</span><br><span class="line">                        <span class="keyword">if</span> (strategic == OnErrorRecover) &#123;</span><br><span class="line">                            loadFromFile = <span class="literal">true</span>;</span><br><span class="line">                            needFullWriteback = <span class="literal">true</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">auto</span> strategic = mmkv::onMMKVFileLengthError(m_mmapID);</span><br><span class="line">                    <span class="keyword">if</span> (strategic == OnErrorRecover) &#123;</span><br><span class="line">                        writeAcutalSize(m_size - Fixed32Size);</span><br><span class="line">                        loadFromFile = <span class="literal">true</span>;</span><br><span class="line">                        needFullWriteback = <span class="literal">true</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (loadFromFile) &#123;</span><br><span class="line">                MMKVInfo(<span class="string">"loading [%s] with crc %u sequence %u version %u"</span>, m_mmapID.c_str(),</span><br><span class="line">                         m_metaInfo.m_crcDigest, m_metaInfo.m_sequence, m_metaInfo.m_version);</span><br><span class="line">                <span class="function">MMBuffer <span class="title">inputBuffer</span><span class="params">(m_ptr + Fixed32Size, m_actualSize, MMBufferNoCopy)</span></span>;</span><br><span class="line">                <span class="keyword">if</span> (m_crypter) &#123;</span><br><span class="line">                    decryptBuffer(*m_crypter, inputBuffer);</span><br><span class="line">                &#125;</span><br><span class="line">                m_dic.clear();</span><br><span class="line">                MiniPBCoder::decodeMap(m_dic, inputBuffer);</span><br><span class="line">                m_output = <span class="keyword">new</span> CodedOutputData(m_ptr + Fixed32Size + m_actualSize,</span><br><span class="line">                                               m_size - Fixed32Size - m_actualSize);</span><br><span class="line">                <span class="keyword">if</span> (needFullWriteback) &#123;</span><br><span class="line">                    fullWriteback();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                SCOPEDLOCK(m_exclusiveProcessLock);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (m_actualSize &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                    writeAcutalSize(<span class="number">0</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                m_output = <span class="keyword">new</span> CodedOutputData(m_ptr + Fixed32Size, m_size - Fixed32Size);</span><br><span class="line">                recaculateCRCDigest();</span><br><span class="line">            &#125;</span><br><span class="line">            MMKVInfo(<span class="string">"loaded [%s] with %zu values"</span>, m_mmapID.c_str(), m_dic.size());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!isFileValid()) &#123;</span><br><span class="line">        MMKVWarning(<span class="string">"[%s] file not valid"</span>, m_mmapID.c_str());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    m_needLoadFromFile = <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="MMKV-编码-amp-写入"><a href="#MMKV-编码-amp-写入" class="headerlink" title="MMKV 编码&amp;写入"></a>MMKV 编码&amp;写入</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 写入64位整型</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CodedOutputData::writeInt64</span><span class="params">(<span class="keyword">int64_t</span> value)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>-&gt;writeRawVarint64(value);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 写入32位整型，判断是否是正数，如果是正数使用32位编码，否则使用64位编码</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CodedOutputData::writeInt32</span><span class="params">(<span class="keyword">int32_t</span> value)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (value &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;writeRawVarint32(value);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;writeRawVarint64(value);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 写入32位整型</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CodedOutputData::writeRawVarint32</span><span class="params">(<span class="keyword">int32_t</span> value)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">        <span class="comment">// 判断是否只有前7位是有效数据</span></span><br><span class="line">        <span class="keyword">if</span> ((value &amp; ~<span class="number">0x7f</span>) == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">// 如果是，直接写入文件</span></span><br><span class="line">            <span class="keyword">this</span>-&gt;writeRawByte(<span class="keyword">static_cast</span>&lt;<span class="keyword">uint8_t</span>&gt;(value));</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 否则取前7位，并在最高位补1.</span></span><br><span class="line">            <span class="keyword">this</span>-&gt;writeRawByte(<span class="keyword">static_cast</span>&lt;<span class="keyword">uint8_t</span>&gt;((value &amp; <span class="number">0x7F</span>) | <span class="number">0x80</span>));</span><br><span class="line">            <span class="comment">// 将数据右移7位，继续判断</span></span><br><span class="line">            value = logicalRightShift32(value, <span class="number">7</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 写入64位整型， 原理同上</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CodedOutputData::writeRawVarint64</span><span class="params">(<span class="keyword">int64_t</span> value)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> ((value &amp; ~<span class="number">0x7f</span>) == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">this</span>-&gt;writeRawByte(<span class="keyword">static_cast</span>&lt;<span class="keyword">uint8_t</span>&gt;(value));</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">this</span>-&gt;writeRawByte(<span class="keyword">static_cast</span>&lt;<span class="keyword">uint8_t</span>&gt;((value &amp; <span class="number">0x7f</span>) | <span class="number">0x80</span>));</span><br><span class="line">            value = logicalRightShift64(value, <span class="number">7</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>MMKV使用了一个游标去记录当前存入的位置，如果这个位置超过了文件的大小，就报错了，否则在m_ptr的下一位去插入这个数据。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CodedOutputData::writeRawByte</span><span class="params">(<span class="keyword">uint8_t</span> value)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//满啦，出错啦</span></span><br><span class="line">    <span class="keyword">if</span> (m_position == m_size) &#123;</span><br><span class="line">        MMKVError(<span class="string">"m_position: %d, m_size: %zd"</span>, m_position, m_size);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//将byte放入数组</span></span><br><span class="line">    m_ptr[m_position++] = value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="MMKV-解码-amp-读取"><a href="#MMKV-解码-amp-读取" class="headerlink" title="MMKV 解码&amp;读取"></a>MMKV 解码&amp;读取</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int32_t</span> <span class="title">CodedInputData::readRawVarint32</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 第一个字节</span></span><br><span class="line">    <span class="keyword">int8_t</span> tmp = <span class="keyword">this</span>-&gt;readRawByte();</span><br><span class="line">    <span class="keyword">if</span> (tmp &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="comment">// 如果最高位是0，直接返回</span></span><br><span class="line">        <span class="keyword">return</span> tmp;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int32_t</span> result = tmp &amp; <span class="number">0x7f</span>;</span><br><span class="line">    <span class="comment">// 第二个字节</span></span><br><span class="line">    <span class="keyword">if</span> ((tmp = <span class="keyword">this</span>-&gt;readRawByte()) &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="comment">// 拼接</span></span><br><span class="line">        result |= tmp &lt;&lt; <span class="number">7</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 拼接</span></span><br><span class="line">        result |= (tmp &amp; <span class="number">0x7f</span>) &lt;&lt; <span class="number">7</span>;</span><br><span class="line">        <span class="comment">// 读取第三个字节</span></span><br><span class="line">        <span class="keyword">if</span> ((tmp = <span class="keyword">this</span>-&gt;readRawByte()) &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">// 拼接</span></span><br><span class="line">            result |= tmp &lt;&lt; <span class="number">14</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 拼接</span></span><br><span class="line">            result |= (tmp &amp; <span class="number">0x7f</span>) &lt;&lt; <span class="number">14</span>;</span><br><span class="line">            <span class="comment">// 读取第4个字节</span></span><br><span class="line">            <span class="keyword">if</span> ((tmp = <span class="keyword">this</span>-&gt;readRawByte()) &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">                result |= tmp &lt;&lt; <span class="number">21</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// 拼接</span></span><br><span class="line">                result |= (tmp &amp; <span class="number">0x7f</span>) &lt;&lt; <span class="number">21</span>;</span><br><span class="line">                <span class="comment">// 读取第五个字节并拼接</span></span><br><span class="line">                result |= (tmp = <span class="keyword">this</span>-&gt;readRawByte()) &lt;&lt; <span class="number">28</span>;</span><br><span class="line">                <span class="keyword">if</span> (tmp &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                    <span class="comment">// discard upper 32 bits</span></span><br><span class="line">                    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">                        <span class="comment">// 32位以上。。。</span></span><br><span class="line">                        <span class="keyword">if</span> (<span class="keyword">this</span>-&gt;readRawByte() &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">                            <span class="keyword">return</span> result;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    MMKVError(<span class="string">"InvalidProtocolBuffer malformed varint32"</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>首先从内存中读取这个数据，使用8位的int接收， 如果有效数据小于8位，占用一个字节，直接返回，这里都没问题。如果大于8位呢？</p>
+<p>首先取出第一个字节，如果最高位是0 ，直接返回，否则继续读取，将第二个字节左移7位，或运算拼接到result前面，再判断最高位，以此读取。</p>
+<h3 id="MMKV-数据存取"><a href="#MMKV-数据存取" class="headerlink" title="MMKV 数据存取"></a>MMKV 数据存取</h3><h4 id="数据存储"><a href="#数据存储" class="headerlink" title="数据存储"></a>数据存储</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">MMKV::setInt32</span><span class="params">(<span class="keyword">int32_t</span> value, <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span> &amp;key)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (key.empty()) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">size_t</span> size = pbInt32Size(value);</span><br><span class="line">    <span class="function">MMBuffer <span class="title">data</span><span class="params">(size)</span></span>;</span><br><span class="line">    <span class="function">CodedOutputData <span class="title">output</span><span class="params">(data.getPtr(), size)</span></span>;</span><br><span class="line">    output.writeInt32(value);</span><br><span class="line">    <span class="comment">// 最终调用setDataForKey进行存入数据</span></span><br><span class="line">    <span class="keyword">return</span> setDataForKey(<span class="built_in">std</span>::move(data), key);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">MMKV::setDataForKey</span><span class="params">(MMBuffer &amp;&amp;data, <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span> &amp;key)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 省略不关键代码，保证程序的健壮性。。。 </span></span><br><span class="line">    ...</span><br><span class="line">    <span class="comment">// 这里是存数据逻辑</span></span><br><span class="line">    <span class="keyword">auto</span> ret = appendDataWithKey(data, key);</span><br><span class="line">    <span class="keyword">if</span> (ret) &#123;</span><br><span class="line">        m_dic[key] = <span class="built_in">std</span>::move(data);</span><br><span class="line">        m_hasFullWriteback = <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">MMKV::appendDataWithKey</span><span class="params">(<span class="keyword">const</span> MMBuffer &amp;data, <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span> &amp;key)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//计算保存这个key-value需要多少字节</span></span><br><span class="line">    <span class="keyword">size_t</span> keyLength = key.length();</span><br><span class="line">    <span class="keyword">size_t</span> size = keyLength + pbRawVarint32Size((<span class="keyword">int32_t</span>) keyLength);</span><br><span class="line">    size += data.length() + pbRawVarint32Size((<span class="keyword">int32_t</span>) data.length());</span><br><span class="line">    <span class="comment">// 分配内存</span></span><br><span class="line">    <span class="keyword">bool</span> hasEnoughSize = ensureMemorySize(size);</span><br><span class="line">    SCOPEDLOCK(m_exclusiveProcessLock);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!hasEnoughSize || !isFileValid()) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 写入数据</span></span><br><span class="line">    writeAcutalSize(m_actualSize + size);</span><br><span class="line">    m_output-&gt;writeString(key);</span><br><span class="line">    m_output-&gt;writeData(data); <span class="comment">// note: write size of data</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">auto</span> ptr = (<span class="keyword">uint8_t</span> *) m_ptr + Fixed32Size + m_actualSize - size;</span><br><span class="line">    <span class="keyword">if</span> (m_crypter) &#123;</span><br><span class="line">        m_crypter-&gt;encrypt(ptr, ptr, size);</span><br><span class="line">    &#125;</span><br><span class="line">    updateCRCDigest(ptr, size, KeepSequence);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 因为代码太多了，这里只展示了扩容相关</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">MMKV::ensureMemorySize</span><span class="params">(<span class="keyword">size_t</span> newSize)</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">if</span> (newSize &gt;= m_output-&gt;spaceLeft() || m_dic.empty()) &#123;</span><br><span class="line">        ...</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">size_t</span> avgItemSize = lenNeeded / <span class="built_in">std</span>::max&lt;<span class="keyword">size_t</span>&gt;(<span class="number">1</span>, m_dic.size());</span><br><span class="line">            <span class="keyword">size_t</span> futureUsage = avgItemSize * <span class="built_in">std</span>::max&lt;<span class="keyword">size_t</span>&gt;(<span class="number">8</span>, (m_dic.size() + <span class="number">1</span>) / <span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (lenNeeded &gt;= m_size || (lenNeeded + futureUsage) &gt;= m_size) &#123;</span><br><span class="line">                <span class="keyword">size_t</span> oldSize = m_size;</span><br><span class="line">                <span class="keyword">do</span> &#123;</span><br><span class="line">                    <span class="comment">// 进行扩容，每次都是上一次大小的2倍</span></span><br><span class="line">                    m_size *= <span class="number">2</span>;</span><br><span class="line">                &#125; <span class="keyword">while</span> (lenNeeded + futureUsage &gt;= m_size);  </span><br><span class="line">                </span><br><span class="line">                ...</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="数据获取"><a href="#数据获取" class="headerlink" title="数据获取"></a>数据获取</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int32_t</span> <span class="title">MMKV::getInt32ForKey</span><span class="params">(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span> &amp;key, <span class="keyword">int32_t</span> defaultValue)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (key.empty()) &#123; <span class="comment">//如过key是空的，直接返回默认值</span></span><br><span class="line">        <span class="keyword">return</span> defaultValue;</span><br><span class="line">    &#125;</span><br><span class="line">    SCOPEDLOCK(m_lock);</span><br><span class="line">    <span class="comment">// 根据 key 获取value</span></span><br><span class="line">    <span class="keyword">auto</span> &amp;data = getDataForKey(key);</span><br><span class="line">    <span class="keyword">if</span> (data.length() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="comment">// 这就是上面讲到的读取的逻辑 </span></span><br><span class="line">        <span class="function">CodedInputData <span class="title">input</span><span class="params">(data.getPtr(), data.length())</span></span>;</span><br><span class="line">        <span class="keyword">return</span> input.readInt32();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> defaultValue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://www.jianshu.com/p/181387155fd5" target="_blank" rel="noopener">https://www.jianshu.com/p/181387155fd5</a></li>
+<li><a href="https://www.jianshu.com/p/e9dfabc75bb2" target="_blank" rel="noopener">https://www.jianshu.com/p/e9dfabc75bb2</a></li>
+<li><a href="https://www.jianshu.com/p/665698f2fe14" target="_blank" rel="noopener">https://www.jianshu.com/p/665698f2fe14</a></li>
+<li><a href="https://github.com/Tencent/MMKV/wiki/home_cn" target="_blank" rel="noopener">https://github.com/Tencent/MMKV/wiki/home_cn</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/10/07/Android-Kotlin-Lambda-表达式/" rel="next" title="Android - Kotlin Lambda 表达式">
+                <i class="fa fa-chevron-left"></i> Android - Kotlin Lambda 表达式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/10/10/Android-Kotlin-When-语句分析/" rel="prev" title="Android-Kotlin When 语句分析">
+                Android-Kotlin When 语句分析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">戴益波</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/AbeDai" target="_blank" title="GitHub">
+                      GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/daiyibo123" target="_blank" title="CSND">
+                      CSND</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#对外API介绍"><span class="nav-number">1.</span> <span class="nav-text">对外API介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原理分析"><span class="nav-number">2.</span> <span class="nav-text">原理分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#MMAP-原理简介"><span class="nav-number">2.1.</span> <span class="nav-text">MMAP 原理简介</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#mmap-和常规文件操作的区别"><span class="nav-number">2.1.1.</span> <span class="nav-text">mmap 和常规文件操作的区别</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mmap-使用细节"><span class="nav-number">2.2.</span> <span class="nav-text">mmap 使用细节</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MMKV-与-SP-性能对比"><span class="nav-number">2.3.</span> <span class="nav-text">MMKV 与 SP 性能对比</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MMKV-初始化"><span class="nav-number">3.</span> <span class="nav-text">MMKV 初始化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#C-初始化与实例化"><span class="nav-number">3.1.</span> <span class="nav-text">C++初始化与实例化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MMKV-编码-amp-写入"><span class="nav-number">4.</span> <span class="nav-text">MMKV 编码&amp;写入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MMKV-解码-amp-读取"><span class="nav-number">5.</span> <span class="nav-text">MMKV 解码&amp;读取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MMKV-数据存取"><span class="nav-number">6.</span> <span class="nav-text">MMKV 数据存取</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据存储"><span class="nav-number">6.1.</span> <span class="nav-text">数据存储</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据获取"><span class="nav-number">6.2.</span> <span class="nav-text">数据获取</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number"></span> <span class="nav-text">参考</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">戴益波</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 Hexo 强力驱动</div>
+
+
+        
+
+
+
+
+
+
+
+        
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="http://blog.daiyibo.cn/gitalk.css">
+
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '6dbf18957525ca655262',
+          clientSecret: 'afa5556ced55809bf1ab29816432f15bd29ad107',
+          repo: 'blog_hexo',
+          owner: 'AbeDai',
+          admin: ['AbeDai'],
+          id: md5(location.pathname),
+          labels: 'gitalk'.split(',').filter(l => l),
+          perPage: 15,
+          pagerDirection: 'last',
+          createIssueManually: true,
+          distractionFreeMode: false
+        })
+
+        gitalk.render('gitalk-container')           
+       </script>
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

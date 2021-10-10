@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/favicon.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Kotlin When 语法介绍Kotlin when 表达式是一个返回值的条件表达式。 Kotlin when 表达式用于替换switch语句。Kotlin中 when 表达式能够干你想用 switch 干的每件事，甚至更多。 特性：when 作为表达式 when 每个 case 的最后一个参数，就是 when 表达式的返回值 当 when 表达式有入参的时候，case 就是一个 相等 或 包含">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android-Kotlin When 语句分析">
+<meta property="og:url" content="http://blog.daiyibo.cn/2021/10/10/Android-Kotlin-When-语句分析/index.html">
+<meta property="og:site_name" content="波波星球">
+<meta property="og:description" content="Kotlin When 语法介绍Kotlin when 表达式是一个返回值的条件表达式。 Kotlin when 表达式用于替换switch语句。Kotlin中 when 表达式能够干你想用 switch 干的每件事，甚至更多。 特性：when 作为表达式 when 每个 case 的最后一个参数，就是 when 表达式的返回值 当 when 表达式有入参的时候，case 就是一个 相等 或 包含">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2021-10-10T04:51:01.364Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android-Kotlin When 语句分析">
+<meta name="twitter:description" content="Kotlin When 语法介绍Kotlin when 表达式是一个返回值的条件表达式。 Kotlin when 表达式用于替换switch语句。Kotlin中 when 表达式能够干你想用 switch 干的每件事，甚至更多。 特性：when 作为表达式 when 每个 case 的最后一个参数，就是 when 表达式的返回值 当 when 表达式有入参的时候，case 就是一个 相等 或 包含">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.daiyibo.cn/2021/10/10/Android-Kotlin-When-语句分析/">
+
+
+
+
+
+  <title>Android-Kotlin When 语句分析 | 波波星球</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">波波星球</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <a href="https://github.com/AbeDai/blog_hexo"><img class="github-screen" style="position:absolute; top:0px; right:0px; width:80px;" src="http://blog.daiyibo.cn/github.svg"></a>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.daiyibo.cn/2021/10/10/Android-Kotlin-When-语句分析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="戴益波">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="波波星球">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android-Kotlin When 语句分析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-10-10T12:49:50+08:00">
+                2021-10-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/客户端/" itemprop="url" rel="index">
+                    <span itemprop="name">客户端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="Kotlin-When-语法介绍"><a href="#Kotlin-When-语法介绍" class="headerlink" title="Kotlin When 语法介绍"></a>Kotlin When 语法介绍</h3><p>Kotlin <code>when</code> 表达式是一个返回值的条件表达式。 Kotlin <code>when</code> 表达式用于替换<code>switch</code>语句。Kotlin中 <code>when</code> 表达式能够干你想用 <code>switch</code> 干的每件事，甚至更多。</p>
+<h3 id="特性：when-作为表达式"><a href="#特性：when-作为表达式" class="headerlink" title="特性：when 作为表达式"></a>特性：<code>when</code> 作为表达式</h3><ul>
+<li><code>when</code> 每个 <code>case</code> 的最后一个参数，就是 <code>when</code> 表达式的返回值</li>
+<li>当 <code>when</code> 表达式有入参的时候，<code>case</code> 就是一个 相等 或 包含 的关系</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> number = (System.currentTimeMillis() % <span class="number">6</span>).toInt()</span><br><span class="line"><span class="keyword">val</span> numberProvided = <span class="keyword">when</span> (number) &#123;</span><br><span class="line">    <span class="number">1</span> -&gt; <span class="string">"One"</span></span><br><span class="line">    <span class="number">2</span> -&gt; <span class="string">"Two"</span></span><br><span class="line">    <span class="number">3</span> -&gt; <span class="string">"Three"</span></span><br><span class="line">    <span class="number">4</span> -&gt; <span class="string">"Four"</span></span><br><span class="line">    <span class="number">5</span> -&gt; <span class="string">"Five"</span></span><br><span class="line">    <span class="keyword">else</span> -&gt; <span class="string">"invalid number"</span></span><br><span class="line">&#125;</span><br><span class="line">println(<span class="string">"You provide <span class="variable">$numberProvided</span>"</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="特性：没有表达的-when-语句"><a href="#特性：没有表达的-when-语句" class="headerlink" title="特性：没有表达的 when 语句"></a>特性：没有表达的 <code>when</code> 语句</h3><ul>
+<li>与其他语言相同</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> number = <span class="number">4</span>  </span><br><span class="line"><span class="keyword">when</span>(number) &#123;  </span><br><span class="line">    <span class="number">1</span> -&gt; println(<span class="string">"One"</span>)  </span><br><span class="line">    <span class="number">2</span> -&gt; println(<span class="string">"Two"</span>)  </span><br><span class="line">    <span class="number">3</span> -&gt; println(<span class="string">"Three"</span>)  </span><br><span class="line">    <span class="number">4</span> -&gt; println(<span class="string">"Four"</span>)  </span><br><span class="line">    <span class="number">5</span> -&gt; println(<span class="string">"Five"</span>)  </span><br><span class="line">    <span class="keyword">else</span> -&gt; println(<span class="string">"invalid number"</span>)  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="特性：when-使用括号的多重声明"><a href="#特性：when-使用括号的多重声明" class="headerlink" title="特性：when 使用括号的多重声明"></a>特性：<code>when</code> 使用括号的多重声明</h3><ul>
+<li>括号内声明的变量作用域为此括号</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> number = <span class="number">1</span>  </span><br><span class="line"><span class="keyword">when</span>(number) &#123;  </span><br><span class="line">    <span class="number">1</span> -&gt; &#123;  </span><br><span class="line">        println(<span class="string">"Monday"</span>)  </span><br><span class="line">        println(<span class="string">"First day of the week"</span>)  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="number">7</span> -&gt; println(<span class="string">"Sunday"</span>)  </span><br><span class="line">    <span class="keyword">else</span> -&gt; println(<span class="string">"Other days"</span>)  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="特性：when-使用范围和区间"><a href="#特性：when-使用范围和区间" class="headerlink" title="特性：when 使用范围和区间"></a>特性：<code>when</code> 使用范围和区间</h3><ul>
+<li>相当于调用 <code>contain</code> 函数，如果 <code>when</code> 入参包含在其中，则执行此case</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> number = <span class="number">1</span>  </span><br><span class="line"><span class="keyword">when</span>(number) &#123;  </span><br><span class="line">    <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span> -&gt; &#123;  </span><br><span class="line">        println(<span class="string">"x,x,x,x"</span>)  </span><br><span class="line">        println(<span class="string">"other message"</span>)</span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="keyword">in</span> <span class="number">6</span>..<span class="number">10</span> -&gt; println(<span class="string">"6..10"</span>)</span><br><span class="line">    <span class="keyword">in</span> setOf(<span class="number">11</span>, <span class="number">12</span>) -&gt; println(<span class="string">"setOf(11, 12)"</span>)</span><br><span class="line">    <span class="keyword">else</span> -&gt; println(<span class="string">"other case"</span>)  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="特性：when-取代-if-else-if-链"><a href="#特性：when-取代-if-else-if-链" class="headerlink" title="特性：when 取代 if-else if 链"></a>特性：<code>when</code> 取代 <code>if-else</code> <code>if</code> 链</h3><ul>
+<li>不提供参数时，所有的分支条件都是简单的布尔表达式，而当一个分支的条件为真时则执行该分支</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">when</span> &#123;</span><br><span class="line">    x == <span class="number">0</span> -&gt; println(<span class="string">"x == 0"</span>)</span><br><span class="line">    y == <span class="string">"day"</span> -&gt; println(<span class="string">"y == \"day\""</span>)</span><br><span class="line">    <span class="keyword">else</span> -&gt; println(<span class="string">"when else"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="反解编译产物"><a href="#反解编译产物" class="headerlink" title="反解编译产物"></a>反解编译产物</h3><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// 参数赋值</span></span><br><span class="line">    <span class="keyword">val</span> x = (System.currentTimeMillis() % <span class="number">10</span>).toInt()</span><br><span class="line">    <span class="keyword">val</span> y = <span class="keyword">if</span> (System.currentTimeMillis() % <span class="number">2</span> == <span class="number">0L</span>) <span class="string">"year"</span> <span class="keyword">else</span> <span class="string">"mouth"</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 一个复杂的when函数</span></span><br><span class="line">    <span class="keyword">val</span> result = <span class="keyword">when</span> (x) &#123;</span><br><span class="line">        <span class="number">0</span>, <span class="number">1</span> -&gt; &#123;</span><br><span class="line">            <span class="keyword">val</span> a = <span class="number">100</span></span><br><span class="line">            println(<span class="string">"when 表达式：0, 1 -&gt; &#123;<span class="variable">$a</span>&#125;"</span>)</span><br><span class="line">            <span class="string">"1"</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="number">2</span> -&gt; &#123;</span><br><span class="line">            <span class="keyword">val</span> a = <span class="number">200</span></span><br><span class="line">            println(<span class="string">"when 表达式：2 -&gt; &#123;<span class="variable">$a</span>&#125;"</span>)</span><br><span class="line">            <span class="string">"2"</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">in</span> <span class="number">3</span>..<span class="number">10</span> -&gt; &#123;</span><br><span class="line">            println(<span class="string">"when 表达式：in 3..10 -&gt; &#123;&#125;"</span>)</span><br><span class="line">            <span class="string">"3"</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">in</span> setOf(<span class="number">11</span>, <span class="number">12</span>) -&gt; &#123;</span><br><span class="line">            println(<span class="string">"when 表达式：in setOf(11, 12) -&gt; &#123;&#125;"</span>)</span><br><span class="line">            <span class="string">"4"</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">is</span> <span class="built_in">Int</span> -&gt; &#123;</span><br><span class="line">            println(<span class="string">"when 表达式：is Int -&gt; &#123;&#125;"</span>)</span><br><span class="line">            <span class="string">"5"</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> -&gt; &#123;</span><br><span class="line">            println(<span class="string">"when 表达式：else -&gt; &#123;&#125;"</span>)</span><br><span class="line">            <span class="string">"6"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    println(<span class="string">"when 表达式结果：<span class="subst">$&#123;result&#125;</span>"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// when 取代 if-else if 链</span></span><br><span class="line">    <span class="comment">// 不提供参数时，所有的分支条件都是简单的布尔表达式，而当一个分支的条件为真时则执行该分支</span></span><br><span class="line">    <span class="keyword">when</span> &#123;</span><br><span class="line">        x == <span class="number">0</span> -&gt; println(<span class="string">"x == 0"</span>)</span><br><span class="line">        y == <span class="string">"day"</span> -&gt; println(<span class="string">"y == \"day\""</span>)</span><br><span class="line">        <span class="keyword">else</span> -&gt; println(<span class="string">"when else"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>反解后代码</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> x = (<span class="keyword">int</span>)(System.currentTimeMillis() % (<span class="keyword">long</span>)<span class="number">10</span>);</span><br><span class="line">  String y = System.currentTimeMillis() % (<span class="keyword">long</span>)<span class="number">2</span> == <span class="number">0L</span> ? <span class="string">"year"</span> : <span class="string">"mouth"</span>;</span><br><span class="line">  String var10000;</span><br><span class="line">  String var6;</span><br><span class="line">  <span class="keyword">boolean</span> var7;</span><br><span class="line">  <span class="keyword">if</span> (x != <span class="number">0</span> &amp;&amp; x != <span class="number">1</span>) &#123;</span><br><span class="line">     <span class="keyword">if</span> (x == <span class="number">2</span>) &#123;</span><br><span class="line">        <span class="keyword">int</span> a = <span class="number">200</span>;</span><br><span class="line">        var6 = <span class="string">"when 表达式：2 -&gt; &#123;"</span> + a + <span class="string">'&#125;'</span>;</span><br><span class="line">        var7 = <span class="keyword">false</span>;</span><br><span class="line">        System.out.println(var6);</span><br><span class="line">        var10000 = <span class="string">"2"</span>;</span><br><span class="line">     &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        label34: &#123;</span><br><span class="line">           String var9;</span><br><span class="line">           <span class="keyword">boolean</span> var11;</span><br><span class="line">           <span class="keyword">if</span> (<span class="number">3</span> &lt;= x) &#123;</span><br><span class="line">              <span class="keyword">if</span> (<span class="number">10</span> &gt;= x) &#123;</span><br><span class="line">                 var9 = <span class="string">"when 表达式：in 3..10 -&gt; &#123;&#125;"</span>;</span><br><span class="line">                 var11 = <span class="keyword">false</span>;</span><br><span class="line">                 System.out.println(var9);</span><br><span class="line">                 var10000 = <span class="string">"3"</span>;</span><br><span class="line">                 <span class="keyword">break</span> label34;</span><br><span class="line">              &#125;</span><br><span class="line">           &#125;</span><br><span class="line"></span><br><span class="line">           <span class="keyword">if</span> (SetsKt.setOf(<span class="keyword">new</span> Integer[]&#123;<span class="number">11</span>, <span class="number">12</span>&#125;).contains(x)) &#123;</span><br><span class="line">              var9 = <span class="string">"when 表达式：in setOf(11, 12) -&gt; &#123;&#125;"</span>;</span><br><span class="line">              var11 = <span class="keyword">false</span>;</span><br><span class="line">              System.out.println(var9);</span><br><span class="line">              var10000 = <span class="string">"4"</span>;</span><br><span class="line">           &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">              var9 = <span class="string">"when 表达式：is Int -&gt; &#123;&#125;"</span>;</span><br><span class="line">              var11 = <span class="keyword">false</span>;</span><br><span class="line">              System.out.println(var9);</span><br><span class="line">              var10000 = <span class="string">"5"</span>;</span><br><span class="line">           &#125;</span><br><span class="line">        &#125;</span><br><span class="line">     &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">     <span class="keyword">int</span> a = <span class="number">100</span>;</span><br><span class="line">     var6 = <span class="string">"when 表达式：0, 1 -&gt; &#123;"</span> + a + <span class="string">'&#125;'</span>;</span><br><span class="line">     var7 = <span class="keyword">false</span>;</span><br><span class="line">     System.out.println(var6);</span><br><span class="line">     var10000 = <span class="string">"1"</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  String result = var10000;</span><br><span class="line">  String var4 = <span class="string">"when 表达式结果："</span> + result;</span><br><span class="line">  <span class="keyword">boolean</span> var10 = <span class="keyword">false</span>;</span><br><span class="line">  System.out.println(var4);</span><br><span class="line">  <span class="keyword">if</span> (x == <span class="number">0</span>) &#123;</span><br><span class="line">     var4 = <span class="string">"x == 0"</span>;</span><br><span class="line">     var10 = <span class="keyword">false</span>;</span><br><span class="line">     System.out.println(var4);</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (Intrinsics.areEqual(y, <span class="string">"day"</span>)) &#123;</span><br><span class="line">     var4 = <span class="string">"y == \"day\""</span>;</span><br><span class="line">     var10 = <span class="keyword">false</span>;</span><br><span class="line">     System.out.println(var4);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">     var4 = <span class="string">"when else"</span>;</span><br><span class="line">     var10 = <span class="keyword">false</span>;</span><br><span class="line">     System.out.println(var4);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/10/07/Android-MMKV-原理分析/" rel="next" title="Android - MMKV 原理分析">
+                <i class="fa fa-chevron-left"></i> Android - MMKV 原理分析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/10/10/团队管理-管理四象限/" rel="prev" title="团队管理 - 管理四象限">
+                团队管理 - 管理四象限 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">戴益波</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/AbeDai" target="_blank" title="GitHub">
+                      GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/daiyibo123" target="_blank" title="CSND">
+                      CSND</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Kotlin-When-语法介绍"><span class="nav-number">1.</span> <span class="nav-text">Kotlin When 语法介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特性：when-作为表达式"><span class="nav-number">2.</span> <span class="nav-text">特性：when 作为表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特性：没有表达的-when-语句"><span class="nav-number">3.</span> <span class="nav-text">特性：没有表达的 when 语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特性：when-使用括号的多重声明"><span class="nav-number">4.</span> <span class="nav-text">特性：when 使用括号的多重声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特性：when-使用范围和区间"><span class="nav-number">5.</span> <span class="nav-text">特性：when 使用范围和区间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特性：when-取代-if-else-if-链"><span class="nav-number">6.</span> <span class="nav-text">特性：when 取代 if-else if 链</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#反解编译产物"><span class="nav-number">7.</span> <span class="nav-text">反解编译产物</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">戴益波</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 Hexo 强力驱动</div>
+
+
+        
+
+
+
+
+
+
+
+        
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="http://blog.daiyibo.cn/gitalk.css">
+
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '6dbf18957525ca655262',
+          clientSecret: 'afa5556ced55809bf1ab29816432f15bd29ad107',
+          repo: 'blog_hexo',
+          owner: 'AbeDai',
+          admin: ['AbeDai'],
+          id: md5(location.pathname),
+          labels: 'gitalk'.split(',').filter(l => l),
+          perPage: 15,
+          pagerDirection: 'last',
+          createIssueManually: true,
+          distractionFreeMode: false
+        })
+
+        gitalk.render('gitalk-container')           
+       </script>
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
