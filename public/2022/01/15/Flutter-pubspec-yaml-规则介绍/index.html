@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/favicon.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="简介pubspec.yaml 文件当我们新建一个 Flutter Project 的时候，我们通常会有如下的文件树： 123456789.├── README.md├── android├── ios├── lib├── pubspec.lock├── pubspec.yaml├── test└── web 但是pubspec.yaml文件里面到底是什么？让我们检查一下： 123456789101">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flutter - pubspec.yaml 规则介绍">
+<meta property="og:url" content="http://blog.daiyibo.cn/2022/01/15/Flutter-pubspec-yaml-规则介绍/index.html">
+<meta property="og:site_name" content="波波星球">
+<meta property="og:description" content="简介pubspec.yaml 文件当我们新建一个 Flutter Project 的时候，我们通常会有如下的文件树： 123456789.├── README.md├── android├── ios├── lib├── pubspec.lock├── pubspec.yaml├── test└── web 但是pubspec.yaml文件里面到底是什么？让我们检查一下： 123456789101">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://blog.daiyibo.cn/image/C7B337CA-625C-469D-B561-C0D4D981050E.png">
+<meta property="og:image" content="http://blog.daiyibo.cn/image/7941642238147_.pic.jpg">
+<meta property="og:updated_time" content="2022-06-03T14:44:17.482Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Flutter - pubspec.yaml 规则介绍">
+<meta name="twitter:description" content="简介pubspec.yaml 文件当我们新建一个 Flutter Project 的时候，我们通常会有如下的文件树： 123456789.├── README.md├── android├── ios├── lib├── pubspec.lock├── pubspec.yaml├── test└── web 但是pubspec.yaml文件里面到底是什么？让我们检查一下： 123456789101">
+<meta name="twitter:image" content="http://blog.daiyibo.cn/image/C7B337CA-625C-469D-B561-C0D4D981050E.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.daiyibo.cn/2022/01/15/Flutter-pubspec-yaml-规则介绍/">
+
+
+
+
+
+  <title>Flutter - pubspec.yaml 规则介绍 | 波波星球</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">波波星球</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <a href="https://github.com/AbeDai/blog_hexo"><img class="github-screen" style="position:absolute; top:0px; right:0px; width:80px;" src="http://blog.daiyibo.cn/github.svg"></a>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.daiyibo.cn/2022/01/15/Flutter-pubspec-yaml-规则介绍/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="戴益波">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="波波星球">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Flutter - pubspec.yaml 规则介绍</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-01-15T17:12:43+08:00">
+                2022-01-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/客户端/" itemprop="url" rel="index">
+                    <span itemprop="name">客户端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><h5 id="pubspec-yaml-文件"><a href="#pubspec-yaml-文件" class="headerlink" title="pubspec.yaml 文件"></a>pubspec.yaml 文件</h5><p>当我们新建一个 Flutter Project 的时候，我们通常会有如下的文件树：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── README.md</span><br><span class="line">├── android</span><br><span class="line">├── ios</span><br><span class="line">├── lib</span><br><span class="line">├── pubspec.lock</span><br><span class="line">├── pubspec.yaml</span><br><span class="line">├── test</span><br><span class="line">└── web</span><br></pre></td></tr></table></figure>
+<p>但是pubspec.yaml文件里面到底是什么？让我们检查一下：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># General Section (Metadata)</span></span><br><span class="line"><span class="attr">name:</span> <span class="string">fantastic_app</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">A</span> <span class="string">fantastic</span> <span class="string">app</span> <span class="string">that</span> <span class="string">does</span> <span class="string">amazing</span> <span class="string">things!</span></span><br><span class="line"><span class="attr">version:</span> <span class="number">1.0</span><span class="number">.0</span><span class="string">+1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Environment</span></span><br><span class="line"><span class="attr">environment:</span></span><br><span class="line">  <span class="attr">sdk:</span> <span class="string">"&gt;=2.7.0 &lt;3.0.0"</span></span><br><span class="line">  </span><br><span class="line"><span class="comment"># Publish pub.dev</span></span><br><span class="line"><span class="attr">publish_to:</span> <span class="string">'none'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Dependencies</span></span><br><span class="line"><span class="attr">dependencies:</span></span><br><span class="line">  <span class="attr">flutter:</span></span><br><span class="line">    <span class="attr">sdk:</span> <span class="string">flutter</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">flutter_bloc:</span> <span class="string">^6.0.6</span></span><br><span class="line">  <span class="attr">dio:</span> <span class="string">^3.0.10</span></span><br><span class="line">  <span class="attr">cupertino_icons:</span> <span class="string">^1.0.0</span></span><br><span class="line"></span><br><span class="line"><span class="attr">dev_dependencies:</span></span><br><span class="line">  <span class="attr">flutter_test:</span></span><br><span class="line">    <span class="attr">sdk:</span> <span class="string">flutter</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Flutter specific configurations</span></span><br><span class="line"><span class="attr">flutter:</span></span><br><span class="line">  <span class="attr">uses-material-design:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<p>如我们所见，该pubspec.yaml文件分为不同的部分，让我们深入研究每一部分。</p>
+<h3 id="规则详解"><a href="#规则详解" class="headerlink" title="规则详解"></a>规则详解</h3><h5 id="name-字段"><a href="#name-字段" class="headerlink" title="name 字段"></a>name 字段</h5><p>在文件的顶部，我们看到<code>name</code>. 此字段指示包名称，以及我们将如何在此项目中或从此项目导入文件。例如，如果在一个文件中我们要导入<code>main.dart</code>函数，则导入如下：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'package:fantastic_app/main.dart'</span>;</span><br></pre></td></tr></table></figure>
+<p>但是，如果将来我们将<code>name</code>字段更改为<code>weather_app_prototype</code>，我们必须确保将所有导入从 更改<code>fantastic_app</code>为<code>weather_app_prototype</code>，这意味着我们的<code>main.dart</code>导入将如下所示：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'package:weather_app_prototype/main.dart'</span>;</span><br></pre></td></tr></table></figure>
+<h5 id="description-字段"><a href="#description-字段" class="headerlink" title="description 字段"></a>description 字段</h5><p><code>description</code>顾名思义，该字段是一个可选字段，可让我们为我们的项目添加一个简短的描述。如果我们正在创建一个<code>library</code>，那么如果我们决定在<code>pub.dev</code>上发布我们的包，那么每个人都可以看到这个描述，例如对于<code>shared_preferences</code>，我们有以下描述：“用于读取和写入简单键值对的 Flutter 插件。在 iOS 上包装 NSUserDefaults，在 Android 上包装 SharedPreferences。” 并且，如果我们在<code>pub.dev</code>搜索“shared_preferences” ，我们可以在结果列表中看到描述：</p>
+<p><img src="/image/C7B337CA-625C-469D-B561-C0D4D981050E.png" alt="c63b568efa73cf00ab59631247a88348"></p>
+<h5 id="version-字段"><a href="#version-字段" class="headerlink" title="version 字段"></a>version 字段</h5><p>参数version将允许我们向应用程序或库添加语义版本控制。对于移动应用程序，这将是出现在<code>Google Play</code>商店和<code>iOS App Store</code>中的版本。带有<code>version</code>的<code>Flutter</code>应用程序<code>1.2.3+4</code>意味着它是<code>1.2.3</code>带有<code>build version</code>的版本<code>4</code>。</p>
+<p><code>Android</code>工程中的使用方式如下：</p>
+<p><img src="/image/7941642238147_.pic.jpg" alt="6dea744f4ca96cdb8b8476fe52cebd4e.png"></p>
+<p>另一方面，如果我们正在创建<code>library</code>，版本控制将使任何用户能够指定他们想要使用哪个版本的库，让他们决定是否使用<code>shared_preferences: 0.5.12+2</code>或<code>shared_preferences: 0.1.0</code>。</p>
+<h5 id="author、homepage、repository-等字段"><a href="#author、homepage、repository-等字段" class="headerlink" title="author、homepage、repository 等字段"></a>author、homepage、repository 等字段</h5><p>如果我们创建了一个<code>library</code>项目，还有额外的可选字段，允许我们给我们的包，具体的信息越多<code>author</code>，<code>homepage</code>，<code>repository</code>，<code>issue_tracker</code> 分别表示：</p>
+<ul>
+<li>author：作者，填写自己的署名</li>
+<li>homepage：主页</li>
+<li>repository：一般写当前插件源代码的Github地址</li>
+<li>issue_tracker：issue，一般写当前插件源代码的Github issue 地址</li>
+</ul>
+<h5 id="environment-字段"><a href="#environment-字段" class="headerlink" title="environment 字段"></a>environment 字段</h5><p>这个字段允许我们对<code>Dart SDK</code>和<code>Flutter Version</code>都添加约束。</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">environment:</span><br><span class="line">  sdk: <span class="string">"&gt;=2.7.0 &lt;3.0.0"</span></span><br><span class="line">  flutter: <span class="string">"1.22.0"</span></span><br></pre></td></tr></table></figure>
+<p>这个应用程序或库将只在<code>SDK</code>版本上运行高于或等于比<code>2.7.0</code>，但低比<code>3.0.0</code>。我们不关心它当前使用的是哪个特定版本，只关心它保持在这些界限之间。</p>
+<p>如果我们使用<code>Flutter</code>版本的<code>1.22.0</code>。如果我们尝试通过<code>flutter pub get</code>使用任何其他<code>Flutter</code>版本获取我们的包，将会报错。</p>
+<h5 id="publish-to-字段"><a href="#publish-to-字段" class="headerlink" title="publish_to 字段"></a>publish_to 字段</h5><p>此属性意为包发布到哪里去，<code>none</code>表示此包不发布，也可以指定发布的服务器，根据注释可以看到，如果删除此项配置，那么默认发布到<code>pub.dev</code>。</p>
+<h5 id="dependencies、dev-dependencies-字段"><a href="#dependencies、dev-dependencies-字段" class="headerlink" title="dependencies、dev_dependencies 字段"></a>dependencies、dev_dependencies 字段</h5><p><code>dependencies</code>和<code>dev_dependencies</code>下包含应用程序所依赖的包，<code>dependencies</code>和<code>dev_dependencies</code>就像其名字一样，<code>dependencies</code>下的所有依赖会编译到项目中，而<code>dev_dependencies</code>仅仅是运行期间的包，比如自动生成代码的库。</p>
+<p>支持以下四种依赖方式：</p>
+<ul>
+<li>从依赖包 托管 在pub.dev</li>
+<li>来自路径目录的依赖</li>
+<li>来自git存储库的依赖</li>
+<li>来自自定义发布服务器的依赖</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 从依赖包 托管 在pub.dev</span></span><br><span class="line"><span class="attr">dependencies:</span></span><br><span class="line">  <span class="attr">bloc:</span> <span class="string">^6.1.0</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 来自路径目录的依赖</span></span><br><span class="line"><span class="comment"># 文件目录</span></span><br><span class="line"><span class="comment"># .</span></span><br><span class="line"><span class="comment"># ├── example</span></span><br><span class="line"><span class="comment"># └── bloc_fixes_issue_110</span></span><br><span class="line"><span class="attr">dependencies:</span></span><br><span class="line">  <span class="attr">bloc:</span></span><br><span class="line">    <span class="attr">path:</span> <span class="string">../bloc_fixes_issue_110</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 来自git存储库的依赖</span></span><br><span class="line"><span class="attr">dependencies:</span></span><br><span class="line">  <span class="attr">bloc:</span></span><br><span class="line">    <span class="attr">git:</span></span><br><span class="line">      <span class="attr">url:</span> <span class="string">https://github.com/felangel/bloc.git</span></span><br><span class="line">      <span class="attr">ref:</span> <span class="string">bloc_fixes_issue_110</span></span><br><span class="line">      <span class="attr">path:</span> <span class="string">packages/bloc</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 来自自定义发布服务器的依赖</span></span><br><span class="line"><span class="attr">dependencies:</span></span><br><span class="line">  <span class="attr">bloc:</span> </span><br><span class="line">    <span class="attr">hosted:</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">bloc</span></span><br><span class="line">      <span class="attr">url:</span> <span class="string">http://your-package-server.com</span></span><br><span class="line">    <span class="attr">version:</span> <span class="string">^6.0.0</span></span><br></pre></td></tr></table></figure>
+<h5 id="dependency-overrides-字段"><a href="#dependency-overrides-字段" class="headerlink" title="dependency_overrides 字段"></a>dependency_overrides 字段</h5><p>我们使用<code>bloc</code>带有<code>version的包6.0.0</code>，但同时我们依赖另一个使用<code>version</code> 的包<code>5.0.0</code>。如果我们尝试获取应用程序的依赖项，则会收到以下错误：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Because main_app depends on package from path which depends on flutter_bloc 5.0.0, flutter_bloc 5.0.0 is required.</span><br><span class="line">So, because main_app depends on flutter_bloc 6.0.0, version solving failed.</span><br><span class="line">Running "flutter pub get" in main_app...                                </span><br><span class="line">pub get failed (1; So, because main_app depends on flutter_bloc 6.0.0, version solving failed.)</span><br></pre></td></tr></table></figure>
+<p>如果我们不能增加库的版本，或者只是想测试应用程序，我们该怎么做？通过使用<code>dependency_overrides</code>以下方法覆盖依赖项：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">dependencies:</span></span><br><span class="line">  <span class="attr">flutter_bloc:</span> <span class="number">6.0</span><span class="number">.0</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Library called "package"</span></span><br><span class="line">  <span class="attr">package:</span></span><br><span class="line">    <span class="attr">path:</span> <span class="string">../package</span></span><br><span class="line"></span><br><span class="line"><span class="attr">dependency_overrides:</span></span><br><span class="line">  <span class="attr">flutter_bloc:</span> <span class="number">6.0</span><span class="number">.6</span></span><br></pre></td></tr></table></figure>
+<p>我们<code>package</code>使用的是<code>flutter_blocversion 5.0.0</code>，我们的应用程序使用的是<code>version 6.0.0</code>。但是，我们需要使用<code>version</code>运行我们的应用程序<code>6.0.6</code>，因此我们覆盖了依赖项。通过这样做，当<code>pubspec</code>编译所有依赖项的列表时，它将使用<code>version 6.0.6</code>。</p>
+<h5 id="Flutter-特定配置"><a href="#Flutter-特定配置" class="headerlink" title="Flutter 特定配置"></a>Flutter 特定配置</h5><p>这是我们拥有所有Flutter 特定配置的地方。可以设置设计风格、图片资源、字体、插件等。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">flutter:</span> </span><br><span class="line">  <span class="attr">uses-material-design:</span> <span class="literal">true</span> <span class="comment"># 是否启动 material design</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">assets:</span> <span class="comment"># 资源</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">images/a_dot_burr.jpeg</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">images/a_dot_ham.jpeg</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">fonts:</span> <span class="comment"># 字体</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">family:</span> <span class="string">Schyler</span></span><br><span class="line">      <span class="attr">fonts:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">asset:</span> <span class="string">fonts/Schyler-Regular.ttf</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">asset:</span> <span class="string">fonts/Schyler-Italic.ttf</span></span><br><span class="line">          <span class="attr">style:</span> <span class="string">italic</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">family:</span> <span class="string">Trajan</span> <span class="string">Pro</span></span><br><span class="line">      <span class="attr">fonts:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">asset:</span> <span class="string">fonts/TrajanPro.ttf</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">asset:</span> <span class="string">fonts/TrajanPro_Bold.ttf</span></span><br><span class="line">          <span class="attr">weight:</span> <span class="number">700</span></span><br><span class="line">          </span><br><span class="line">  <span class="attr">plugin:</span> <span class="comment"># 插件</span></span><br><span class="line">    <span class="attr">platforms:</span></span><br><span class="line">      <span class="attr">android:</span></span><br><span class="line">        <span class="attr">package:</span> <span class="string">io.flutter.plugins.connectivity</span></span><br><span class="line">        <span class="attr">pluginClass:</span> <span class="string">ConnectivityPlugin</span></span><br><span class="line">      <span class="attr">ios:</span></span><br><span class="line">        <span class="attr">pluginClass:</span> <span class="string">FLTConnectivityPlugin</span></span><br><span class="line">      <span class="attr">macos:</span></span><br><span class="line">        <span class="attr">default_package:</span> <span class="string">connectivity_macos</span></span><br><span class="line">      <span class="attr">web:</span></span><br><span class="line">        <span class="attr">default_package:</span> <span class="string">connectivity_for_web</span></span><br></pre></td></tr></table></figure>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="https://news.sangniao.com/p/2414019247" target="_blank" rel="noopener">https://news.sangniao.com/p/2414019247</a></li>
+<li><a href="https://dart.dev/tools/pub/pubspec" target="_blank" rel="noopener">https://dart.dev/tools/pub/pubspec</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/01/09/Flutter-Dart事件队列/" rel="next" title="Flutter-Dart事件队列">
+                <i class="fa fa-chevron-left"></i> Flutter-Dart事件队列
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/03/16/工作回顾-两轮车架构升级（移山）/" rel="prev" title="工作回顾 - 两轮车架构升级（移山）">
+                工作回顾 - 两轮车架构升级（移山） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">戴益波</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">112</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/AbeDai" target="_blank" title="GitHub">
+                      GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/daiyibo123" target="_blank" title="CSND">
+                      CSND</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#pubspec-yaml-文件"><span class="nav-number">1.0.1.</span> <span class="nav-text">pubspec.yaml 文件</span></a></li></ol></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#规则详解"><span class="nav-number">2.</span> <span class="nav-text">规则详解</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#name-字段"><span class="nav-number">2.0.1.</span> <span class="nav-text">name 字段</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#description-字段"><span class="nav-number">2.0.2.</span> <span class="nav-text">description 字段</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#version-字段"><span class="nav-number">2.0.3.</span> <span class="nav-text">version 字段</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#author、homepage、repository-等字段"><span class="nav-number">2.0.4.</span> <span class="nav-text">author、homepage、repository 等字段</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#environment-字段"><span class="nav-number">2.0.5.</span> <span class="nav-text">environment 字段</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#publish-to-字段"><span class="nav-number">2.0.6.</span> <span class="nav-text">publish_to 字段</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#dependencies、dev-dependencies-字段"><span class="nav-number">2.0.7.</span> <span class="nav-text">dependencies、dev_dependencies 字段</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#dependency-overrides-字段"><span class="nav-number">2.0.8.</span> <span class="nav-text">dependency_overrides 字段</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Flutter-特定配置"><span class="nav-number">2.0.9.</span> <span class="nav-text">Flutter 特定配置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">戴益波</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 Hexo 强力驱动</div>
+
+
+        
+
+
+
+
+
+
+
+        
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+        <br>
+        <a style="color: #555;" href="https://beian.miit.gov.cn/" target="_blank">浙ICP备19040682号</a>
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="http://blog.daiyibo.cn/gitalk.css">
+
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '6dbf18957525ca655262',
+          clientSecret: 'afa5556ced55809bf1ab29816432f15bd29ad107',
+          repo: 'blog_hexo',
+          owner: 'AbeDai',
+          admin: ['AbeDai'],
+          id: md5(location.pathname),
+          labels: 'gitalk'.split(',').filter(l => l),
+          perPage: 15,
+          pagerDirection: 'last',
+          createIssueManually: true,
+          distractionFreeMode: false
+        })
+
+        gitalk.render('gitalk-container')           
+       </script>
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
